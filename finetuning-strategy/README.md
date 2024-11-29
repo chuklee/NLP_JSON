@@ -2,6 +2,14 @@
 
 A machine learning model designed to generate structured JSON data using fine-tuned language models. This project uses the Hugging Face Transformers library to fine-tune a pre-trained language model (OPT-350M) for generating valid JSON completions.
 
+## Setup
+
+1. **Create Dataset Directory**
+   - Create a `json_datasets` folder in the project root
+   - Download the JSON files from [this Google Drive folder](https://drive.google.com/drive/folders/1CijEmLN14AZqL0_QsCXb1QFJoDmkmLV6?usp=sharing)
+   - Place all downloaded JSON files in the `json_datasets` directory
+   - These files contain various JSON structures that will be used to train the model
+
 ## Features
 
 - Custom JSON dataset processing with data augmentation
