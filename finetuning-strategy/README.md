@@ -1,22 +1,31 @@
 # JSON Generation Model
 
-A machine learning model designed to generate structured JSON data using fine-tuned language models. This project uses the Hugging Face Transformers library to fine-tune a pre-trained language model (OPT-350M) for generating valid JSON completions.
+A machine learning model designed to generate structured JSON data using fine-tuned language models. This project compares two fine-tuning approaches (complete fine-tuning and LoRA) using the Hugging Face Transformers library with OPT-350M as the base model.
 
 ## Setup
 
-1. **Create Dataset Directory**
-   - Create a `json_datasets` folder in the project root
+1. **Environment Setup**
+   ```bash
+   pip install transformers torch peft matplotlib seaborn pandas tqdm
+   ```
+
+2. **Create Dataset Directory**
+   ```bash
+   mkdir -p json_datasets
+   ```
    - Download the JSON files from [this Google Drive folder](https://drive.google.com/drive/folders/1CijEmLN14AZqL0_QsCXb1QFJoDmkmLV6?usp=sharing)
    - Place all downloaded JSON files in the `json_datasets` directory
-   - These files contain various JSON structures that will be used to train the model
 
 ## Features
 
+- Two fine-tuning approaches:
+  - Complete fine-tuning of the base model
+  - LoRA (Low-Rank Adaptation) fine-tuning
 - Custom JSON dataset processing with data augmentation
-- Fine-tuned language model for JSON generation
+- Comprehensive benchmarking system
 - Advanced JSON validation and cleaning
 - Progressive sampling with temperature control
-- Comprehensive error handling and validation
+- Detailed performance metrics and visualizations
 
 ## Architecture
 
@@ -27,105 +36,108 @@ A machine learning model designed to generate structured JSON data using fine-tu
 - **Size**: 350M parameters
 - **Framework**: PyTorch + Hugging Face Transformers
 
-### Training Configuration
+### Training Configurations
 
+#### Complete Fine-tuning
 - **Epochs**: 3
 - **Batch Size**: 4
 - **Learning Rate**: 2e-5
 - **Gradient Accumulation Steps**: 2
 
-## Implementation Details
-
-### 1. Dataset Processing
-
-The model uses a custom `JSONDataset` class that:
-
-- Processes JSON files into training examples
-- Creates partial JSON strings for completion tasks
-- Implements data augmentation with variations:
-  - Original JSON
-  - Simplified versions of complex objects
-- Adds special token examples for better JSON structure learning
-
-### 2. Generation Strategy
-
-The `generate_json()` function implements:
-
-- Multiple generation attempts with increasing temperature
-- Progressive sampling parameters
-- Comprehensive JSON validation
-- Bad pattern filtering
-- Advanced error handling
-
-### 3. JSON Validation
-
-Multi-level validation approach:
-
-- Structure validation (balanced brackets, quotes)
-- Content validation (key/value checks)
-- Pattern filtering (URLs, HTML, code)
-- Recursive validation for nested structures
+#### LoRA Fine-tuning
+- **Rank**: 16
+- **Alpha**: 32
+- **Target Modules**: q_proj, v_proj
+- **Dropout**: 0.05
+- **Learning Rate**: 2e-4
 
 ## Usage
 
-1. **Prepare Training Data**
+### Running the Complete Pipeline
 
-   - Place JSON files in the `json_datasets` directory
-   - Files should contain valid JSON objects/arrays
-
-2. **Train the Model**
-
-   ```python
-   python main.py
+1. **Run the entire experiment:**
+   ```bash
+   python run_experiment.py
    ```
 
-   This will:
+2. **Available options:**
+   ```bash
+   # Run with debug output
+   python run_experiment.py --debug
 
-   - Load JSON files from json_datasets
-   - Train the model
-   - Save the model to json_model directory
+   # Skip complete fine-tuning
+   python run_experiment.py --skip-complete
 
-3. **Generate JSON**
+   # Skip LoRA training
+   python run_experiment.py --skip-lora
 
+   # Skip benchmarking
+   python run_experiment.py --skip-benchmark
+
+   # Use custom dataset
+   python run_experiment.py --dataset path/to/dataset.json
+   ```
+
+### Using Individual Models
+
+1. **Generate JSON with Complete Fine-tuning:**
    ```python
-   from main import generate_json
+   from complete_fine_tuning import generate_json
 
    prompt = '{"name": "'
-   result = generate_json(prompt, model_path="./json_model")
+   result = generate_json(prompt, model_path="models/complete")
    print(result)
    ```
 
-## Training Process
+2. **Generate JSON with LoRA:**
+   ```python
+   from lora_fine_tuning import generate_json_lora
 
-1. **Data Preparation**
+   prompt = '{"name": "'
+   result = generate_json_lora(prompt, model_path="models/lora")
+   print(result)
+   ```
 
-   - Loads JSON files
-   - Creates variations and partial examples
-   - Formats consistently
-   - Adds special token examples
+## Benchmarking
 
-2. **Model Training**
+The project includes a comprehensive benchmarking system that measures:
 
-   - Fine-tunes OPT-350M model
-   - Uses custom dataset and training configuration
-   - Implements progressive learning rate
-   - Saves model and tokenizer
+1. **Structural Metrics**
+   - JSON validity rate
+   - Schema adherence
+   - Structure similarity
 
-3. **Generation**
-   - Uses temperature scaling for creativity control
-   - Implements multiple generation attempts
-   - Validates and cleans output
-   - Ensures JSON correctness
+2. **Performance Metrics**
+   - Inference time
+   - Memory usage
+   - Model size
+
+3. **Quality Metrics**
+   - Field accuracy
+   - Semantic correctness
+   - Overall quality score
+
+Benchmark results are saved as:
+- Visual plots (`results/benchmarks/benchmark_results.png`)
+- Detailed CSV data (`results/benchmarks/benchmark_results.csv`)
+- Experiment metadata (`results/benchmarks/experiment_metadata.json`)
 
 ## Project Structure
 
 ```
 .
-├── main.py              # Main implementation
-├── json_datasets/       # Training data
-├── json_model/         # Saved model
-├── logs/              # Training logs
-└── README.md          # Documentation
+├── main.py                    # Entry point
+├── complete_fine_tuning.py    # Complete fine-tuning implementation
+├── lora_fine_tuning.py        # LoRA fine-tuning implementation
+├── benchmark_models.py        # Benchmarking system
+├── run_experiment.py          # Experiment orchestration
+├── models/                    # Saved models
+│   ├── complete/             # Complete fine-tuning model
+│   └── lora/                 # LoRA model
+├── logs/                     # Training logs
+├── results/                  # Benchmark results
+├── json_datasets/            # Training data
+└── README.md                 # Documentation
 ```
 
 ## Known Limitations
@@ -134,23 +146,28 @@ Multi-level validation approach:
 - May struggle with very complex JSON structures
 - Computationally intensive training
 - Occasional non-JSON content generation
-- The model's primary limitation is its inability to autonomously terminate JSON structures.
+- Base model size constraints
 
 ## Future Improvements
 
-1. Dataset Enhancement
+1. **Model Enhancements**
+   - Experiment with larger base models
+   - Implement hybrid fine-tuning approaches
+   - Add more sophisticated validation
 
+2. **Training Improvements**
+   - Implement cross-validation
+   - Add early stopping
+   - Support distributed training
+   - Implement model checkpointing
+
+3. **Benchmarking Extensions**
+   - Add more sophisticated metrics
+   - Implement statistical significance tests
+   - Add cross-validation benchmarks
+   - Include more visualization types
+
+4. **Dataset Improvements**
    - Add more diverse JSON examples
    - Implement better augmentation
    - Support more complex structures
-
-2. Model Improvements
-
-   - Experiment with different base models
-   - Implement better prompt engineering
-   - Add more sophisticated validation
-
-3. Performance Optimization
-   - Improve generation speed
-   - Reduce memory usage
-   - Better error recovery
