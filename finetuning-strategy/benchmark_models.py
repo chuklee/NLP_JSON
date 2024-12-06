@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from tqdm import tqdm
 import numpy as np
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Tuple
 import torch
 from dataclasses import dataclass
 import pandas as pd
@@ -20,23 +20,50 @@ class BenchmarkResult:
     field_accuracy: float
     structure_similarity: float
     semantic_score: float
+    example_outputs: List[Dict]  # Store some example outputs for manual inspection
+
+def is_valid_json(text: str) -> Tuple[bool, Any]:
+    """Check if text is valid JSON and return parsed result"""
+    try:
+        result = json.loads(text) if isinstance(text, str) else text
+        return True, result
+    except (json.JSONDecodeError, TypeError):
+        return False, None
 
 def calculate_json_similarity(reference: Dict, generated: Dict) -> float:
-    """Calculate structural similarity between two JSON objects"""
+    """Calculate structural and semantic similarity between two JSON objects"""
     try:
         # Compare number of keys at top level
-        ref_keys = set(reference.keys())
-        gen_keys = set(generated.keys())
+        ref_keys = set(reference.keys()) if isinstance(reference, dict) else set()
+        gen_keys = set(generated.keys()) if isinstance(generated, dict) else set()
+        
+        if not ref_keys or not gen_keys:
+            return 0.0
         
         # Calculate Jaccard similarity for keys
         key_similarity = len(ref_keys.intersection(gen_keys)) / len(ref_keys.union(gen_keys))
         
         # Calculate value type similarity
         type_matches = sum(1 for k in ref_keys & gen_keys 
-                         if type(reference[k]) == type(generated.get(k)))
+                         if type(reference[k]).__name__ == type(generated.get(k)).__name__)
         type_similarity = type_matches / len(ref_keys) if ref_keys else 0
         
-        return (key_similarity + type_similarity) / 2
+        # Calculate value similarity for string values
+        value_similarities = []
+        for k in ref_keys & gen_keys:
+            if isinstance(reference[k], str) and isinstance(generated.get(k), str):
+                # Simple string similarity (can be enhanced with more sophisticated metrics)
+                ref_words = set(reference[k].lower().split())
+                gen_words = set(generated.get(k).lower().split())
+                if ref_words or gen_words:
+                    value_similarities.append(
+                        len(ref_words & gen_words) / len(ref_words | gen_words)
+                    )
+        
+        value_similarity = np.mean(value_similarities) if value_similarities else 0.0
+        
+        # Combine similarities with weights
+        return (0.4 * key_similarity + 0.3 * type_similarity + 0.3 * value_similarity)
     except (AttributeError, TypeError):
         return 0.0
 
@@ -51,6 +78,7 @@ def benchmark_model(
     inference_times = []
     similarities = []
     memory_usage = []
+    example_outputs = []
     
     for sample in tqdm(test_dataset[:num_samples], desc=f"Benchmarking {model_name}"):
         prompt = sample['input']
@@ -65,13 +93,27 @@ def benchmark_model(
             generated = generate_fn(prompt)
             inference_time = time.time() - start_time
             
-            if isinstance(generated, dict):
+            # Validate and parse generated output
+            is_valid, parsed_generated = is_valid_json(generated)
+            
+            if is_valid:
                 valid_jsons += 1
-                similarities.append(calculate_json_similarity(reference, generated))
+                similarity = calculate_json_similarity(reference, parsed_generated)
+                similarities.append(similarity)
+                
+                # Store example outputs (limit to 5)
+                if len(example_outputs) < 5:
+                    example_outputs.append({
+                        'prompt': prompt,
+                        'reference': reference,
+                        'generated': parsed_generated,
+                        'similarity': similarity
+                    })
             else:
                 similarities.append(0.0)
                 
-        except Exception:
+        except Exception as e:
+            print(f"Error during generation: {str(e)}")
             similarities.append(0.0)
             inference_time = time.time() - start_time
             
@@ -80,14 +122,17 @@ def benchmark_model(
         inference_times.append(inference_time)
         memory_usage.append(end_mem - start_mem)
     
+    avg_similarity = np.mean(similarities) if similarities else 0.0
+    
     return BenchmarkResult(
         model_name=model_name,
         valid_json_rate=valid_jsons / num_samples,
         avg_inference_time=np.mean(inference_times),
         memory_usage=np.mean(memory_usage),
-        field_accuracy=np.mean(similarities),
-        structure_similarity=np.mean(similarities),
-        semantic_score=valid_jsons / num_samples * np.mean(similarities)
+        field_accuracy=avg_similarity,
+        structure_similarity=avg_similarity,
+        semantic_score=valid_jsons / num_samples * avg_similarity,
+        example_outputs=example_outputs
     )
 
 def plot_benchmark_results(results: List[BenchmarkResult]):
@@ -95,10 +140,10 @@ def plot_benchmark_results(results: List[BenchmarkResult]):
     # Prepare data for plotting
     models = [r.model_name for r in results]
     metrics = {
-        'Valid JSON Rate': [r.valid_json_rate for r in results],
+        'Valid JSON Rate (%)': [r.valid_json_rate * 100 for r in results],
         'Avg Inference Time (s)': [r.avg_inference_time for r in results],
-        'Structure Similarity': [r.structure_similarity for r in results],
-        'Semantic Score': [r.semantic_score for r in results]
+        'Structure Similarity (0-1)': [r.structure_similarity for r in results],
+        'Semantic Score (0-1)': [r.semantic_score for r in results]
     }
     
     # Create subplots
@@ -113,8 +158,24 @@ def plot_benchmark_results(results: List[BenchmarkResult]):
         ax.tick_params(axis='x', rotation=45)
     
     plt.tight_layout()
-    plt.savefig('benchmark_results.png')
+    plt.savefig('results/benchmarks/benchmark_results.png')
     plt.close()
+
+def save_detailed_results(results: List[BenchmarkResult]):
+    """Save detailed benchmark results including examples"""
+    for result in results:
+        output_file = f'results/benchmarks/examples_{result.model_name.lower().replace(" ", "_")}.json'
+        with open(output_file, 'w') as f:
+            json.dump({
+                'model_name': result.model_name,
+                'metrics': {
+                    'valid_json_rate': result.valid_json_rate,
+                    'avg_inference_time': result.avg_inference_time,
+                    'structure_similarity': result.structure_similarity,
+                    'semantic_score': result.semantic_score
+                },
+                'example_outputs': result.example_outputs
+            }, f, indent=2)
 
 def main():
     # Load test dataset
@@ -123,8 +184,8 @@ def main():
     
     # Define models to benchmark
     models = {
-        'Complete Fine-tuning': lambda p: generate_json(p, model_path="json_model"),
-        'LoRA Fine-tuning': lambda p: generate_json_lora(p, model_path="json_model_lora")
+        'Complete Fine-tuning': lambda p: generate_json(p, model_path="models/complete"),
+        'LoRA Fine-tuning': lambda p: generate_json_lora(p, model_path="models/lora")
     }
     
     # Run benchmarks
@@ -143,9 +204,18 @@ def main():
     # Generate plots
     plot_benchmark_results(results)
     
-    # Save detailed results to CSV
-    df = pd.DataFrame([vars(r) for r in results])
-    df.to_csv('benchmark_results.csv', index=False)
+    # Save detailed results
+    save_detailed_results(results)
+    
+    # Save summary to CSV
+    df = pd.DataFrame([{
+        'model': r.model_name,
+        'valid_json_rate': r.valid_json_rate,
+        'avg_inference_time': r.avg_inference_time,
+        'structure_similarity': r.structure_similarity,
+        'semantic_score': r.semantic_score
+    } for r in results])
+    df.to_csv('results/benchmarks/benchmark_results.csv', index=False)
 
 if __name__ == "__main__":
     main()

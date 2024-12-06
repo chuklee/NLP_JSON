@@ -159,12 +159,22 @@ def generate_json(prompt, model_path="json_model", max_length=200):
     # Format the prompt like training data
     formatted_prompt = f"{prompt}\n"
     
-    # Encode the prompt
-    inputs = tokenizer(formatted_prompt, return_tensors="pt", padding=True)
+    # Encode the prompt with explicit attention mask
+    inputs = tokenizer(
+        formatted_prompt,
+        return_tensors="pt",
+        padding=True,
+        truncation=True,
+        max_length=max_length
+    )
+    
+    # Create attention mask (1 for all input tokens)
+    attention_mask = torch.ones_like(inputs['input_ids'])
+    inputs['attention_mask'] = attention_mask
     
     # Generate response
     outputs = model.generate(
-        inputs.input_ids,
+        **inputs,
         max_length=max_length,
         num_return_sequences=1,
         temperature=0.7,
@@ -178,7 +188,6 @@ def generate_json(prompt, model_path="json_model", max_length=200):
     
     # Extract JSON part from the response
     try:
-        # Find the JSON part (everything after the prompt and newline)
         json_text = generated_text[len(formatted_prompt):].strip()
         return json.loads(json_text)
     except json.JSONDecodeError:

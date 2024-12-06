@@ -137,10 +137,13 @@ def generate_json_lora(prompt, model_path="json_model_lora", max_length=200):
         torch_dtype=torch.float16
     )
     
+    # Get the device
+    device = next(model.parameters()).device
+    
     # Format the prompt
     formatted_prompt = f"{prompt}\n"
     
-    # Encode the prompt and explicitly create attention mask
+    # Encode the prompt with explicit attention mask
     inputs = tokenizer(
         formatted_prompt,
         return_tensors="pt",
@@ -149,13 +152,16 @@ def generate_json_lora(prompt, model_path="json_model_lora", max_length=200):
         max_length=max_length
     )
     
-    # Ensure attention mask matches input length
-    attention_mask = torch.ones_like(inputs.input_ids)
+    # Create attention mask (1 for all input tokens)
+    attention_mask = torch.ones_like(inputs['input_ids'])
+    inputs['attention_mask'] = attention_mask
+    
+    # Move everything to the correct device
+    inputs = {k: v.to(device) for k, v in inputs.items()}
     
     # Generate response
     outputs = model.generate(
-        input_ids=inputs.input_ids,
-        attention_mask=attention_mask,
+        **inputs,
         max_length=max_length,
         num_return_sequences=1,
         temperature=0.7,

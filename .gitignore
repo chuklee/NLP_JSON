@@ -4,3 +4,5 @@ __pycache__/
 finetuning-strategy/json_datasets/**
 finetuning-strategy/json_model/**
 finetuning-strategy/logs/**
+finetuning-strategy/results/**
+finetuning-strategy/models/**

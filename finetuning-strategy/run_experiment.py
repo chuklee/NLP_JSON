@@ -4,10 +4,43 @@ from datetime import datetime
 import json
 import argparse
 from pathlib import Path
+import warnings
+import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM
+import sys
 
-from lora_fine_tuning import train_json_model_lora
-from complete_fine_tuning import train_json_model
-from benchmark_models import main as run_benchmark
+# Add the current directory to Python path
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+# Import our modules
+try:
+    from lora_fine_tuning import train_json_model_lora
+    from complete_fine_tuning import train_json_model
+    from benchmark_models import main as run_benchmark
+except ImportError as e:
+    print(f"Error importing modules: {str(e)}")
+    print("Please ensure all required files are in the correct location:")
+    print("- lora_fine_tuning.py")
+    print("- complete_fine_tuning.py")
+    print("- benchmark_models.py")
+    sys.exit(1)
+
+# Filter out specific warnings
+warnings.filterwarnings("ignore", message=".*flash attention.*")
+warnings.filterwarnings("ignore", message=".*Unable to fetch remote file.*")
+
+def download_and_cache_models(model_name="facebook/opt-350m", force=False):
+    """Download and cache models before training"""
+    try:
+        if force or not os.path.exists(os.path.join(os.getenv('TRANSFORMERS_CACHE', ''), model_name)):
+            print(f"Downloading and caching {model_name}...")
+            AutoTokenizer.from_pretrained(model_name)
+            AutoModelForCausalLM.from_pretrained(model_name)
+            print("Models cached successfully!")
+        return True
+    except Exception as e:
+        print(f"Error downloading models: {str(e)}")
+        return False
 
 def setup_directories():
     """Create necessary directories for the experiment"""
@@ -34,29 +67,45 @@ def train_models(dataset_path: str, dirs: dict, args):
     """Train both models and return training times"""
     training_times = {}
     
-    # Train complete fine-tuning model
-    if not args.skip_complete:
-        print("\n=== Training Complete Fine-tuning Model ===")
-        start_time = time.time()
-        train_json_model(
-            json_file=dataset_path,
-            output_dir=dirs["complete_model"],
-            log_dir=dirs["complete_logs"],
-            debug=args.debug
-        )
-        training_times["complete"] = time.time() - start_time
+    # Verify dataset exists
+    if not os.path.exists(dataset_path):
+        raise FileNotFoundError(f"Dataset not found: {dataset_path}")
     
-    # Train LoRA model
-    if not args.skip_lora:
-        print("\n=== Training LoRA Model ===")
-        start_time = time.time()
-        train_json_model_lora(
-            json_file=dataset_path,
-            output_dir=dirs["lora_model"],
-            log_dir=dirs["lora_logs"],
-            debug=args.debug
-        )
-        training_times["lora"] = time.time() - start_time
+    # Set device
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    print(f"\nUsing device: {device}")
+    if device == "cuda":
+        print(f"GPU: {torch.cuda.get_device_name()}")
+        print(f"Memory Available: {torch.cuda.get_device_properties(0).total_memory / 1e9:.2f} GB")
+    
+    try:
+        # Train complete fine-tuning model
+        if not args.skip_complete:
+            print("\n=== Training Complete Fine-tuning Model ===")
+            start_time = time.time()
+            train_json_model(
+                json_file=dataset_path,
+                output_dir=dirs["complete_model"],
+                log_dir=dirs["complete_logs"],
+                debug=args.debug
+            )
+            training_times["complete"] = time.time() - start_time
+        
+        # Train LoRA model
+        if not args.skip_lora:
+            print("\n=== Training LoRA Model ===")
+            start_time = time.time()
+            train_json_model_lora(
+                json_file=dataset_path,
+                output_dir=dirs["lora_model"],
+                log_dir=dirs["lora_logs"],
+                debug=args.debug
+            )
+            training_times["lora"] = time.time() - start_time
+            
+    except Exception as e:
+        print(f"\nError during training: {str(e)}")
+        raise
     
     return training_times
 
@@ -70,6 +119,8 @@ def save_experiment_metadata(dirs: dict, training_times: dict, args):
             "dataset": args.dataset,
             "skip_complete": args.skip_complete,
             "skip_lora": args.skip_lora,
+            "device": "cuda" if torch.cuda.is_available() else "cpu",
+            "cuda_device": torch.cuda.get_device_name() if torch.cuda.is_available() else None,
         },
         "directories": dirs
     }
@@ -90,30 +141,44 @@ def main():
                       help="Skip LoRA training")
     parser.add_argument("--skip-benchmark", action="store_true",
                       help="Skip benchmarking")
+    parser.add_argument("--force-download", action="store_true",
+                      help="Force re-download of models")
     
     args = parser.parse_args()
     
-    # Setup directory structure
-    print("Setting up directories...")
-    dirs = setup_directories()
-    
-    # Train models
-    training_times = train_models(args.dataset, dirs, args)
-    
-    # Run benchmarks
-    if not args.skip_benchmark:
-        print("\n=== Running Benchmarks ===")
-        run_benchmark()
-    
-    # Save experiment metadata
-    save_experiment_metadata(dirs, training_times, args)
-    
-    print("\n=== Experiment Complete ===")
-    print(f"Results saved in {dirs['results']}")
-    if training_times:
-        print("\nTraining Times:")
-        for model, duration in training_times.items():
-            print(f"{model}: {duration:.2f} seconds")
+    try:
+        # Setup directory structure
+        print("Setting up directories...")
+        dirs = setup_directories()
+        
+        # Download and cache models
+        if not download_and_cache_models(force=args.force_download):
+            print("Error: Could not download/cache models. Please check your internet connection.")
+            return
+        
+        # Train models
+        training_times = train_models(args.dataset, dirs, args)
+        
+        # Run benchmarks
+        if not args.skip_benchmark:
+            print("\n=== Running Benchmarks ===")
+            run_benchmark()
+        
+        # Save experiment metadata
+        save_experiment_metadata(dirs, training_times, args)
+        
+        print("\n=== Experiment Complete ===")
+        print(f"Results saved in {dirs['results']}")
+        if training_times:
+            print("\nTraining Times:")
+            for model, duration in training_times.items():
+                print(f"{model}: {duration:.2f} seconds")
+                
+    except KeyboardInterrupt:
+        print("\n\nExperiment interrupted by user.")
+    except Exception as e:
+        print(f"\nError during experiment: {str(e)}")
+        raise
 
 if __name__ == "__main__":
     main()
