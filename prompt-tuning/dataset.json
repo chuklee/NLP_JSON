@@ -1,0 +1,5774 @@
+[
+  {
+    "input": "Convert the following sentence into a JSON object with clear key-value pairs: 'I bought 2 flowers and a flower pot.'",
+    "output": {
+      "items_purchased": [
+        {
+          "type": "flowers",
+          "quantity": 2
+        },
+        {
+          "type": "flower pot",
+          "quantity": 1
+        }
+      ]
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, describing the items and their quantities: 'John purchased 3 apples, 2 bananas, and 1 pineapple.'",
+    "output": {
+      "items_purchased": [
+        {
+          "type": "apple",
+          "quantity": 3
+        },
+        {
+          "type": "banana",
+          "quantity": 2
+        },
+        {
+          "type": "pineapple",
+          "quantity": 1
+        }
+      ],
+      "buyer": "John"
+    }
+  },
+  {
+    "input": "Please create a JSON object from the following: 'Carla ordered 5 notebooks and 10 pens from the supply store.'",
+    "output": {
+      "order": {
+        "customer": "Carla",
+        "source": "supply store",
+        "items": [
+          {
+            "type": "notebook",
+            "quantity": 5
+          },
+          {
+            "type": "pen",
+            "quantity": 10
+          }
+        ]
+      }
+    }
+  },
+  {
+    "input": "Turn this sentence into a JSON structure with keys like 'action', 'items', and 'location': 'They delivered 20 packages to the warehouse.'",
+    "output": {
+      "action": "delivered",
+      "items": [
+        {
+          "type": "package",
+          "quantity": 20
+        }
+      ],
+      "location": "warehouse"
+    }
+  },
+  {
+    "input": "Construct a JSON object from the sentence. Include 'timestamp' and 'source': 'On Tuesday, Mark received 4 letters at the post office.'",
+    "output": {
+      "recipient": "Mark",
+      "items_received": [
+        {
+          "type": "letter",
+          "quantity": 4
+        }
+      ],
+      "location": "post office",
+      "date": "Tuesday"
+    }
+  },
+  {
+    "input": "Form a JSON object from the sentence, including keys for 'store', 'products', and 'date': 'On June 10, Sarah bought 10 packets of seeds and 2 garden tools at GreenLeaf.'",
+    "output": {
+      "buyer": "Sarah",
+      "date": "June 10",
+      "store": "GreenLeaf",
+      "items_purchased": [
+        {
+          "type": "packet of seeds",
+          "quantity": 10
+        },
+        {
+          "type": "garden tool",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON representation and include 'transport', 'items', and 'start_date': 'The shipment with 100 cartons of milk and 200 cartons of juice left by truck on August 1st.'",
+    "output": {
+      "transport": "truck",
+      "start_date": "August 1",
+      "items_shipped": [
+        {
+          "type": "carton of milk",
+          "quantity": 100
+        },
+        {
+          "type": "carton of juice",
+          "quantity": 200
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert this car paint options to JSON: 'Available colors for Model X: Metallic Silver (base), Pearl White (+$1000), Midnight Black (+$1000), Racing Red (+$2000, limited edition).'",
+    "output": {
+      "vehicle_colors": {
+        "model": "Model X",
+        "paint_options": [
+          {
+            "name": "Metallic Silver",
+            "type": "base",
+            "additional_cost": 0,
+            "availability": "standard"
+          },
+          {
+            "name": "Pearl White",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Midnight Black",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Racing Red",
+            "type": "premium",
+            "additional_cost": 2000,
+            "availability": "limited edition"
+          }
+        ],
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Turn this basic car model into JSON: '2023 Toyota Camry LE, 4-cylinder engine, automatic transmission, color: silver.'",
+    "output": {
+      "vehicle": {
+        "year": 2023,
+        "make": "Toyota",
+        "model": "Camry",
+        "trim": "LE",
+        "specifications": {
+          "engine": "4-cylinder",
+          "transmission": "automatic",
+          "color": "silver"
+        }
+      }
+    }
+  },
+  {
+    "input": "Parse this sports car details into JSON: 'Porsche 911 GT3, 4.0L flat-six engine, 502 HP, 0-60 mph in 3.2 seconds, top speed: 197 mph.'",
+    "output": {
+      "sports_car": {
+        "make": "Porsche",
+        "model": "911",
+        "variant": "GT3",
+        "engine": {
+          "type": "flat-six",
+          "displacement": 4.0,
+          "unit": "liters",
+          "horsepower": 502
+        },
+        "performance": {
+          "acceleration": {
+            "metric": "0-60 mph",
+            "time": 3.2,
+            "unit": "seconds"
+          },
+          "top_speed": {
+            "value": 197,
+            "unit": "mph"
+          }
+        }
+      }
+    }
+  },
+  {
+    "input": "Generate JSON for this car comparison: 'Electric: Tesla Model 3 (range: 358 miles, price: $40,240) vs Gas: Honda Accord (mpg: 30 city/38 highway, price: $26,520).'",
+    "output": {
+      "car_comparison": {
+        "electric_vehicle": {
+          "make": "Tesla",
+          "model": "Model 3",
+          "type": "electric",
+          "specifications": {
+            "range": {
+              "value": 358,
+              "unit": "miles"
+            }
+          },
+          "price": {
+            "amount": 40240,
+            "currency": "USD"
+          }
+        },
+        "gas_vehicle": {
+          "make": "Honda",
+          "model": "Accord",
+          "type": "gasoline",
+          "specifications": {
+            "fuel_economy": {
+              "city": {
+                "value": 30,
+                "unit": "mpg"
+              },
+              "highway": {
+                "value": 38,
+                "unit": "mpg"
+              }
+            }
+          },
+          "price": {
+            "amount": 26520,
+            "currency": "USD"
+          }
+        }
+      }
+    }
+  },
+  {
+    "input": "Structure this SUV feature list as JSON: 'BMW X5 xDrive40i: 3.0L turbocharged engine, all-wheel drive, 7 seats, features: panoramic roof, leather seats, 12.3-inch display, wireless charging.'",
+    "output": {
+      "suv": {
+        "make": "BMW",
+        "model": "X5",
+        "trim": "xDrive40i",
+        "powertrain": {
+          "engine": {
+            "displacement": 3.0,
+            "unit": "liters",
+            "type": "turbocharged"
+          },
+          "drive_system": "all-wheel drive"
+        },
+        "capacity": {
+          "seats": 7
+        },
+        "features": {
+          "exterior": ["panoramic roof"],
+          "interior": [
+            "leather seats",
+            "12.3-inch display",
+            "wireless charging"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "input": "Make a JSON from this car service history: '2020 Mercedes C300: Oil change at 10k miles ($75), Brake service at 20k miles ($350), Tire rotation at 25k miles ($50). Next service due: 30k miles.'",
+    "output": {
+      "service_history": {
+        "vehicle": {
+          "year": 2020,
+          "make": "Mercedes",
+          "model": "C300"
+        },
+        "maintenance_records": [
+          {
+            "service": "oil change",
+            "mileage": 10000,
+            "cost": 75.0,
+            "unit": "miles"
+          },
+          {
+            "service": "brake service",
+            "mileage": 20000,
+            "cost": 350.0,
+            "unit": "miles"
+          },
+          {
+            "service": "tire rotation",
+            "mileage": 25000,
+            "cost": 50.0,
+            "unit": "miles"
+          }
+        ],
+        "next_service": {
+          "mileage": 30000,
+          "unit": "miles"
+        },
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, describing the items and their quantities: 'John purchased 3 apples, 2 bananas, and 1 pineapple.'",
+    "output": {
+      "buyer": "John",
+      "items_purchased": [
+        {
+          "type": "apple",
+          "quantity": 3
+        },
+        {
+          "type": "banana",
+          "quantity": 2
+        },
+        {
+          "type": "pineapple",
+          "quantity": 1
+        }
+      ]
+    }
+  },
+  {
+    "input": "Please create a JSON object from the following: 'Carla ordered 5 notebooks and 10 pens from the supply store.'",
+    "output": {
+      "order": {
+        "customer": "Carla",
+        "source": "supply store",
+        "items": [
+          {
+            "type": "notebook",
+            "quantity": 5
+          },
+          {
+            "type": "pen",
+            "quantity": 10
+          }
+        ]
+      }
+    }
+  },
+  {
+    "input": "Turn this sentence into a JSON structure with keys like 'action', 'items', and 'location': 'They delivered 20 packages to the warehouse.'",
+    "output": {
+      "action": "delivered",
+      "items": [
+        {
+          "type": "package",
+          "quantity": 20
+        }
+      ],
+      "location": "warehouse"
+    }
+  },
+  {
+    "input": "Construct a JSON object from the sentence. Include 'timestamp' and 'source': 'On Tuesday, Mark received 4 letters at the post office.'",
+    "output": {
+      "recipient": "Mark",
+      "items_received": [
+        {
+          "type": "letter",
+          "quantity": 4
+        }
+      ],
+      "location": "post office",
+      "date": "Tuesday"
+    }
+  },
+  {
+    "input": "Form a JSON object from the sentence, including keys for 'store', 'products', and 'date': 'On June 10, Sarah bought 10 packets of seeds and 2 garden tools at GreenLeaf.'",
+    "output": {
+      "buyer": "Sarah",
+      "date": "June 10",
+      "store": "GreenLeaf",
+      "items_purchased": [
+        {
+          "type": "packet of seeds",
+          "quantity": 10
+        },
+        {
+          "type": "garden tool",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON representation and include 'transport', 'items', and 'start_date': 'The shipment with 100 cartons of milk and 200 cartons of juice left by truck on August 1st.'",
+    "output": {
+      "transport": "truck",
+      "start_date": "August 1",
+      "items_shipped": [
+        {
+          "type": "carton of milk",
+          "quantity": 100
+        },
+        {
+          "type": "carton of juice",
+          "quantity": 200
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert this car paint options to JSON: 'Available colors for Model X: Metallic Silver (base), Pearl White (+$1000), Midnight Black (+$1000), Racing Red (+$2000, limited edition).'",
+    "output": {
+      "vehicle_colors": {
+        "model": "Model X",
+        "paint_options": [
+          {
+            "name": "Metallic Silver",
+            "type": "base",
+            "additional_cost": 0,
+            "availability": "standard"
+          },
+          {
+            "name": "Pearl White",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Midnight Black",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Racing Red",
+            "type": "premium",
+            "additional_cost": 2000,
+            "availability": "limited edition"
+          }
+        ],
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Reformat into JSON with keys for 'chef', 'ingredients', and 'instructions': 'Chef Anthony used 200 grams of sugar, 300 grams of flour, and 2 eggs to bake a cake.'",
+    "output": {
+      "chef": "Anthony",
+      "ingredients": [
+        {
+          "type": "sugar",
+          "quantity": 200,
+          "unit": "grams"
+        },
+        {
+          "type": "flour",
+          "quantity": 300,
+          "unit": "grams"
+        },
+        {
+          "type": "egg",
+          "quantity": 2,
+          "unit": "pieces"
+        }
+      ],
+      "instructions": "Mix all ingredients and bake."
+    }
+  },
+  {
+    "input": "Produce a JSON object that includes 'sender', 'items_sent', 'delivery_time', and 'special_instructions': 'Rob sent 4 DVDs and 1 CD to Laura, requesting that they arrive by Friday afternoon, marked as fragile.'",
+    "output": {
+      "sender": "Rob",
+      "recipient": "Laura",
+      "items_sent": [
+        {
+          "type": "DVD",
+          "quantity": 4
+        },
+        {
+          "type": "CD",
+          "quantity": 1
+        }
+      ],
+      "delivery_time": "Friday afternoon",
+      "special_instructions": "Fragile"
+    }
+  },
+  {
+    "input": "Convert to JSON including fields 'supplier', 'order_id', 'items', and 'notes': 'Supplier ACME provided order #1234 with 10 light bulbs and 5 lamps, note: handle with care.'",
+    "output": {
+      "supplier": "ACME",
+      "order_id": "1234",
+      "items": [
+        {
+          "type": "light bulb",
+          "quantity": 10
+        },
+        {
+          "type": "lamp",
+          "quantity": 5
+        }
+      ],
+      "notes": "handle with care"
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, ensuring to detail 'warehouse_location', 'products', and a 'reference_code': 'At Warehouse #42, we stored 300 chairs and 150 tables under reference code W42-09.'",
+    "output": {
+      "warehouse_location": "Warehouse #42",
+      "reference_code": "W42-09",
+      "products": [
+        {
+          "type": "chair",
+          "quantity": 300
+        },
+        {
+          "type": "table",
+          "quantity": 150
+        }
+      ]
+    }
+  },
+  {
+    "input": "Make a JSON object from this sentence and include units if possible: 'Elena picked up 5 kilograms of potatoes and 2 kilograms of onions at the local market.'",
+    "output": {
+      "buyer": "Elena",
+      "location": "local market",
+      "items_picked_up": [
+        {
+          "type": "potatoes",
+          "quantity": 5,
+          "unit": "kilograms"
+        },
+        {
+          "type": "onions",
+          "quantity": 2,
+          "unit": "kilograms"
+        }
+      ]
+    }
+  },
+  {
+    "input": "Please provide a JSON representation of this sentence with keys for 'items', 'currency', and 'buyer': 'Leo purchased 1 laptop and 1 phone for $1200.'",
+    "output": {
+      "buyer": "Leo",
+      "items": [
+        {
+          "type": "laptop",
+          "quantity": 1
+        },
+        {
+          "type": "phone",
+          "quantity": 1
+        }
+      ],
+      "total_cost": 1200,
+      "currency": "USD"
+    }
+  },
+  {
+    "input": "Translate the following sentence into JSON, noting 'action', 'recipient', and 'items': 'They sent Mary 2 small boxes and 5 large boxes on Monday.'",
+    "output": {
+      "action": "sent",
+      "recipient": "Mary",
+      "day": "Monday",
+      "items": [
+        {
+          "type": "small box",
+          "quantity": 2
+        },
+        {
+          "type": "large box",
+          "quantity": 5
+        }
+      ]
+    }
+  },
+  {
+    "input": "Form a JSON object from the sentence, including keys for 'store', 'products', and 'date': 'On June 10, Sarah bought 10 packets of seeds and 2 garden tools at GreenLeaf.'",
+    "output": {
+      "buyer": "Sarah",
+      "date": "June 10",
+      "store": "GreenLeaf",
+      "items_purchased": [
+        {
+          "type": "packet of seeds",
+          "quantity": 10
+        },
+        {
+          "type": "garden tool",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON representation and include 'transport', 'items', and 'start_date': 'The shipment with 100 cartons of milk and 200 cartons of juice left by truck on August 1st.'",
+    "output": {
+      "transport": "truck",
+      "start_date": "August 1",
+      "items_shipped": [
+        {
+          "type": "carton of milk",
+          "quantity": 100
+        },
+        {
+          "type": "carton of juice",
+          "quantity": 200
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert this car paint options to JSON: 'Available colors for Model X: Metallic Silver (base), Pearl White (+$1000), Midnight Black (+$1000), Racing Red (+$2000, limited edition).'",
+    "output": {
+      "vehicle_colors": {
+        "model": "Model X",
+        "paint_options": [
+          {
+            "name": "Metallic Silver",
+            "type": "base",
+            "additional_cost": 0,
+            "availability": "standard"
+          },
+          {
+            "name": "Pearl White",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Midnight Black",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Racing Red",
+            "type": "premium",
+            "additional_cost": 2000,
+            "availability": "limited edition"
+          }
+        ],
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Reformat into JSON with keys for 'chef', 'ingredients', and 'instructions': 'Chef Anthony used 200 grams of sugar, 300 grams of flour, and 2 eggs to bake a cake.'",
+    "output": {
+      "chef": "Anthony",
+      "ingredients": [
+        {
+          "type": "sugar",
+          "quantity": 200,
+          "unit": "grams"
+        },
+        {
+          "type": "flour",
+          "quantity": 300,
+          "unit": "grams"
+        },
+        {
+          "type": "egg",
+          "quantity": 2,
+          "unit": "pieces"
+        }
+      ],
+      "instructions": "Mix all ingredients and bake."
+    }
+  },
+  {
+    "input": "Produce a JSON object that includes 'sender', 'items_sent', 'delivery_time', and 'special_instructions': 'Rob sent 4 DVDs and 1 CD to Laura, requesting that they arrive by Friday afternoon, marked as fragile.'",
+    "output": {
+      "sender": "Rob",
+      "recipient": "Laura",
+      "items_sent": [
+        {
+          "type": "DVD",
+          "quantity": 4
+        },
+        {
+          "type": "CD",
+          "quantity": 1
+        }
+      ],
+      "delivery_time": "Friday afternoon",
+      "special_instructions": "Fragile"
+    }
+  },
+  {
+    "input": "Convert to JSON including fields 'supplier', 'order_id', 'items', and 'notes': 'Supplier ACME provided order #1234 with 10 light bulbs and 5 lamps, note: handle with care.'",
+    "output": {
+      "supplier": "ACME",
+      "order_id": "1234",
+      "items": [
+        {
+          "type": "light bulb",
+          "quantity": 10
+        },
+        {
+          "type": "lamp",
+          "quantity": 5
+        }
+      ],
+      "notes": "handle with care"
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, ensuring to detail 'warehouse_location', 'products', and a 'reference_code': 'At Warehouse #42, we stored 300 chairs and 150 tables under reference code W42-09.'",
+    "output": {
+      "warehouse_location": "Warehouse #42",
+      "reference_code": "W42-09",
+      "products": [
+        {
+          "type": "chair",
+          "quantity": 300
+        },
+        {
+          "type": "table",
+          "quantity": 150
+        }
+      ]
+    }
+  },
+  {
+    "input": "Make a JSON object from this sentence and include units if possible: 'Elena picked up 5 kilograms of potatoes and 2 kilograms of onions at the local market.'",
+    "output": {
+      "buyer": "Elena",
+      "location": "local market",
+      "items_picked_up": [
+        {
+          "type": "potatoes",
+          "quantity": 5,
+          "unit": "kilograms"
+        },
+        {
+          "type": "onions",
+          "quantity": 2,
+          "unit": "kilograms"
+        }
+      ]
+    }
+  },
+  {
+    "input": "Please provide a JSON representation of this sentence with keys for 'items', 'currency', and 'buyer': 'Leo purchased 1 laptop and 1 phone for $1200.'",
+    "output": {
+      "buyer": "Leo",
+      "items": [
+        {
+          "type": "laptop",
+          "quantity": 1
+        },
+        {
+          "type": "phone",
+          "quantity": 1
+        }
+      ],
+      "total_cost": 1200,
+      "currency": "USD"
+    }
+  },
+  {
+    "input": "Translate the following sentence into JSON, noting 'action', 'recipient', and 'items': 'They sent Mary 2 small boxes and 5 large boxes on Monday.'",
+    "output": {
+      "action": "sent",
+      "recipient": "Mary",
+      "day": "Monday",
+      "items": [
+        {
+          "type": "small box",
+          "quantity": 2
+        },
+        {
+          "type": "large box",
+          "quantity": 5
+        }
+      ]
+    }
+  },
+  {
+    "input": "Form a JSON object from the sentence, including keys for 'store', 'products', and 'date': 'On June 10, Sarah bought 10 packets of seeds and 2 garden tools at GreenLeaf.'",
+    "output": {
+      "buyer": "Sarah",
+      "date": "June 10",
+      "store": "GreenLeaf",
+      "items_purchased": [
+        {
+          "type": "packet of seeds",
+          "quantity": 10
+        },
+        {
+          "type": "garden tool",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON representation and include 'transport', 'items', and 'start_date': 'The shipment with 100 cartons of milk and 200 cartons of juice left by truck on August 1st.'",
+    "output": {
+      "transport": "truck",
+      "start_date": "August 1",
+      "items_shipped": [
+        {
+          "type": "carton of milk",
+          "quantity": 100
+        },
+        {
+          "type": "carton of juice",
+          "quantity": 200
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert this car paint options to JSON: 'Available colors for Model X: Metallic Silver (base), Pearl White (+$1000), Midnight Black (+$1000), Racing Red (+$2000, limited edition).'",
+    "output": {
+      "vehicle_colors": {
+        "model": "Model X",
+        "paint_options": [
+          {
+            "name": "Metallic Silver",
+            "type": "base",
+            "additional_cost": 0,
+            "availability": "standard"
+          },
+          {
+            "name": "Pearl White",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Midnight Black",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Racing Red",
+            "type": "premium",
+            "additional_cost": 2000,
+            "availability": "limited edition"
+          }
+        ],
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Reformat into JSON with keys for 'chef', 'ingredients', and 'instructions': 'Chef Anthony used 200 grams of sugar, 300 grams of flour, and 2 eggs to bake a cake.'",
+    "output": {
+      "chef": "Anthony",
+      "ingredients": [
+        {
+          "type": "sugar",
+          "quantity": 200,
+          "unit": "grams"
+        },
+        {
+          "type": "flour",
+          "quantity": 300,
+          "unit": "grams"
+        },
+        {
+          "type": "egg",
+          "quantity": 2,
+          "unit": "pieces"
+        }
+      ],
+      "instructions": "Mix all ingredients and bake."
+    }
+  },
+  {
+    "input": "Produce a JSON object that includes 'sender', 'items_sent', 'delivery_time', and 'special_instructions': 'Rob sent 4 DVDs and 1 CD to Laura, requesting that they arrive by Friday afternoon, marked as fragile.'",
+    "output": {
+      "sender": "Rob",
+      "recipient": "Laura",
+      "items_sent": [
+        {
+          "type": "DVD",
+          "quantity": 4
+        },
+        {
+          "type": "CD",
+          "quantity": 1
+        }
+      ],
+      "delivery_time": "Friday afternoon",
+      "special_instructions": "Fragile"
+    }
+  },
+  {
+    "input": "Convert to JSON including fields 'supplier', 'order_id', 'items', and 'notes': 'Supplier ACME provided order #1234 with 10 light bulbs and 5 lamps, note: handle with care.'",
+    "output": {
+      "supplier": "ACME",
+      "order_id": "1234",
+      "items": [
+        {
+          "type": "light bulb",
+          "quantity": 10
+        },
+        {
+          "type": "lamp",
+          "quantity": 5
+        }
+      ],
+      "notes": "handle with care"
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, ensuring to detail 'warehouse_location', 'products', and a 'reference_code': 'At Warehouse #42, we stored 300 chairs and 150 tables under reference code W42-09.'",
+    "output": {
+      "warehouse_location": "Warehouse #42",
+      "reference_code": "W42-09",
+      "products": [
+        {
+          "type": "chair",
+          "quantity": 300
+        },
+        {
+          "type": "table",
+          "quantity": 150
+        }
+      ]
+    }
+  },
+  {
+    "input": "Make a JSON object from this sentence and include units if possible: 'Elena picked up 5 kilograms of potatoes and 2 kilograms of onions at the local market.'",
+    "output": {
+      "buyer": "Elena",
+      "location": "local market",
+      "items_picked_up": [
+        {
+          "type": "potatoes",
+          "quantity": 5,
+          "unit": "kilograms"
+        },
+        {
+          "type": "onions",
+          "quantity": 2,
+          "unit": "kilograms"
+        }
+      ]
+    }
+  },
+  {
+    "input": "Please provide a JSON representation of this sentence with keys for 'items', 'currency', and 'buyer': 'Leo purchased 1 laptop and 1 phone for $1200.'",
+    "output": {
+      "buyer": "Leo",
+      "items": [
+        {
+          "type": "laptop",
+          "quantity": 1
+        },
+        {
+          "type": "phone",
+          "quantity": 1
+        }
+      ],
+      "total_cost": 1200,
+      "currency": "USD"
+    }
+  },
+  {
+    "input": "Translate the following sentence into JSON, noting 'action', 'recipient', and 'items': 'They sent Mary 2 small boxes and 5 large boxes on Monday.'",
+    "output": {
+      "action": "sent",
+      "recipient": "Mary",
+      "day": "Monday",
+      "items": [
+        {
+          "type": "small box",
+          "quantity": 2
+        },
+        {
+          "type": "large box",
+          "quantity": 5
+        }
+      ]
+    }
+  },
+  {
+    "input": "Form a JSON object from the sentence, including keys for 'store', 'products', and 'date': 'On June 10, Sarah bought 10 packets of seeds and 2 garden tools at GreenLeaf.'",
+    "output": {
+      "buyer": "Sarah",
+      "date": "June 10",
+      "store": "GreenLeaf",
+      "items_purchased": [
+        {
+          "type": "packet of seeds",
+          "quantity": 10
+        },
+        {
+          "type": "garden tool",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON representation and include 'transport', 'items', and 'start_date': 'The shipment with 100 cartons of milk and 200 cartons of juice left by truck on August 1st.'",
+    "output": {
+      "transport": "truck",
+      "start_date": "August 1",
+      "items_shipped": [
+        {
+          "type": "carton of milk",
+          "quantity": 100
+        },
+        {
+          "type": "carton of juice",
+          "quantity": 200
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert this car paint options to JSON: 'Available colors for Model X: Metallic Silver (base), Pearl White (+$1000), Midnight Black (+$1000), Racing Red (+$2000, limited edition).'",
+    "output": {
+      "vehicle_colors": {
+        "model": "Model X",
+        "paint_options": [
+          {
+            "name": "Metallic Silver",
+            "type": "base",
+            "additional_cost": 0,
+            "availability": "standard"
+          },
+          {
+            "name": "Pearl White",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Midnight Black",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Racing Red",
+            "type": "premium",
+            "additional_cost": 2000,
+            "availability": "limited edition"
+          }
+        ],
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Reformat into JSON with keys for 'chef', 'ingredients', and 'instructions': 'Chef Anthony used 200 grams of sugar, 300 grams of flour, and 2 eggs to bake a cake.'",
+    "output": {
+      "chef": "Anthony",
+      "ingredients": [
+        {
+          "type": "sugar",
+          "quantity": 200,
+          "unit": "grams"
+        },
+        {
+          "type": "flour",
+          "quantity": 300,
+          "unit": "grams"
+        },
+        {
+          "type": "egg",
+          "quantity": 2,
+          "unit": "pieces"
+        }
+      ],
+      "instructions": "Mix all ingredients and bake."
+    }
+  },
+  {
+    "input": "Produce a JSON object that includes 'sender', 'items_sent', 'delivery_time', and 'special_instructions': 'Rob sent 4 DVDs and 1 CD to Laura, requesting that they arrive by Friday afternoon, marked as fragile.'",
+    "output": {
+      "sender": "Rob",
+      "recipient": "Laura",
+      "items_sent": [
+        {
+          "type": "DVD",
+          "quantity": 4
+        },
+        {
+          "type": "CD",
+          "quantity": 1
+        }
+      ],
+      "delivery_time": "Friday afternoon",
+      "special_instructions": "Fragile"
+    }
+  },
+  {
+    "input": "Convert to JSON including fields 'supplier', 'order_id', 'items', and 'notes': 'Supplier ACME provided order #1234 with 10 light bulbs and 5 lamps, note: handle with care.'",
+    "output": {
+      "supplier": "ACME",
+      "order_id": "1234",
+      "items": [
+        {
+          "type": "light bulb",
+          "quantity": 10
+        },
+        {
+          "type": "lamp",
+          "quantity": 5
+        }
+      ],
+      "notes": "handle with care"
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, ensuring to detail 'warehouse_location', 'products', and a 'reference_code': 'At Warehouse #42, we stored 300 chairs and 150 tables under reference code W42-09.'",
+    "output": {
+      "warehouse_location": "Warehouse #42",
+      "reference_code": "W42-09",
+      "products": [
+        {
+          "type": "chair",
+          "quantity": 300
+        },
+        {
+          "type": "table",
+          "quantity": 150
+        }
+      ]
+    }
+  },
+  {
+    "input": "Make a JSON object from this sentence and include units if possible: 'Elena picked up 5 kilograms of potatoes and 2 kilograms of onions at the local market.'",
+    "output": {
+      "buyer": "Elena",
+      "location": "local market",
+      "items_picked_up": [
+        {
+          "type": "potatoes",
+          "quantity": 5,
+          "unit": "kilograms"
+        },
+        {
+          "type": "onions",
+          "quantity": 2,
+          "unit": "kilograms"
+        }
+      ]
+    }
+  },
+  {
+    "input": "Please provide a JSON representation of this sentence with keys for 'items', 'currency', and 'buyer': 'Leo purchased 1 laptop and 1 phone for $1200.'",
+    "output": {
+      "buyer": "Leo",
+      "items": [
+        {
+          "type": "laptop",
+          "quantity": 1
+        },
+        {
+          "type": "phone",
+          "quantity": 1
+        }
+      ],
+      "total_cost": 1200,
+      "currency": "USD"
+    }
+  },
+  {
+    "input": "Translate the following sentence into JSON, noting 'action', 'recipient', and 'items': 'They sent Mary 2 small boxes and 5 large boxes on Monday.'",
+    "output": {
+      "action": "sent",
+      "recipient": "Mary",
+      "day": "Monday",
+      "items": [
+        {
+          "type": "small box",
+          "quantity": 2
+        },
+        {
+          "type": "large box",
+          "quantity": 5
+        }
+      ]
+    }
+  },
+  {
+    "input": "Form a JSON object from the sentence, including keys for 'store', 'products', and 'date': 'On June 10, Sarah bought 10 packets of seeds and 2 garden tools at GreenLeaf.'",
+    "output": {
+      "buyer": "Sarah",
+      "date": "June 10",
+      "store": "GreenLeaf",
+      "items_purchased": [
+        {
+          "type": "packet of seeds",
+          "quantity": 10
+        },
+        {
+          "type": "garden tool",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON representation and include 'transport', 'items', and 'start_date': 'The shipment with 100 cartons of milk and 200 cartons of juice left by truck on August 1st.'",
+    "output": {
+      "transport": "truck",
+      "start_date": "August 1",
+      "items_shipped": [
+        {
+          "type": "carton of milk",
+          "quantity": 100
+        },
+        {
+          "type": "carton of juice",
+          "quantity": 200
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert this car paint options to JSON: 'Available colors for Model X: Metallic Silver (base), Pearl White (+$1000), Midnight Black (+$1000), Racing Red (+$2000, limited edition).'",
+    "output": {
+      "vehicle_colors": {
+        "model": "Model X",
+        "paint_options": [
+          {
+            "name": "Metallic Silver",
+            "type": "base",
+            "additional_cost": 0,
+            "availability": "standard"
+          },
+          {
+            "name": "Pearl White",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Midnight Black",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Racing Red",
+            "type": "premium",
+            "additional_cost": 2000,
+            "availability": "limited edition"
+          }
+        ],
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Reformat into JSON with keys for 'chef', 'ingredients', and 'instructions': 'Chef Anthony used 200 grams of sugar, 300 grams of flour, and 2 eggs to bake a cake.'",
+    "output": {
+      "chef": "Anthony",
+      "ingredients": [
+        {
+          "type": "sugar",
+          "quantity": 200,
+          "unit": "grams"
+        },
+        {
+          "type": "flour",
+          "quantity": 300,
+          "unit": "grams"
+        },
+        {
+          "type": "egg",
+          "quantity": 2,
+          "unit": "pieces"
+        }
+      ],
+      "instructions": "Mix all ingredients and bake."
+    }
+  },
+  {
+    "input": "Produce a JSON object that includes 'sender', 'items_sent', 'delivery_time', and 'special_instructions': 'Rob sent 4 DVDs and 1 CD to Laura, requesting that they arrive by Friday afternoon, marked as fragile.'",
+    "output": {
+      "sender": "Rob",
+      "recipient": "Laura",
+      "items_sent": [
+        {
+          "type": "DVD",
+          "quantity": 4
+        },
+        {
+          "type": "CD",
+          "quantity": 1
+        }
+      ],
+      "delivery_time": "Friday afternoon",
+      "special_instructions": "Fragile"
+    }
+  },
+  {
+    "input": "Convert to JSON including fields 'supplier', 'order_id', 'items', and 'notes': 'Supplier ACME provided order #1234 with 10 light bulbs and 5 lamps, note: handle with care.'",
+    "output": {
+      "supplier": "ACME",
+      "order_id": "1234",
+      "items": [
+        {
+          "type": "light bulb",
+          "quantity": 10
+        },
+        {
+          "type": "lamp",
+          "quantity": 5
+        }
+      ],
+      "notes": "handle with care"
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, ensuring to detail 'warehouse_location', 'products', and a 'reference_code': 'At Warehouse #42, we stored 300 chairs and 150 tables under reference code W42-09.'",
+    "output": {
+      "warehouse_location": "Warehouse #42",
+      "reference_code": "W42-09",
+      "products": [
+        {
+          "type": "chair",
+          "quantity": 300
+        },
+        {
+          "type": "table",
+          "quantity": 150
+        }
+      ]
+    }
+  },
+  {
+    "input": "Make a JSON object from this sentence and include units if possible: 'Elena picked up 5 kilograms of potatoes and 2 kilograms of onions at the local market.'",
+    "output": {
+      "buyer": "Elena",
+      "location": "local market",
+      "items_picked_up": [
+        {
+          "type": "potatoes",
+          "quantity": 5,
+          "unit": "kilograms"
+        },
+        {
+          "type": "onions",
+          "quantity": 2,
+          "unit": "kilograms"
+        }
+      ]
+    }
+  },
+  {
+    "input": "Please provide a JSON representation of this sentence with keys for 'items', 'currency', and 'buyer': 'Leo purchased 1 laptop and 1 phone for $1200.'",
+    "output": {
+      "buyer": "Leo",
+      "items": [
+        {
+          "type": "laptop",
+          "quantity": 1
+        },
+        {
+          "type": "phone",
+          "quantity": 1
+        }
+      ],
+      "total_cost": 1200,
+      "currency": "USD"
+    }
+  },
+  {
+    "input": "Translate the following sentence into JSON, noting 'action', 'recipient', and 'items': 'They sent Mary 2 small boxes and 5 large boxes on Monday.'",
+    "output": {
+      "action": "sent",
+      "recipient": "Mary",
+      "day": "Monday",
+      "items": [
+        {
+          "type": "small box",
+          "quantity": 2
+        },
+        {
+          "type": "large box",
+          "quantity": 5
+        }
+      ]
+    }
+  },
+  {
+    "input": "Form a JSON object from the sentence, including keys for 'store', 'products', and 'date': 'On June 10, Sarah bought 10 packets of seeds and 2 garden tools at GreenLeaf.'",
+    "output": {
+      "buyer": "Sarah",
+      "date": "June 10",
+      "store": "GreenLeaf",
+      "items_purchased": [
+        {
+          "type": "packet of seeds",
+          "quantity": 10
+        },
+        {
+          "type": "garden tool",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON representation and include 'transport', 'items', and 'start_date': 'The shipment with 100 cartons of milk and 200 cartons of juice left by truck on August 1st.'",
+    "output": {
+      "transport": "truck",
+      "start_date": "August 1",
+      "items_shipped": [
+        {
+          "type": "carton of milk",
+          "quantity": 100
+        },
+        {
+          "type": "carton of juice",
+          "quantity": 200
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert this car paint options to JSON: 'Available colors for Model X: Metallic Silver (base), Pearl White (+$1000), Midnight Black (+$1000), Racing Red (+$2000, limited edition).'",
+    "output": {
+      "vehicle_colors": {
+        "model": "Model X",
+        "paint_options": [
+          {
+            "name": "Metallic Silver",
+            "type": "base",
+            "additional_cost": 0,
+            "availability": "standard"
+          },
+          {
+            "name": "Pearl White",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Midnight Black",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Racing Red",
+            "type": "premium",
+            "additional_cost": 2000,
+            "availability": "limited edition"
+          }
+        ],
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Reformat into JSON with keys for 'chef', 'ingredients', and 'instructions': 'Chef Anthony used 200 grams of sugar, 300 grams of flour, and 2 eggs to bake a cake.'",
+    "output": {
+      "chef": "Anthony",
+      "ingredients": [
+        {
+          "type": "sugar",
+          "quantity": 200,
+          "unit": "grams"
+        },
+        {
+          "type": "flour",
+          "quantity": 300,
+          "unit": "grams"
+        },
+        {
+          "type": "egg",
+          "quantity": 2,
+          "unit": "pieces"
+        }
+      ],
+      "instructions": "Mix all ingredients and bake."
+    }
+  },
+  {
+    "input": "Produce a JSON object that includes 'sender', 'items_sent', 'delivery_time', and 'special_instructions': 'Rob sent 4 DVDs and 1 CD to Laura, requesting that they arrive by Friday afternoon, marked as fragile.'",
+    "output": {
+      "sender": "Rob",
+      "recipient": "Laura",
+      "items_sent": [
+        {
+          "type": "DVD",
+          "quantity": 4
+        },
+        {
+          "type": "CD",
+          "quantity": 1
+        }
+      ],
+      "delivery_time": "Friday afternoon",
+      "special_instructions": "Fragile"
+    }
+  },
+  {
+    "input": "Convert to JSON including fields 'supplier', 'order_id', 'items', and 'notes': 'Supplier ACME provided order #1234 with 10 light bulbs and 5 lamps, note: handle with care.'",
+    "output": {
+      "supplier": "ACME",
+      "order_id": "1234",
+      "items": [
+        {
+          "type": "light bulb",
+          "quantity": 10
+        },
+        {
+          "type": "lamp",
+          "quantity": 5
+        }
+      ],
+      "notes": "handle with care"
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, ensuring to detail 'warehouse_location', 'products', and a 'reference_code': 'At Warehouse #42, we stored 300 chairs and 150 tables under reference code W42-09.'",
+    "output": {
+      "warehouse_location": "Warehouse #42",
+      "reference_code": "W42-09",
+      "products": [
+        {
+          "type": "chair",
+          "quantity": 300
+        },
+        {
+          "type": "table",
+          "quantity": 150
+        }
+      ]
+    }
+  },
+  {
+    "input": "Make a JSON object from this sentence and include units if possible: 'Elena picked up 5 kilograms of potatoes and 2 kilograms of onions at the local market.'",
+    "output": {
+      "buyer": "Elena",
+      "location": "local market",
+      "items_picked_up": [
+        {
+          "type": "potatoes",
+          "quantity": 5,
+          "unit": "kilograms"
+        },
+        {
+          "type": "onions",
+          "quantity": 2,
+          "unit": "kilograms"
+        }
+      ]
+    }
+  },
+  {
+    "input": "Please provide a JSON representation of this sentence with keys for 'items', 'currency', and 'buyer': 'Leo purchased 1 laptop and 1 phone for $1200.'",
+    "output": {
+      "buyer": "Leo",
+      "items": [
+        {
+          "type": "laptop",
+          "quantity": 1
+        },
+        {
+          "type": "phone",
+          "quantity": 1
+        }
+      ],
+      "total_cost": 1200,
+      "currency": "USD"
+    }
+  },
+  {
+    "input": "Translate the following sentence into JSON, noting 'action', 'recipient', and 'items': 'They sent Mary 2 small boxes and 5 large boxes on Monday.'",
+    "output": {
+      "action": "sent",
+      "recipient": "Mary",
+      "day": "Monday",
+      "items": [
+        {
+          "type": "small box",
+          "quantity": 2
+        },
+        {
+          "type": "large box",
+          "quantity": 5
+        }
+      ]
+    }
+  },
+  {
+    "input": "Form a JSON object from the sentence, including keys for 'store', 'products', and 'date': 'On June 10, Sarah bought 10 packets of seeds and 2 garden tools at GreenLeaf.'",
+    "output": {
+      "buyer": "Sarah",
+      "date": "June 10",
+      "store": "GreenLeaf",
+      "items_purchased": [
+        {
+          "type": "packet of seeds",
+          "quantity": 10
+        },
+        {
+          "type": "garden tool",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON representation and include 'transport', 'items', and 'start_date': 'The shipment with 100 cartons of milk and 200 cartons of juice left by truck on August 1st.'",
+    "output": {
+      "transport": "truck",
+      "start_date": "August 1",
+      "items_shipped": [
+        {
+          "type": "carton of milk",
+          "quantity": 100
+        },
+        {
+          "type": "carton of juice",
+          "quantity": 200
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert this car paint options to JSON: 'Available colors for Model X: Metallic Silver (base), Pearl White (+$1000), Midnight Black (+$1000), Racing Red (+$2000, limited edition).'",
+    "output": {
+      "vehicle_colors": {
+        "model": "Model X",
+        "paint_options": [
+          {
+            "name": "Metallic Silver",
+            "type": "base",
+            "additional_cost": 0,
+            "availability": "standard"
+          },
+          {
+            "name": "Pearl White",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Midnight Black",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Racing Red",
+            "type": "premium",
+            "additional_cost": 2000,
+            "availability": "limited edition"
+          }
+        ],
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Reformat into JSON with keys for 'chef', 'ingredients', and 'instructions': 'Chef Anthony used 200 grams of sugar, 300 grams of flour, and 2 eggs to bake a cake.'",
+    "output": {
+      "chef": "Anthony",
+      "ingredients": [
+        {
+          "type": "sugar",
+          "quantity": 200,
+          "unit": "grams"
+        },
+        {
+          "type": "flour",
+          "quantity": 300,
+          "unit": "grams"
+        },
+        {
+          "type": "egg",
+          "quantity": 2,
+          "unit": "pieces"
+        }
+      ],
+      "instructions": "Mix all ingredients and bake."
+    }
+  },
+  {
+    "input": "Produce a JSON object that includes 'sender', 'items_sent', 'delivery_time', and 'special_instructions': 'Rob sent 4 DVDs and 1 CD to Laura, requesting that they arrive by Friday afternoon, marked as fragile.'",
+    "output": {
+      "sender": "Rob",
+      "recipient": "Laura",
+      "items_sent": [
+        {
+          "type": "DVD",
+          "quantity": 4
+        },
+        {
+          "type": "CD",
+          "quantity": 1
+        }
+      ],
+      "delivery_time": "Friday afternoon",
+      "special_instructions": "Fragile"
+    }
+  },
+  {
+    "input": "Convert to JSON including fields 'supplier', 'order_id', 'items', and 'notes': 'Supplier ACME provided order #1234 with 10 light bulbs and 5 lamps, note: handle with care.'",
+    "output": {
+      "supplier": "ACME",
+      "order_id": "1234",
+      "items": [
+        {
+          "type": "light bulb",
+          "quantity": 10
+        },
+        {
+          "type": "lamp",
+          "quantity": 5
+        }
+      ],
+      "notes": "handle with care"
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, ensuring to detail 'warehouse_location', 'products', and a 'reference_code': 'At Warehouse #42, we stored 300 chairs and 150 tables under reference code W42-09.'",
+    "output": {
+      "warehouse_location": "Warehouse #42",
+      "reference_code": "W42-09",
+      "products": [
+        {
+          "type": "chair",
+          "quantity": 300
+        },
+        {
+          "type": "table",
+          "quantity": 150
+        }
+      ]
+    }
+  },
+  {
+    "input": "Make a JSON object from this sentence and include units if possible: 'Elena picked up 5 kilograms of potatoes and 2 kilograms of onions at the local market.'",
+    "output": {
+      "buyer": "Elena",
+      "location": "local market",
+      "items_picked_up": [
+        {
+          "type": "potatoes",
+          "quantity": 5,
+          "unit": "kilograms"
+        },
+        {
+          "type": "onions",
+          "quantity": 2,
+          "unit": "kilograms"
+        }
+      ]
+    }
+  },
+  {
+    "input": "Please provide a JSON representation of this sentence with keys for 'items', 'currency', and 'buyer': 'Leo purchased 1 laptop and 1 phone for $1200.'",
+    "output": {
+      "buyer": "Leo",
+      "items": [
+        {
+          "type": "laptop",
+          "quantity": 1
+        },
+        {
+          "type": "phone",
+          "quantity": 1
+        }
+      ],
+      "total_cost": 1200,
+      "currency": "USD"
+    }
+  },
+  {
+    "input": "Translate the following sentence into JSON, noting 'action', 'recipient', and 'items': 'They sent Mary 2 small boxes and 5 large boxes on Monday.'",
+    "output": {
+      "action": "sent",
+      "recipient": "Mary",
+      "day": "Monday",
+      "items": [
+        {
+          "type": "small box",
+          "quantity": 2
+        },
+        {
+          "type": "large box",
+          "quantity": 5
+        }
+      ]
+    }
+  },
+  {
+    "input": "Form a JSON object from the sentence, including keys for 'store', 'products', and 'date': 'On June 10, Sarah bought 10 packets of seeds and 2 garden tools at GreenLeaf.'",
+    "output": {
+      "buyer": "Sarah",
+      "date": "June 10",
+      "store": "GreenLeaf",
+      "items_purchased": [
+        {
+          "type": "packet of seeds",
+          "quantity": 10
+        },
+        {
+          "type": "garden tool",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON representation and include 'transport', 'items', and 'start_date': 'The shipment with 100 cartons of milk and 200 cartons of juice left by truck on August 1st.'",
+    "output": {
+      "transport": "truck",
+      "start_date": "August 1",
+      "items_shipped": [
+        {
+          "type": "carton of milk",
+          "quantity": 100
+        },
+        {
+          "type": "carton of juice",
+          "quantity": 200
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert this car paint options to JSON: 'Available colors for Model X: Metallic Silver (base), Pearl White (+$1000), Midnight Black (+$1000), Racing Red (+$2000, limited edition).'",
+    "output": {
+      "vehicle_colors": {
+        "model": "Model X",
+        "paint_options": [
+          {
+            "name": "Metallic Silver",
+            "type": "base",
+            "additional_cost": 0,
+            "availability": "standard"
+          },
+          {
+            "name": "Pearl White",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Midnight Black",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Racing Red",
+            "type": "premium",
+            "additional_cost": 2000,
+            "availability": "limited edition"
+          }
+        ],
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Reformat into JSON with keys for 'chef', 'ingredients', and 'instructions': 'Chef Anthony used 200 grams of sugar, 300 grams of flour, and 2 eggs to bake a cake.'",
+    "output": {
+      "chef": "Anthony",
+      "ingredients": [
+        {
+          "type": "sugar",
+          "quantity": 200,
+          "unit": "grams"
+        },
+        {
+          "type": "flour",
+          "quantity": 300,
+          "unit": "grams"
+        },
+        {
+          "type": "egg",
+          "quantity": 2,
+          "unit": "pieces"
+        }
+      ],
+      "instructions": "Mix all ingredients and bake."
+    }
+  },
+  {
+    "input": "Produce a JSON object that includes 'sender', 'items_sent', 'delivery_time', and 'special_instructions': 'Rob sent 4 DVDs and 1 CD to Laura, requesting that they arrive by Friday afternoon, marked as fragile.'",
+    "output": {
+      "sender": "Rob",
+      "recipient": "Laura",
+      "items_sent": [
+        {
+          "type": "DVD",
+          "quantity": 4
+        },
+        {
+          "type": "CD",
+          "quantity": 1
+        }
+      ],
+      "delivery_time": "Friday afternoon",
+      "special_instructions": "Fragile"
+    }
+  },
+  {
+    "input": "Convert to JSON including fields 'supplier', 'order_id', 'items', and 'notes': 'Supplier ACME provided order #1234 with 10 light bulbs and 5 lamps, note: handle with care.'",
+    "output": {
+      "supplier": "ACME",
+      "order_id": "1234",
+      "items": [
+        {
+          "type": "light bulb",
+          "quantity": 10
+        },
+        {
+          "type": "lamp",
+          "quantity": 5
+        }
+      ],
+      "notes": "handle with care"
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, ensuring to detail 'warehouse_location', 'products', and a 'reference_code': 'At Warehouse #42, we stored 300 chairs and 150 tables under reference code W42-09.'",
+    "output": {
+      "warehouse_location": "Warehouse #42",
+      "reference_code": "W42-09",
+      "products": [
+        {
+          "type": "chair",
+          "quantity": 300
+        },
+        {
+          "type": "table",
+          "quantity": 150
+        }
+      ]
+    }
+  },
+  {
+    "input": "Make a JSON object from this sentence and include units if possible: 'Elena picked up 5 kilograms of potatoes and 2 kilograms of onions at the local market.'",
+    "output": {
+      "buyer": "Elena",
+      "location": "local market",
+      "items_picked_up": [
+        {
+          "type": "potatoes",
+          "quantity": 5,
+          "unit": "kilograms"
+        },
+        {
+          "type": "onions",
+          "quantity": 2,
+          "unit": "kilograms"
+        }
+      ]
+    }
+  },
+  {
+    "input": "Please provide a JSON representation of this sentence with keys for 'items', 'currency', and 'buyer': 'Leo purchased 1 laptop and 1 phone for $1200.'",
+    "output": {
+      "buyer": "Leo",
+      "items": [
+        {
+          "type": "laptop",
+          "quantity": 1
+        },
+        {
+          "type": "phone",
+          "quantity": 1
+        }
+      ],
+      "total_cost": 1200,
+      "currency": "USD"
+    }
+  },
+  {
+    "input": "Translate the following sentence into JSON, noting 'action', 'recipient', and 'items': 'They sent Mary 2 small boxes and 5 large boxes on Monday.'",
+    "output": {
+      "action": "sent",
+      "recipient": "Mary",
+      "day": "Monday",
+      "items": [
+        {
+          "type": "small box",
+          "quantity": 2
+        },
+        {
+          "type": "large box",
+          "quantity": 5
+        }
+      ]
+    }
+  },
+  {
+    "input": "Form a JSON object from the sentence, including keys for 'store', 'products', and 'date': 'On June 10, Sarah bought 10 packets of seeds and 2 garden tools at GreenLeaf.'",
+    "output": {
+      "buyer": "Sarah",
+      "date": "June 10",
+      "store": "GreenLeaf",
+      "items_purchased": [
+        {
+          "type": "packet of seeds",
+          "quantity": 10
+        },
+        {
+          "type": "garden tool",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON representation and include 'transport', 'items', and 'start_date': 'The shipment with 100 cartons of milk and 200 cartons of juice left by truck on August 1st.'",
+    "output": {
+      "transport": "truck",
+      "start_date": "August 1",
+      "items_shipped": [
+        {
+          "type": "carton of milk",
+          "quantity": 100
+        },
+        {
+          "type": "carton of juice",
+          "quantity": 200
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert this car paint options to JSON: 'Available colors for Model X: Metallic Silver (base), Pearl White (+$1000), Midnight Black (+$1000), Racing Red (+$2000, limited edition).'",
+    "output": {
+      "vehicle_colors": {
+        "model": "Model X",
+        "paint_options": [
+          {
+            "name": "Metallic Silver",
+            "type": "base",
+            "additional_cost": 0,
+            "availability": "standard"
+          },
+          {
+            "name": "Pearl White",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Midnight Black",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Racing Red",
+            "type": "premium",
+            "additional_cost": 2000,
+            "availability": "limited edition"
+          }
+        ],
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Reformat into JSON with keys for 'chef', 'ingredients', and 'instructions': 'Chef Anthony used 200 grams of sugar, 300 grams of flour, and 2 eggs to bake a cake.'",
+    "output": {
+      "chef": "Anthony",
+      "ingredients": [
+        {
+          "type": "sugar",
+          "quantity": 200,
+          "unit": "grams"
+        },
+        {
+          "type": "flour",
+          "quantity": 300,
+          "unit": "grams"
+        },
+        {
+          "type": "egg",
+          "quantity": 2,
+          "unit": "pieces"
+        }
+      ],
+      "instructions": "Mix all ingredients and bake."
+    }
+  },
+  {
+    "input": "Produce a JSON object that includes 'sender', 'items_sent', 'delivery_time', and 'special_instructions': 'Rob sent 4 DVDs and 1 CD to Laura, requesting that they arrive by Friday afternoon, marked as fragile.'",
+    "output": {
+      "sender": "Rob",
+      "recipient": "Laura",
+      "items_sent": [
+        {
+          "type": "DVD",
+          "quantity": 4
+        },
+        {
+          "type": "CD",
+          "quantity": 1
+        }
+      ],
+      "delivery_time": "Friday afternoon",
+      "special_instructions": "Fragile"
+    }
+  },
+  {
+    "input": "Convert to JSON including fields 'supplier', 'order_id', 'items', and 'notes': 'Supplier ACME provided order #1234 with 10 light bulbs and 5 lamps, note: handle with care.'",
+    "output": {
+      "supplier": "ACME",
+      "order_id": "1234",
+      "items": [
+        {
+          "type": "light bulb",
+          "quantity": 10
+        },
+        {
+          "type": "lamp",
+          "quantity": 5
+        }
+      ],
+      "notes": "handle with care"
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, ensuring to detail 'warehouse_location', 'products', and a 'reference_code': 'At Warehouse #42, we stored 300 chairs and 150 tables under reference code W42-09.'",
+    "output": {
+      "warehouse_location": "Warehouse #42",
+      "reference_code": "W42-09",
+      "products": [
+        {
+          "type": "chair",
+          "quantity": 300
+        },
+        {
+          "type": "table",
+          "quantity": 150
+        }
+      ]
+    }
+  },
+  {
+    "input": "Make a JSON object from this sentence and include units if possible: 'Elena picked up 5 kilograms of potatoes and 2 kilograms of onions at the local market.'",
+    "output": {
+      "buyer": "Elena",
+      "location": "local market",
+      "items_picked_up": [
+        {
+          "type": "potatoes",
+          "quantity": 5,
+          "unit": "kilograms"
+        },
+        {
+          "type": "onions",
+          "quantity": 2,
+          "unit": "kilograms"
+        }
+      ]
+    }
+  },
+  {
+    "input": "Please provide a JSON representation of this sentence with keys for 'items', 'currency', and 'buyer': 'Leo purchased 1 laptop and 1 phone for $1200.'",
+    "output": {
+      "buyer": "Leo",
+      "items": [
+        {
+          "type": "laptop",
+          "quantity": 1
+        },
+        {
+          "type": "phone",
+          "quantity": 1
+        }
+      ],
+      "total_cost": 1200,
+      "currency": "USD"
+    }
+  },
+  {
+    "input": "Translate the following sentence into JSON, noting 'action', 'recipient', and 'items': 'They sent Mary 2 small boxes and 5 large boxes on Monday.'",
+    "output": {
+      "action": "sent",
+      "recipient": "Mary",
+      "day": "Monday",
+      "items": [
+        {
+          "type": "small box",
+          "quantity": 2
+        },
+        {
+          "type": "large box",
+          "quantity": 5
+        }
+      ]
+    }
+  },
+  {
+    "input": "Form a JSON object from the sentence, including keys for 'store', 'products', and 'date': 'On June 10, Sarah bought 10 packets of seeds and 2 garden tools at GreenLeaf.'",
+    "output": {
+      "buyer": "Sarah",
+      "date": "June 10",
+      "store": "GreenLeaf",
+      "items_purchased": [
+        {
+          "type": "packet of seeds",
+          "quantity": 10
+        },
+        {
+          "type": "garden tool",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON representation and include 'transport', 'items', and 'start_date': 'The shipment with 100 cartons of milk and 200 cartons of juice left by truck on August 1st.'",
+    "output": {
+      "transport": "truck",
+      "start_date": "August 1",
+      "items_shipped": [
+        {
+          "type": "carton of milk",
+          "quantity": 100
+        },
+        {
+          "type": "carton of juice",
+          "quantity": 200
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert this car paint options to JSON: 'Available colors for Model X: Metallic Silver (base), Pearl White (+$1000), Midnight Black (+$1000), Racing Red (+$2000, limited edition).'",
+    "output": {
+      "vehicle_colors": {
+        "model": "Model X",
+        "paint_options": [
+          {
+            "name": "Metallic Silver",
+            "type": "base",
+            "additional_cost": 0,
+            "availability": "standard"
+          },
+          {
+            "name": "Pearl White",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Midnight Black",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Racing Red",
+            "type": "premium",
+            "additional_cost": 2000,
+            "availability": "limited edition"
+          }
+        ],
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Reformat into JSON with keys for 'chef', 'ingredients', and 'instructions': 'Chef Anthony used 200 grams of sugar, 300 grams of flour, and 2 eggs to bake a cake.'",
+    "output": {
+      "chef": "Anthony",
+      "ingredients": [
+        {
+          "type": "sugar",
+          "quantity": 200,
+          "unit": "grams"
+        },
+        {
+          "type": "flour",
+          "quantity": 300,
+          "unit": "grams"
+        },
+        {
+          "type": "egg",
+          "quantity": 2,
+          "unit": "pieces"
+        }
+      ],
+      "instructions": "Mix all ingredients and bake."
+    }
+  },
+  {
+    "input": "Produce a JSON object that includes 'sender', 'items_sent', 'delivery_time', and 'special_instructions': 'Rob sent 4 DVDs and 1 CD to Laura, requesting that they arrive by Friday afternoon, marked as fragile.'",
+    "output": {
+      "sender": "Rob",
+      "recipient": "Laura",
+      "items_sent": [
+        {
+          "type": "DVD",
+          "quantity": 4
+        },
+        {
+          "type": "CD",
+          "quantity": 1
+        }
+      ],
+      "delivery_time": "Friday afternoon",
+      "special_instructions": "Fragile"
+    }
+  },
+  {
+    "input": "Convert to JSON including fields 'supplier', 'order_id', 'items', and 'notes': 'Supplier ACME provided order #1234 with 10 light bulbs and 5 lamps, note: handle with care.'",
+    "output": {
+      "supplier": "ACME",
+      "order_id": "1234",
+      "items": [
+        {
+          "type": "light bulb",
+          "quantity": 10
+        },
+        {
+          "type": "lamp",
+          "quantity": 5
+        }
+      ],
+      "notes": "handle with care"
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, ensuring to detail 'warehouse_location', 'products', and a 'reference_code': 'At Warehouse #42, we stored 300 chairs and 150 tables under reference code W42-09.'",
+    "output": {
+      "warehouse_location": "Warehouse #42",
+      "reference_code": "W42-09",
+      "products": [
+        {
+          "type": "chair",
+          "quantity": 300
+        },
+        {
+          "type": "table",
+          "quantity": 150
+        }
+      ]
+    }
+  },
+  {
+    "input": "Make a JSON object from this sentence and include units if possible: 'Elena picked up 5 kilograms of potatoes and 2 kilograms of onions at the local market.'",
+    "output": {
+      "buyer": "Elena",
+      "location": "local market",
+      "items_picked_up": [
+        {
+          "type": "potatoes",
+          "quantity": 5,
+          "unit": "kilograms"
+        },
+        {
+          "type": "onions",
+          "quantity": 2,
+          "unit": "kilograms"
+        }
+      ]
+    }
+  },
+  {
+    "input": "Please provide a JSON representation of this sentence with keys for 'items', 'currency', and 'buyer': 'Leo purchased 1 laptop and 1 phone for $1200.'",
+    "output": {
+      "buyer": "Leo",
+      "items": [
+        {
+          "type": "laptop",
+          "quantity": 1
+        },
+        {
+          "type": "phone",
+          "quantity": 1
+        }
+      ],
+      "total_cost": 1200,
+      "currency": "USD"
+    }
+  },
+  {
+    "input": "Translate the following sentence into JSON, noting 'action', 'recipient', and 'items': 'They sent Mary 2 small boxes and 5 large boxes on Monday.'",
+    "output": {
+      "action": "sent",
+      "recipient": "Mary",
+      "day": "Monday",
+      "items": [
+        {
+          "type": "small box",
+          "quantity": 2
+        },
+        {
+          "type": "large box",
+          "quantity": 5
+        }
+      ]
+    }
+  },
+  {
+    "input": "Form a JSON object from the sentence, including keys for 'store', 'products', and 'date': 'On June 10, Sarah bought 10 packets of seeds and 2 garden tools at GreenLeaf.'",
+    "output": {
+      "buyer": "Sarah",
+      "date": "June 10",
+      "store": "GreenLeaf",
+      "items_purchased": [
+        {
+          "type": "packet of seeds",
+          "quantity": 10
+        },
+        {
+          "type": "garden tool",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON representation and include 'transport', 'items', and 'start_date': 'The shipment with 100 cartons of milk and 200 cartons of juice left by truck on August 1st.'",
+    "output": {
+      "transport": "truck",
+      "start_date": "August 1",
+      "items_shipped": [
+        {
+          "type": "carton of milk",
+          "quantity": 100
+        },
+        {
+          "type": "carton of juice",
+          "quantity": 200
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert this car paint options to JSON: 'Available colors for Model X: Metallic Silver (base), Pearl White (+$1000), Midnight Black (+$1000), Racing Red (+$2000, limited edition).'",
+    "output": {
+      "vehicle_colors": {
+        "model": "Model X",
+        "paint_options": [
+          {
+            "name": "Metallic Silver",
+            "type": "base",
+            "additional_cost": 0,
+            "availability": "standard"
+          },
+          {
+            "name": "Pearl White",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Midnight Black",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Racing Red",
+            "type": "premium",
+            "additional_cost": 2000,
+            "availability": "limited edition"
+          }
+        ],
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Reformat into JSON with keys for 'chef', 'ingredients', and 'instructions': 'Chef Anthony used 200 grams of sugar, 300 grams of flour, and 2 eggs to bake a cake.'",
+    "output": {
+      "chef": "Anthony",
+      "ingredients": [
+        {
+          "type": "sugar",
+          "quantity": 200,
+          "unit": "grams"
+        },
+        {
+          "type": "flour",
+          "quantity": 300,
+          "unit": "grams"
+        },
+        {
+          "type": "egg",
+          "quantity": 2,
+          "unit": "pieces"
+        }
+      ],
+      "instructions": "Mix all ingredients and bake."
+    }
+  },
+  {
+    "input": "Produce a JSON object that includes 'sender', 'items_sent', 'delivery_time', and 'special_instructions': 'Rob sent 4 DVDs and 1 CD to Laura, requesting that they arrive by Friday afternoon, marked as fragile.'",
+    "output": {
+      "sender": "Rob",
+      "recipient": "Laura",
+      "items_sent": [
+        {
+          "type": "DVD",
+          "quantity": 4
+        },
+        {
+          "type": "CD",
+          "quantity": 1
+        }
+      ],
+      "delivery_time": "Friday afternoon",
+      "special_instructions": "Fragile"
+    }
+  },
+  {
+    "input": "Convert to JSON including fields 'supplier', 'order_id', 'items', and 'notes': 'Supplier ACME provided order #1234 with 10 light bulbs and 5 lamps, note: handle with care.'",
+    "output": {
+      "supplier": "ACME",
+      "order_id": "1234",
+      "items": [
+        {
+          "type": "light bulb",
+          "quantity": 10
+        },
+        {
+          "type": "lamp",
+          "quantity": 5
+        }
+      ],
+      "notes": "handle with care"
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, ensuring to detail 'warehouse_location', 'products', and a 'reference_code': 'At Warehouse #42, we stored 300 chairs and 150 tables under reference code W42-09.'",
+    "output": {
+      "warehouse_location": "Warehouse #42",
+      "reference_code": "W42-09",
+      "products": [
+        {
+          "type": "chair",
+          "quantity": 300
+        },
+        {
+          "type": "table",
+          "quantity": 150
+        }
+      ]
+    }
+  },
+  {
+    "input": "Make a JSON object from this sentence and include units if possible: 'Elena picked up 5 kilograms of potatoes and 2 kilograms of onions at the local market.'",
+    "output": {
+      "buyer": "Elena",
+      "location": "local market",
+      "items_picked_up": [
+        {
+          "type": "potatoes",
+          "quantity": 5,
+          "unit": "kilograms"
+        },
+        {
+          "type": "onions",
+          "quantity": 2,
+          "unit": "kilograms"
+        }
+      ]
+    }
+  },
+  {
+    "input": "Please provide a JSON representation of this sentence with keys for 'items', 'currency', and 'buyer': 'Leo purchased 1 laptop and 1 phone for $1200.'",
+    "output": {
+      "buyer": "Leo",
+      "items": [
+        {
+          "type": "laptop",
+          "quantity": 1
+        },
+        {
+          "type": "phone",
+          "quantity": 1
+        }
+      ],
+      "total_cost": 1200,
+      "currency": "USD"
+    }
+  },
+  {
+    "input": "Translate the following sentence into JSON, noting 'action', 'recipient', and 'items': 'They sent Mary 2 small boxes and 5 large boxes on Monday.'",
+    "output": {
+      "action": "sent",
+      "recipient": "Mary",
+      "day": "Monday",
+      "items": [
+        {
+          "type": "small box",
+          "quantity": 2
+        },
+        {
+          "type": "large box",
+          "quantity": 5
+        }
+      ]
+    }
+  },
+  {
+    "input": "Form a JSON object from the sentence, including keys for 'store', 'products', and 'date': 'On June 10, Sarah bought 10 packets of seeds and 2 garden tools at GreenLeaf.'",
+    "output": {
+      "buyer": "Sarah",
+      "date": "June 10",
+      "store": "GreenLeaf",
+      "items_purchased": [
+        {
+          "type": "packet of seeds",
+          "quantity": 10
+        },
+        {
+          "type": "garden tool",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON representation and include 'transport', 'items', and 'start_date': 'The shipment with 100 cartons of milk and 200 cartons of juice left by truck on August 1st.'",
+    "output": {
+      "transport": "truck",
+      "start_date": "August 1",
+      "items_shipped": [
+        {
+          "type": "carton of milk",
+          "quantity": 100
+        },
+        {
+          "type": "carton of juice",
+          "quantity": 200
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert this car paint options to JSON: 'Available colors for Model X: Metallic Silver (base), Pearl White (+$1000), Midnight Black (+$1000), Racing Red (+$2000, limited edition).'",
+    "output": {
+      "vehicle_colors": {
+        "model": "Model X",
+        "paint_options": [
+          {
+            "name": "Metallic Silver",
+            "type": "base",
+            "additional_cost": 0,
+            "availability": "standard"
+          },
+          {
+            "name": "Pearl White",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Midnight Black",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Racing Red",
+            "type": "premium",
+            "additional_cost": 2000,
+            "availability": "limited edition"
+          }
+        ],
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Reformat into JSON with keys for 'chef', 'ingredients', and 'instructions': 'Chef Anthony used 200 grams of sugar, 300 grams of flour, and 2 eggs to bake a cake.'",
+    "output": {
+      "chef": "Anthony",
+      "ingredients": [
+        {
+          "type": "sugar",
+          "quantity": 200,
+          "unit": "grams"
+        },
+        {
+          "type": "flour",
+          "quantity": 300,
+          "unit": "grams"
+        },
+        {
+          "type": "egg",
+          "quantity": 2,
+          "unit": "pieces"
+        }
+      ],
+      "instructions": "Mix all ingredients and bake."
+    }
+  },
+  {
+    "input": "Produce a JSON object that includes 'sender', 'items_sent', 'delivery_time', and 'special_instructions': 'Rob sent 4 DVDs and 1 CD to Laura, requesting that they arrive by Friday afternoon, marked as fragile.'",
+    "output": {
+      "sender": "Rob",
+      "recipient": "Laura",
+      "items_sent": [
+        {
+          "type": "DVD",
+          "quantity": 4
+        },
+        {
+          "type": "CD",
+          "quantity": 1
+        }
+      ],
+      "delivery_time": "Friday afternoon",
+      "special_instructions": "Fragile"
+    }
+  },
+  {
+    "input": "Convert to JSON including fields 'supplier', 'order_id', 'items', and 'notes': 'Supplier ACME provided order #1234 with 10 light bulbs and 5 lamps, note: handle with care.'",
+    "output": {
+      "supplier": "ACME",
+      "order_id": "1234",
+      "items": [
+        {
+          "type": "light bulb",
+          "quantity": 10
+        },
+        {
+          "type": "lamp",
+          "quantity": 5
+        }
+      ],
+      "notes": "handle with care"
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, ensuring to detail 'warehouse_location', 'products', and a 'reference_code': 'At Warehouse #42, we stored 300 chairs and 150 tables under reference code W42-09.'",
+    "output": {
+      "warehouse_location": "Warehouse #42",
+      "reference_code": "W42-09",
+      "products": [
+        {
+          "type": "chair",
+          "quantity": 300
+        },
+        {
+          "type": "table",
+          "quantity": 150
+        }
+      ]
+    }
+  },
+  {
+    "input": "Make a JSON object from this sentence and include units if possible: 'Elena picked up 5 kilograms of potatoes and 2 kilograms of onions at the local market.'",
+    "output": {
+      "buyer": "Elena",
+      "location": "local market",
+      "items_picked_up": [
+        {
+          "type": "potatoes",
+          "quantity": 5,
+          "unit": "kilograms"
+        },
+        {
+          "type": "onions",
+          "quantity": 2,
+          "unit": "kilograms"
+        }
+      ]
+    }
+  },
+  {
+    "input": "Please provide a JSON representation of this sentence with keys for 'items', 'currency', and 'buyer': 'Leo purchased 1 laptop and 1 phone for $1200.'",
+    "output": {
+      "buyer": "Leo",
+      "items": [
+        {
+          "type": "laptop",
+          "quantity": 1
+        },
+        {
+          "type": "phone",
+          "quantity": 1
+        }
+      ],
+      "total_cost": 1200,
+      "currency": "USD"
+    }
+  },
+  {
+    "input": "Translate the following sentence into JSON, noting 'action', 'recipient', and 'items': 'They sent Mary 2 small boxes and 5 large boxes on Monday.'",
+    "output": {
+      "action": "sent",
+      "recipient": "Mary",
+      "day": "Monday",
+      "items": [
+        {
+          "type": "small box",
+          "quantity": 2
+        },
+        {
+          "type": "large box",
+          "quantity": 5
+        }
+      ]
+    }
+  },
+  {
+    "input": "Form a JSON object from the sentence, including keys for 'store', 'products', and 'date': 'On June 10, Sarah bought 10 packets of seeds and 2 garden tools at GreenLeaf.'",
+    "output": {
+      "buyer": "Sarah",
+      "date": "June 10",
+      "store": "GreenLeaf",
+      "items_purchased": [
+        {
+          "type": "packet of seeds",
+          "quantity": 10
+        },
+        {
+          "type": "garden tool",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON representation and include 'transport', 'items', and 'start_date': 'The shipment with 100 cartons of milk and 200 cartons of juice left by truck on August 1st.'",
+    "output": {
+      "transport": "truck",
+      "start_date": "August 1",
+      "items_shipped": [
+        {
+          "type": "carton of milk",
+          "quantity": 100
+        },
+        {
+          "type": "carton of juice",
+          "quantity": 200
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert this car paint options to JSON: 'Available colors for Model X: Metallic Silver (base), Pearl White (+$1000), Midnight Black (+$1000), Racing Red (+$2000, limited edition).'",
+    "output": {
+      "vehicle_colors": {
+        "model": "Model X",
+        "paint_options": [
+          {
+            "name": "Metallic Silver",
+            "type": "base",
+            "additional_cost": 0,
+            "availability": "standard"
+          },
+          {
+            "name": "Pearl White",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Midnight Black",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Racing Red",
+            "type": "premium",
+            "additional_cost": 2000,
+            "availability": "limited edition"
+          }
+        ],
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Reformat into JSON with keys for 'chef', 'ingredients', and 'instructions': 'Chef Anthony used 200 grams of sugar, 300 grams of flour, and 2 eggs to bake a cake.'",
+    "output": {
+      "chef": "Anthony",
+      "ingredients": [
+        {
+          "type": "sugar",
+          "quantity": 200,
+          "unit": "grams"
+        },
+        {
+          "type": "flour",
+          "quantity": 300,
+          "unit": "grams"
+        },
+        {
+          "type": "egg",
+          "quantity": 2,
+          "unit": "pieces"
+        }
+      ],
+      "instructions": "Mix all ingredients and bake."
+    }
+  },
+  {
+    "input": "Produce a JSON object that includes 'sender', 'items_sent', 'delivery_time', and 'special_instructions': 'Rob sent 4 DVDs and 1 CD to Laura, requesting that they arrive by Friday afternoon, marked as fragile.'",
+    "output": {
+      "sender": "Rob",
+      "recipient": "Laura",
+      "items_sent": [
+        {
+          "type": "DVD",
+          "quantity": 4
+        },
+        {
+          "type": "CD",
+          "quantity": 1
+        }
+      ],
+      "delivery_time": "Friday afternoon",
+      "special_instructions": "Fragile"
+    }
+  },
+  {
+    "input": "Convert to JSON including fields 'supplier', 'order_id', 'items', and 'notes': 'Supplier ACME provided order #1234 with 10 light bulbs and 5 lamps, note: handle with care.'",
+    "output": {
+      "supplier": "ACME",
+      "order_id": "1234",
+      "items": [
+        {
+          "type": "light bulb",
+          "quantity": 10
+        },
+        {
+          "type": "lamp",
+          "quantity": 5
+        }
+      ],
+      "notes": "handle with care"
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, ensuring to detail 'warehouse_location', 'products', and a 'reference_code': 'At Warehouse #42, we stored 300 chairs and 150 tables under reference code W42-09.'",
+    "output": {
+      "warehouse_location": "Warehouse #42",
+      "reference_code": "W42-09",
+      "products": [
+        {
+          "type": "chair",
+          "quantity": 300
+        },
+        {
+          "type": "table",
+          "quantity": 150
+        }
+      ]
+    }
+  },
+  {
+    "input": "Make a JSON object from this sentence and include units if possible: 'Elena picked up 5 kilograms of potatoes and 2 kilograms of onions at the local market.'",
+    "output": {
+      "buyer": "Elena",
+      "location": "local market",
+      "items_picked_up": [
+        {
+          "type": "potatoes",
+          "quantity": 5,
+          "unit": "kilograms"
+        },
+        {
+          "type": "onions",
+          "quantity": 2,
+          "unit": "kilograms"
+        }
+      ]
+    }
+  },
+  {
+    "input": "Please provide a JSON representation of this sentence with keys for 'items', 'currency', and 'buyer': 'Leo purchased 1 laptop and 1 phone for $1200.'",
+    "output": {
+      "buyer": "Leo",
+      "items": [
+        {
+          "type": "laptop",
+          "quantity": 1
+        },
+        {
+          "type": "phone",
+          "quantity": 1
+        }
+      ],
+      "total_cost": 1200,
+      "currency": "USD"
+    }
+  },
+  {
+    "input": "Translate the following sentence into JSON, noting 'action', 'recipient', and 'items': 'They sent Mary 2 small boxes and 5 large boxes on Monday.'",
+    "output": {
+      "action": "sent",
+      "recipient": "Mary",
+      "day": "Monday",
+      "items": [
+        {
+          "type": "small box",
+          "quantity": 2
+        },
+        {
+          "type": "large box",
+          "quantity": 5
+        }
+      ]
+    }
+  },
+  {
+    "input": "Form a JSON object from the sentence, including keys for 'store', 'products', and 'date': 'On June 10, Sarah bought 10 packets of seeds and 2 garden tools at GreenLeaf.'",
+    "output": {
+      "buyer": "Sarah",
+      "date": "June 10",
+      "store": "GreenLeaf",
+      "items_purchased": [
+        {
+          "type": "packet of seeds",
+          "quantity": 10
+        },
+        {
+          "type": "garden tool",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON representation and include 'transport', 'items', and 'start_date': 'The shipment with 100 cartons of milk and 200 cartons of juice left by truck on August 1st.'",
+    "output": {
+      "transport": "truck",
+      "start_date": "August 1",
+      "items_shipped": [
+        {
+          "type": "carton of milk",
+          "quantity": 100
+        },
+        {
+          "type": "carton of juice",
+          "quantity": 200
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert this car paint options to JSON: 'Available colors for Model X: Metallic Silver (base), Pearl White (+$1000), Midnight Black (+$1000), Racing Red (+$2000, limited edition).'",
+    "output": {
+      "vehicle_colors": {
+        "model": "Model X",
+        "paint_options": [
+          {
+            "name": "Metallic Silver",
+            "type": "base",
+            "additional_cost": 0,
+            "availability": "standard"
+          },
+          {
+            "name": "Pearl White",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Midnight Black",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Racing Red",
+            "type": "premium",
+            "additional_cost": 2000,
+            "availability": "limited edition"
+          }
+        ],
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Reformat into JSON with keys for 'chef', 'ingredients', and 'instructions': 'Chef Anthony used 200 grams of sugar, 300 grams of flour, and 2 eggs to bake a cake.'",
+    "output": {
+      "chef": "Anthony",
+      "ingredients": [
+        {
+          "type": "sugar",
+          "quantity": 200,
+          "unit": "grams"
+        },
+        {
+          "type": "flour",
+          "quantity": 300,
+          "unit": "grams"
+        },
+        {
+          "type": "egg",
+          "quantity": 2,
+          "unit": "pieces"
+        }
+      ],
+      "instructions": "Mix all ingredients and bake."
+    }
+  },
+  {
+    "input": "Produce a JSON object that includes 'sender', 'items_sent', 'delivery_time', and 'special_instructions': 'Rob sent 4 DVDs and 1 CD to Laura, requesting that they arrive by Friday afternoon, marked as fragile.'",
+    "output": {
+      "sender": "Rob",
+      "recipient": "Laura",
+      "items_sent": [
+        {
+          "type": "DVD",
+          "quantity": 4
+        },
+        {
+          "type": "CD",
+          "quantity": 1
+        }
+      ],
+      "delivery_time": "Friday afternoon",
+      "special_instructions": "Fragile"
+    }
+  },
+  {
+    "input": "Convert to JSON including fields 'supplier', 'order_id', 'items', and 'notes': 'Supplier ACME provided order #1234 with 10 light bulbs and 5 lamps, note: handle with care.'",
+    "output": {
+      "supplier": "ACME",
+      "order_id": "1234",
+      "items": [
+        {
+          "type": "light bulb",
+          "quantity": 10
+        },
+        {
+          "type": "lamp",
+          "quantity": 5
+        }
+      ],
+      "notes": "handle with care"
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, ensuring to detail 'warehouse_location', 'products', and a 'reference_code': 'At Warehouse #42, we stored 300 chairs and 150 tables under reference code W42-09.'",
+    "output": {
+      "warehouse_location": "Warehouse #42",
+      "reference_code": "W42-09",
+      "products": [
+        {
+          "type": "chair",
+          "quantity": 300
+        },
+        {
+          "type": "table",
+          "quantity": 150
+        }
+      ]
+    }
+  },
+  {
+    "input": "Make a JSON object from this sentence and include units if possible: 'Elena picked up 5 kilograms of potatoes and 2 kilograms of onions at the local market.'",
+    "output": {
+      "buyer": "Elena",
+      "location": "local market",
+      "items_picked_up": [
+        {
+          "type": "potatoes",
+          "quantity": 5,
+          "unit": "kilograms"
+        },
+        {
+          "type": "onions",
+          "quantity": 2,
+          "unit": "kilograms"
+        }
+      ]
+    }
+  },
+  {
+    "input": "Please provide a JSON representation of this sentence with keys for 'items', 'currency', and 'buyer': 'Leo purchased 1 laptop and 1 phone for $1200.'",
+    "output": {
+      "buyer": "Leo",
+      "items": [
+        {
+          "type": "laptop",
+          "quantity": 1
+        },
+        {
+          "type": "phone",
+          "quantity": 1
+        }
+      ],
+      "total_cost": 1200,
+      "currency": "USD"
+    }
+  },
+  {
+    "input": "Translate the following sentence into JSON, noting 'action', 'recipient', and 'items': 'They sent Mary 2 small boxes and 5 large boxes on Monday.'",
+    "output": {
+      "action": "sent",
+      "recipient": "Mary",
+      "day": "Monday",
+      "items": [
+        {
+          "type": "small box",
+          "quantity": 2
+        },
+        {
+          "type": "large box",
+          "quantity": 5
+        }
+      ]
+    }
+  },
+  {
+    "input": "Form a JSON object from the sentence, including keys for 'store', 'products', and 'date': 'On June 10, Sarah bought 10 packets of seeds and 2 garden tools at GreenLeaf.'",
+    "output": {
+      "buyer": "Sarah",
+      "date": "June 10",
+      "store": "GreenLeaf",
+      "items_purchased": [
+        {
+          "type": "packet of seeds",
+          "quantity": 10
+        },
+        {
+          "type": "garden tool",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON representation and include 'transport', 'items', and 'start_date': 'The shipment with 100 cartons of milk and 200 cartons of juice left by truck on August 1st.'",
+    "output": {
+      "transport": "truck",
+      "start_date": "August 1",
+      "items_shipped": [
+        {
+          "type": "carton of milk",
+          "quantity": 100
+        },
+        {
+          "type": "carton of juice",
+          "quantity": 200
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert this car paint options to JSON: 'Available colors for Model X: Metallic Silver (base), Pearl White (+$1000), Midnight Black (+$1000), Racing Red (+$2000, limited edition).'",
+    "output": {
+      "vehicle_colors": {
+        "model": "Model X",
+        "paint_options": [
+          {
+            "name": "Metallic Silver",
+            "type": "base",
+            "additional_cost": 0,
+            "availability": "standard"
+          },
+          {
+            "name": "Pearl White",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Midnight Black",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Racing Red",
+            "type": "premium",
+            "additional_cost": 2000,
+            "availability": "limited edition"
+          }
+        ],
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Reformat into JSON with keys for 'chef', 'ingredients', and 'instructions': 'Chef Anthony used 200 grams of sugar, 300 grams of flour, and 2 eggs to bake a cake.'",
+    "output": {
+      "chef": "Anthony",
+      "ingredients": [
+        {
+          "type": "sugar",
+          "quantity": 200,
+          "unit": "grams"
+        },
+        {
+          "type": "flour",
+          "quantity": 300,
+          "unit": "grams"
+        },
+        {
+          "type": "egg",
+          "quantity": 2,
+          "unit": "pieces"
+        }
+      ],
+      "instructions": "Mix all ingredients and bake."
+    }
+  },
+  {
+    "input": "Produce a JSON object that includes 'sender', 'items_sent', 'delivery_time', and 'special_instructions': 'Rob sent 4 DVDs and 1 CD to Laura, requesting that they arrive by Friday afternoon, marked as fragile.'",
+    "output": {
+      "sender": "Rob",
+      "recipient": "Laura",
+      "items_sent": [
+        {
+          "type": "DVD",
+          "quantity": 4
+        },
+        {
+          "type": "CD",
+          "quantity": 1
+        }
+      ],
+      "delivery_time": "Friday afternoon",
+      "special_instructions": "Fragile"
+    }
+  },
+  {
+    "input": "Convert to JSON including fields 'supplier', 'order_id', 'items', and 'notes': 'Supplier ACME provided order #1234 with 10 light bulbs and 5 lamps, note: handle with care.'",
+    "output": {
+      "supplier": "ACME",
+      "order_id": "1234",
+      "items": [
+        {
+          "type": "light bulb",
+          "quantity": 10
+        },
+        {
+          "type": "lamp",
+          "quantity": 5
+        }
+      ],
+      "notes": "handle with care"
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, ensuring to detail 'warehouse_location', 'products', and a 'reference_code': 'At Warehouse #42, we stored 300 chairs and 150 tables under reference code W42-09.'",
+    "output": {
+      "warehouse_location": "Warehouse #42",
+      "reference_code": "W42-09",
+      "products": [
+        {
+          "type": "chair",
+          "quantity": 300
+        },
+        {
+          "type": "table",
+          "quantity": 150
+        }
+      ]
+    }
+  },
+  {
+    "input": "Make a JSON object from this sentence and include units if possible: 'Elena picked up 5 kilograms of potatoes and 2 kilograms of onions at the local market.'",
+    "output": {
+      "buyer": "Elena",
+      "location": "local market",
+      "items_picked_up": [
+        {
+          "type": "potatoes",
+          "quantity": 5,
+          "unit": "kilograms"
+        },
+        {
+          "type": "onions",
+          "quantity": 2,
+          "unit": "kilograms"
+        }
+      ]
+    }
+  },
+  {
+    "input": "Please provide a JSON representation of this sentence with keys for 'items', 'currency', and 'buyer': 'Leo purchased 1 laptop and 1 phone for $1200.'",
+    "output": {
+      "buyer": "Leo",
+      "items": [
+        {
+          "type": "laptop",
+          "quantity": 1
+        },
+        {
+          "type": "phone",
+          "quantity": 1
+        }
+      ],
+      "total_cost": 1200,
+      "currency": "USD"
+    }
+  },
+  {
+    "input": "Translate the following sentence into JSON, noting 'action', 'recipient', and 'items': 'They sent Mary 2 small boxes and 5 large boxes on Monday.'",
+    "output": {
+      "action": "sent",
+      "recipient": "Mary",
+      "day": "Monday",
+      "items": [
+        {
+          "type": "small box",
+          "quantity": 2
+        },
+        {
+          "type": "large box",
+          "quantity": 5
+        }
+      ]
+    }
+  },
+  {
+    "input": "Form a JSON object from the sentence, including keys for 'store', 'products', and 'date': 'On June 10, Sarah bought 10 packets of seeds and 2 garden tools at GreenLeaf.'",
+    "output": {
+      "buyer": "Sarah",
+      "date": "June 10",
+      "store": "GreenLeaf",
+      "items_purchased": [
+        {
+          "type": "packet of seeds",
+          "quantity": 10
+        },
+        {
+          "type": "garden tool",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON representation and include 'transport', 'items', and 'start_date': 'The shipment with 100 cartons of milk and 200 cartons of juice left by truck on August 1st.'",
+    "output": {
+      "transport": "truck",
+      "start_date": "August 1",
+      "items_shipped": [
+        {
+          "type": "carton of milk",
+          "quantity": 100
+        },
+        {
+          "type": "carton of juice",
+          "quantity": 200
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert this car paint options to JSON: 'Available colors for Model X: Metallic Silver (base), Pearl White (+$1000), Midnight Black (+$1000), Racing Red (+$2000, limited edition).'",
+    "output": {
+      "vehicle_colors": {
+        "model": "Model X",
+        "paint_options": [
+          {
+            "name": "Metallic Silver",
+            "type": "base",
+            "additional_cost": 0,
+            "availability": "standard"
+          },
+          {
+            "name": "Pearl White",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Midnight Black",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Racing Red",
+            "type": "premium",
+            "additional_cost": 2000,
+            "availability": "limited edition"
+          }
+        ],
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Reformat into JSON with keys for 'chef', 'ingredients', and 'instructions': 'Chef Anthony used 200 grams of sugar, 300 grams of flour, and 2 eggs to bake a cake.'",
+    "output": {
+      "chef": "Anthony",
+      "ingredients": [
+        {
+          "type": "sugar",
+          "quantity": 200,
+          "unit": "grams"
+        },
+        {
+          "type": "flour",
+          "quantity": 300,
+          "unit": "grams"
+        },
+        {
+          "type": "egg",
+          "quantity": 2,
+          "unit": "pieces"
+        }
+      ],
+      "instructions": "Mix all ingredients and bake."
+    }
+  },
+  {
+    "input": "Produce a JSON object that includes 'sender', 'items_sent', 'delivery_time', and 'special_instructions': 'Rob sent 4 DVDs and 1 CD to Laura, requesting that they arrive by Friday afternoon, marked as fragile.'",
+    "output": {
+      "sender": "Rob",
+      "recipient": "Laura",
+      "items_sent": [
+        {
+          "type": "DVD",
+          "quantity": 4
+        },
+        {
+          "type": "CD",
+          "quantity": 1
+        }
+      ],
+      "delivery_time": "Friday afternoon",
+      "special_instructions": "Fragile"
+    }
+  },
+  {
+    "input": "Convert to JSON including fields 'supplier', 'order_id', 'items', and 'notes': 'Supplier ACME provided order #1234 with 10 light bulbs and 5 lamps, note: handle with care.'",
+    "output": {
+      "supplier": "ACME",
+      "order_id": "1234",
+      "items": [
+        {
+          "type": "light bulb",
+          "quantity": 10
+        },
+        {
+          "type": "lamp",
+          "quantity": 5
+        }
+      ],
+      "notes": "handle with care"
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, ensuring to detail 'warehouse_location', 'products', and a 'reference_code': 'At Warehouse #42, we stored 300 chairs and 150 tables under reference code W42-09.'",
+    "output": {
+      "warehouse_location": "Warehouse #42",
+      "reference_code": "W42-09",
+      "products": [
+        {
+          "type": "chair",
+          "quantity": 300
+        },
+        {
+          "type": "table",
+          "quantity": 150
+        }
+      ]
+    }
+  },
+  {
+    "input": "Make a JSON object from this sentence and include units if possible: 'Elena picked up 5 kilograms of potatoes and 2 kilograms of onions at the local market.'",
+    "output": {
+      "buyer": "Elena",
+      "location": "local market",
+      "items_picked_up": [
+        {
+          "type": "potatoes",
+          "quantity": 5,
+          "unit": "kilograms"
+        },
+        {
+          "type": "onions",
+          "quantity": 2,
+          "unit": "kilograms"
+        }
+      ]
+    }
+  },
+  {
+    "input": "Please provide a JSON representation of this sentence with keys for 'items', 'currency', and 'buyer': 'Leo purchased 1 laptop and 1 phone for $1200.'",
+    "output": {
+      "buyer": "Leo",
+      "items": [
+        {
+          "type": "laptop",
+          "quantity": 1
+        },
+        {
+          "type": "phone",
+          "quantity": 1
+        }
+      ],
+      "total_cost": 1200,
+      "currency": "USD"
+    }
+  },
+  {
+    "input": "Translate the following sentence into JSON, noting 'action', 'recipient', and 'items': 'They sent Mary 2 small boxes and 5 large boxes on Monday.'",
+    "output": {
+      "action": "sent",
+      "recipient": "Mary",
+      "day": "Monday",
+      "items": [
+        {
+          "type": "small box",
+          "quantity": 2
+        },
+        {
+          "type": "large box",
+          "quantity": 5
+        }
+      ]
+    }
+  },
+  {
+    "input": "Form a JSON object from the sentence, including keys for 'store', 'products', and 'date': 'On June 10, Sarah bought 10 packets of seeds and 2 garden tools at GreenLeaf.'",
+    "output": {
+      "buyer": "Sarah",
+      "date": "June 10",
+      "store": "GreenLeaf",
+      "items_purchased": [
+        {
+          "type": "packet of seeds",
+          "quantity": 10
+        },
+        {
+          "type": "garden tool",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON representation and include 'transport', 'items', and 'start_date': 'The shipment with 100 cartons of milk and 200 cartons of juice left by truck on August 1st.'",
+    "output": {
+      "transport": "truck",
+      "start_date": "August 1",
+      "items_shipped": [
+        {
+          "type": "carton of milk",
+          "quantity": 100
+        },
+        {
+          "type": "carton of juice",
+          "quantity": 200
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert this car paint options to JSON: 'Available colors for Model X: Metallic Silver (base), Pearl White (+$1000), Midnight Black (+$1000), Racing Red (+$2000, limited edition).'",
+    "output": {
+      "vehicle_colors": {
+        "model": "Model X",
+        "paint_options": [
+          {
+            "name": "Metallic Silver",
+            "type": "base",
+            "additional_cost": 0,
+            "availability": "standard"
+          },
+          {
+            "name": "Pearl White",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Midnight Black",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Racing Red",
+            "type": "premium",
+            "additional_cost": 2000,
+            "availability": "limited edition"
+          }
+        ],
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Reformat into JSON with keys for 'chef', 'ingredients', and 'instructions': 'Chef Anthony used 200 grams of sugar, 300 grams of flour, and 2 eggs to bake a cake.'",
+    "output": {
+      "chef": "Anthony",
+      "ingredients": [
+        {
+          "type": "sugar",
+          "quantity": 200,
+          "unit": "grams"
+        },
+        {
+          "type": "flour",
+          "quantity": 300,
+          "unit": "grams"
+        },
+        {
+          "type": "egg",
+          "quantity": 2,
+          "unit": "pieces"
+        }
+      ],
+      "instructions": "Mix all ingredients and bake."
+    }
+  },
+  {
+    "input": "Produce a JSON object that includes 'sender', 'items_sent', 'delivery_time', and 'special_instructions': 'Rob sent 4 DVDs and 1 CD to Laura, requesting that they arrive by Friday afternoon, marked as fragile.'",
+    "output": {
+      "sender": "Rob",
+      "recipient": "Laura",
+      "items_sent": [
+        {
+          "type": "DVD",
+          "quantity": 4
+        },
+        {
+          "type": "CD",
+          "quantity": 1
+        }
+      ],
+      "delivery_time": "Friday afternoon",
+      "special_instructions": "Fragile"
+    }
+  },
+  {
+    "input": "Convert to JSON including fields 'supplier', 'order_id', 'items', and 'notes': 'Supplier ACME provided order #1234 with 10 light bulbs and 5 lamps, note: handle with care.'",
+    "output": {
+      "supplier": "ACME",
+      "order_id": "1234",
+      "items": [
+        {
+          "type": "light bulb",
+          "quantity": 10
+        },
+        {
+          "type": "lamp",
+          "quantity": 5
+        }
+      ],
+      "notes": "handle with care"
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, ensuring to detail 'warehouse_location', 'products', and a 'reference_code': 'At Warehouse #42, we stored 300 chairs and 150 tables under reference code W42-09.'",
+    "output": {
+      "warehouse_location": "Warehouse #42",
+      "reference_code": "W42-09",
+      "products": [
+        {
+          "type": "chair",
+          "quantity": 300
+        },
+        {
+          "type": "table",
+          "quantity": 150
+        }
+      ]
+    }
+  },
+  {
+    "input": "Make a JSON object from this sentence and include units if possible: 'Elena picked up 5 kilograms of potatoes and 2 kilograms of onions at the local market.'",
+    "output": {
+      "buyer": "Elena",
+      "location": "local market",
+      "items_picked_up": [
+        {
+          "type": "potatoes",
+          "quantity": 5,
+          "unit": "kilograms"
+        },
+        {
+          "type": "onions",
+          "quantity": 2,
+          "unit": "kilograms"
+        }
+      ]
+    }
+  },
+  {
+    "input": "Please provide a JSON representation of this sentence with keys for 'items', 'currency', and 'buyer': 'Leo purchased 1 laptop and 1 phone for $1200.'",
+    "output": {
+      "buyer": "Leo",
+      "items": [
+        {
+          "type": "laptop",
+          "quantity": 1
+        },
+        {
+          "type": "phone",
+          "quantity": 1
+        }
+      ],
+      "total_cost": 1200,
+      "currency": "USD"
+    }
+  },
+  {
+    "input": "Translate the following sentence into JSON, noting 'action', 'recipient', and 'items': 'They sent Mary 2 small boxes and 5 large boxes on Monday.'",
+    "output": {
+      "action": "sent",
+      "recipient": "Mary",
+      "day": "Monday",
+      "items": [
+        {
+          "type": "small box",
+          "quantity": 2
+        },
+        {
+          "type": "large box",
+          "quantity": 5
+        }
+      ]
+    }
+  },
+  {
+    "input": "Form a JSON object from the sentence, including keys for 'store', 'products', and 'date': 'On June 10, Sarah bought 10 packets of seeds and 2 garden tools at GreenLeaf.'",
+    "output": {
+      "buyer": "Sarah",
+      "date": "June 10",
+      "store": "GreenLeaf",
+      "items_purchased": [
+        {
+          "type": "packet of seeds",
+          "quantity": 10
+        },
+        {
+          "type": "garden tool",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON representation and include 'transport', 'items', and 'start_date': 'The shipment with 100 cartons of milk and 200 cartons of juice left by truck on August 1st.'",
+    "output": {
+      "transport": "truck",
+      "start_date": "August 1",
+      "items_shipped": [
+        {
+          "type": "carton of milk",
+          "quantity": 100
+        },
+        {
+          "type": "carton of juice",
+          "quantity": 200
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert this car paint options to JSON: 'Available colors for Model X: Metallic Silver (base), Pearl White (+$1000), Midnight Black (+$1000), Racing Red (+$2000, limited edition).'",
+    "output": {
+      "vehicle_colors": {
+        "model": "Model X",
+        "paint_options": [
+          {
+            "name": "Metallic Silver",
+            "type": "base",
+            "additional_cost": 0,
+            "availability": "standard"
+          },
+          {
+            "name": "Pearl White",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Midnight Black",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Racing Red",
+            "type": "premium",
+            "additional_cost": 2000,
+            "availability": "limited edition"
+          }
+        ],
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Reformat into JSON with keys for 'chef', 'ingredients', and 'instructions': 'Chef Anthony used 200 grams of sugar, 300 grams of flour, and 2 eggs to bake a cake.'",
+    "output": {
+      "chef": "Anthony",
+      "ingredients": [
+        {
+          "type": "sugar",
+          "quantity": 200,
+          "unit": "grams"
+        },
+        {
+          "type": "flour",
+          "quantity": 300,
+          "unit": "grams"
+        },
+        {
+          "type": "egg",
+          "quantity": 2,
+          "unit": "pieces"
+        }
+      ],
+      "instructions": "Mix all ingredients and bake."
+    }
+  },
+  {
+    "input": "Produce a JSON object that includes 'sender', 'items_sent', 'delivery_time', and 'special_instructions': 'Rob sent 4 DVDs and 1 CD to Laura, requesting that they arrive by Friday afternoon, marked as fragile.'",
+    "output": {
+      "sender": "Rob",
+      "recipient": "Laura",
+      "items_sent": [
+        {
+          "type": "DVD",
+          "quantity": 4
+        },
+        {
+          "type": "CD",
+          "quantity": 1
+        }
+      ],
+      "delivery_time": "Friday afternoon",
+      "special_instructions": "Fragile"
+    }
+  },
+  {
+    "input": "Convert to JSON including fields 'supplier', 'order_id', 'items', and 'notes': 'Supplier ACME provided order #1234 with 10 light bulbs and 5 lamps, note: handle with care.'",
+    "output": {
+      "supplier": "ACME",
+      "order_id": "1234",
+      "items": [
+        {
+          "type": "light bulb",
+          "quantity": 10
+        },
+        {
+          "type": "lamp",
+          "quantity": 5
+        }
+      ],
+      "notes": "handle with care"
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, ensuring to detail 'warehouse_location', 'products', and a 'reference_code': 'At Warehouse #42, we stored 300 chairs and 150 tables under reference code W42-09.'",
+    "output": {
+      "warehouse_location": "Warehouse #42",
+      "reference_code": "W42-09",
+      "products": [
+        {
+          "type": "chair",
+          "quantity": 300
+        },
+        {
+          "type": "table",
+          "quantity": 150
+        }
+      ]
+    }
+  },
+  {
+    "input": "Make a JSON object from this sentence and include units if possible: 'Elena picked up 5 kilograms of potatoes and 2 kilograms of onions at the local market.'",
+    "output": {
+      "buyer": "Elena",
+      "location": "local market",
+      "items_picked_up": [
+        {
+          "type": "potatoes",
+          "quantity": 5,
+          "unit": "kilograms"
+        },
+        {
+          "type": "onions",
+          "quantity": 2,
+          "unit": "kilograms"
+        }
+      ]
+    }
+  },
+  {
+    "input": "Please provide a JSON representation of this sentence with keys for 'items', 'currency', and 'buyer': 'Leo purchased 1 laptop and 1 phone for $1200.'",
+    "output": {
+      "buyer": "Leo",
+      "items": [
+        {
+          "type": "laptop",
+          "quantity": 1
+        },
+        {
+          "type": "phone",
+          "quantity": 1
+        }
+      ],
+      "total_cost": 1200,
+      "currency": "USD"
+    }
+  },
+  {
+    "input": "Translate the following sentence into JSON, noting 'action', 'recipient', and 'items': 'They sent Mary 2 small boxes and 5 large boxes on Monday.'",
+    "output": {
+      "action": "sent",
+      "recipient": "Mary",
+      "day": "Monday",
+      "items": [
+        {
+          "type": "small box",
+          "quantity": 2
+        },
+        {
+          "type": "large box",
+          "quantity": 5
+        }
+      ]
+    }
+  },
+  {
+    "input": "Form a JSON object from the sentence, including keys for 'store', 'products', and 'date': 'On June 10, Sarah bought 10 packets of seeds and 2 garden tools at GreenLeaf.'",
+    "output": {
+      "buyer": "Sarah",
+      "date": "June 10",
+      "store": "GreenLeaf",
+      "items_purchased": [
+        {
+          "type": "packet of seeds",
+          "quantity": 10
+        },
+        {
+          "type": "garden tool",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON representation and include 'transport', 'items', and 'start_date': 'The shipment with 100 cartons of milk and 200 cartons of juice left by truck on August 1st.'",
+    "output": {
+      "transport": "truck",
+      "start_date": "August 1",
+      "items_shipped": [
+        {
+          "type": "carton of milk",
+          "quantity": 100
+        },
+        {
+          "type": "carton of juice",
+          "quantity": 200
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert this car paint options to JSON: 'Available colors for Model X: Metallic Silver (base), Pearl White (+$1000), Midnight Black (+$1000), Racing Red (+$2000, limited edition).'",
+    "output": {
+      "vehicle_colors": {
+        "model": "Model X",
+        "paint_options": [
+          {
+            "name": "Metallic Silver",
+            "type": "base",
+            "additional_cost": 0,
+            "availability": "standard"
+          },
+          {
+            "name": "Pearl White",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Midnight Black",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Racing Red",
+            "type": "premium",
+            "additional_cost": 2000,
+            "availability": "limited edition"
+          }
+        ],
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Reformat into JSON with keys for 'chef', 'ingredients', and 'instructions': 'Chef Anthony used 200 grams of sugar, 300 grams of flour, and 2 eggs to bake a cake.'",
+    "output": {
+      "chef": "Anthony",
+      "ingredients": [
+        {
+          "type": "sugar",
+          "quantity": 200,
+          "unit": "grams"
+        },
+        {
+          "type": "flour",
+          "quantity": 300,
+          "unit": "grams"
+        },
+        {
+          "type": "egg",
+          "quantity": 2,
+          "unit": "pieces"
+        }
+      ],
+      "instructions": "Mix all ingredients and bake."
+    }
+  },
+  {
+    "input": "Produce a JSON object that includes 'sender', 'items_sent', 'delivery_time', and 'special_instructions': 'Rob sent 4 DVDs and 1 CD to Laura, requesting that they arrive by Friday afternoon, marked as fragile.'",
+    "output": {
+      "sender": "Rob",
+      "recipient": "Laura",
+      "items_sent": [
+        {
+          "type": "DVD",
+          "quantity": 4
+        },
+        {
+          "type": "CD",
+          "quantity": 1
+        }
+      ],
+      "delivery_time": "Friday afternoon",
+      "special_instructions": "Fragile"
+    }
+  },
+  {
+    "input": "Convert to JSON including fields 'supplier', 'order_id', 'items', and 'notes': 'Supplier ACME provided order #1234 with 10 light bulbs and 5 lamps, note: handle with care.'",
+    "output": {
+      "supplier": "ACME",
+      "order_id": "1234",
+      "items": [
+        {
+          "type": "light bulb",
+          "quantity": 10
+        },
+        {
+          "type": "lamp",
+          "quantity": 5
+        }
+      ],
+      "notes": "handle with care"
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, ensuring to detail 'warehouse_location', 'products', and a 'reference_code': 'At Warehouse #42, we stored 300 chairs and 150 tables under reference code W42-09.'",
+    "output": {
+      "warehouse_location": "Warehouse #42",
+      "reference_code": "W42-09",
+      "products": [
+        {
+          "type": "chair",
+          "quantity": 300
+        },
+        {
+          "type": "table",
+          "quantity": 150
+        }
+      ]
+    }
+  },
+  {
+    "input": "Make a JSON object from this sentence and include units if possible: 'Elena picked up 5 kilograms of potatoes and 2 kilograms of onions at the local market.'",
+    "output": {
+      "buyer": "Elena",
+      "location": "local market",
+      "items_picked_up": [
+        {
+          "type": "potatoes",
+          "quantity": 5,
+          "unit": "kilograms"
+        },
+        {
+          "type": "onions",
+          "quantity": 2,
+          "unit": "kilograms"
+        }
+      ]
+    }
+  },
+  {
+    "input": "Please provide a JSON representation of this sentence with keys for 'items', 'currency', and 'buyer': 'Leo purchased 1 laptop and 1 phone for $1200.'",
+    "output": {
+      "buyer": "Leo",
+      "items": [
+        {
+          "type": "laptop",
+          "quantity": 1
+        },
+        {
+          "type": "phone",
+          "quantity": 1
+        }
+      ],
+      "total_cost": 1200,
+      "currency": "USD"
+    }
+  },
+  {
+    "input": "Translate the following sentence into JSON, noting 'action', 'recipient', and 'items': 'They sent Mary 2 small boxes and 5 large boxes on Monday.'",
+    "output": {
+      "action": "sent",
+      "recipient": "Mary",
+      "day": "Monday",
+      "items": [
+        {
+          "type": "small box",
+          "quantity": 2
+        },
+        {
+          "type": "large box",
+          "quantity": 5
+        }
+      ]
+    }
+  },
+  {
+    "input": "Form a JSON object from the sentence, including keys for 'store', 'products', and 'date': 'On June 10, Sarah bought 10 packets of seeds and 2 garden tools at GreenLeaf.'",
+    "output": {
+      "buyer": "Sarah",
+      "date": "June 10",
+      "store": "GreenLeaf",
+      "items_purchased": [
+        {
+          "type": "packet of seeds",
+          "quantity": 10
+        },
+        {
+          "type": "garden tool",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON representation and include 'transport', 'items', and 'start_date': 'The shipment with 100 cartons of milk and 200 cartons of juice left by truck on August 1st.'",
+    "output": {
+      "transport": "truck",
+      "start_date": "August 1",
+      "items_shipped": [
+        {
+          "type": "carton of milk",
+          "quantity": 100
+        },
+        {
+          "type": "carton of juice",
+          "quantity": 200
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert this car paint options to JSON: 'Available colors for Model X: Metallic Silver (base), Pearl White (+$1000), Midnight Black (+$1000), Racing Red (+$2000, limited edition).'",
+    "output": {
+      "vehicle_colors": {
+        "model": "Model X",
+        "paint_options": [
+          {
+            "name": "Metallic Silver",
+            "type": "base",
+            "additional_cost": 0,
+            "availability": "standard"
+          },
+          {
+            "name": "Pearl White",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Midnight Black",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Racing Red",
+            "type": "premium",
+            "additional_cost": 2000,
+            "availability": "limited edition"
+          }
+        ],
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Reformat into JSON with keys for 'chef', 'ingredients', and 'instructions': 'Chef Anthony used 200 grams of sugar, 300 grams of flour, and 2 eggs to bake a cake.'",
+    "output": {
+      "chef": "Anthony",
+      "ingredients": [
+        {
+          "type": "sugar",
+          "quantity": 200,
+          "unit": "grams"
+        },
+        {
+          "type": "flour",
+          "quantity": 300,
+          "unit": "grams"
+        },
+        {
+          "type": "egg",
+          "quantity": 2,
+          "unit": "pieces"
+        }
+      ],
+      "instructions": "Mix all ingredients and bake."
+    }
+  },
+  {
+    "input": "Produce a JSON object that includes 'sender', 'items_sent', 'delivery_time', and 'special_instructions': 'Rob sent 4 DVDs and 1 CD to Laura, requesting that they arrive by Friday afternoon, marked as fragile.'",
+    "output": {
+      "sender": "Rob",
+      "recipient": "Laura",
+      "items_sent": [
+        {
+          "type": "DVD",
+          "quantity": 4
+        },
+        {
+          "type": "CD",
+          "quantity": 1
+        }
+      ],
+      "delivery_time": "Friday afternoon",
+      "special_instructions": "Fragile"
+    }
+  },
+  {
+    "input": "Convert to JSON including fields 'supplier', 'order_id', 'items', and 'notes': 'Supplier ACME provided order #1234 with 10 light bulbs and 5 lamps, note: handle with care.'",
+    "output": {
+      "supplier": "ACME",
+      "order_id": "1234",
+      "items": [
+        {
+          "type": "light bulb",
+          "quantity": 10
+        },
+        {
+          "type": "lamp",
+          "quantity": 5
+        }
+      ],
+      "notes": "handle with care"
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, ensuring to detail 'warehouse_location', 'products', and a 'reference_code': 'At Warehouse #42, we stored 300 chairs and 150 tables under reference code W42-09.'",
+    "output": {
+      "warehouse_location": "Warehouse #42",
+      "reference_code": "W42-09",
+      "products": [
+        {
+          "type": "chair",
+          "quantity": 300
+        },
+        {
+          "type": "table",
+          "quantity": 150
+        }
+      ]
+    }
+  },
+  {
+    "input": "Make a JSON object from this sentence and include units if possible: 'Elena picked up 5 kilograms of potatoes and 2 kilograms of onions at the local market.'",
+    "output": {
+      "buyer": "Elena",
+      "location": "local market",
+      "items_picked_up": [
+        {
+          "type": "potatoes",
+          "quantity": 5,
+          "unit": "kilograms"
+        },
+        {
+          "type": "onions",
+          "quantity": 2,
+          "unit": "kilograms"
+        }
+      ]
+    }
+  },
+  {
+    "input": "Please provide a JSON representation of this sentence with keys for 'items', 'currency', and 'buyer': 'Leo purchased 1 laptop and 1 phone for $1200.'",
+    "output": {
+      "buyer": "Leo",
+      "items": [
+        {
+          "type": "laptop",
+          "quantity": 1
+        },
+        {
+          "type": "phone",
+          "quantity": 1
+        }
+      ],
+      "total_cost": 1200,
+      "currency": "USD"
+    }
+  },
+  {
+    "input": "Translate the following sentence into JSON, noting 'action', 'recipient', and 'items': 'They sent Mary 2 small boxes and 5 large boxes on Monday.'",
+    "output": {
+      "action": "sent",
+      "recipient": "Mary",
+      "day": "Monday",
+      "items": [
+        {
+          "type": "small box",
+          "quantity": 2
+        },
+        {
+          "type": "large box",
+          "quantity": 5
+        }
+      ]
+    }
+  },
+  {
+    "input": "Form a JSON object from the sentence, including keys for 'store', 'products', and 'date': 'On June 10, Sarah bought 10 packets of seeds and 2 garden tools at GreenLeaf.'",
+    "output": {
+      "buyer": "Sarah",
+      "date": "June 10",
+      "store": "GreenLeaf",
+      "items_purchased": [
+        {
+          "type": "packet of seeds",
+          "quantity": 10
+        },
+        {
+          "type": "garden tool",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON representation and include 'transport', 'items', and 'start_date': 'The shipment with 100 cartons of milk and 200 cartons of juice left by truck on August 1st.'",
+    "output": {
+      "transport": "truck",
+      "start_date": "August 1",
+      "items_shipped": [
+        {
+          "type": "carton of milk",
+          "quantity": 100
+        },
+        {
+          "type": "carton of juice",
+          "quantity": 200
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert this car paint options to JSON: 'Available colors for Model X: Metallic Silver (base), Pearl White (+$1000), Midnight Black (+$1000), Racing Red (+$2000, limited edition).'",
+    "output": {
+      "vehicle_colors": {
+        "model": "Model X",
+        "paint_options": [
+          {
+            "name": "Metallic Silver",
+            "type": "base",
+            "additional_cost": 0,
+            "availability": "standard"
+          },
+          {
+            "name": "Pearl White",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Midnight Black",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Racing Red",
+            "type": "premium",
+            "additional_cost": 2000,
+            "availability": "limited edition"
+          }
+        ],
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Reformat into JSON with keys for 'chef', 'ingredients', and 'instructions': 'Chef Anthony used 200 grams of sugar, 300 grams of flour, and 2 eggs to bake a cake.'",
+    "output": {
+      "chef": "Anthony",
+      "ingredients": [
+        {
+          "type": "sugar",
+          "quantity": 200,
+          "unit": "grams"
+        },
+        {
+          "type": "flour",
+          "quantity": 300,
+          "unit": "grams"
+        },
+        {
+          "type": "egg",
+          "quantity": 2,
+          "unit": "pieces"
+        }
+      ],
+      "instructions": "Mix all ingredients and bake."
+    }
+  },
+  {
+    "input": "Produce a JSON object that includes 'sender', 'items_sent', 'delivery_time', and 'special_instructions': 'Rob sent 4 DVDs and 1 CD to Laura, requesting that they arrive by Friday afternoon, marked as fragile.'",
+    "output": {
+      "sender": "Rob",
+      "recipient": "Laura",
+      "items_sent": [
+        {
+          "type": "DVD",
+          "quantity": 4
+        },
+        {
+          "type": "CD",
+          "quantity": 1
+        }
+      ],
+      "delivery_time": "Friday afternoon",
+      "special_instructions": "Fragile"
+    }
+  },
+  {
+    "input": "Convert to JSON including fields 'supplier', 'order_id', 'items', and 'notes': 'Supplier ACME provided order #1234 with 10 light bulbs and 5 lamps, note: handle with care.'",
+    "output": {
+      "supplier": "ACME",
+      "order_id": "1234",
+      "items": [
+        {
+          "type": "light bulb",
+          "quantity": 10
+        },
+        {
+          "type": "lamp",
+          "quantity": 5
+        }
+      ],
+      "notes": "handle with care"
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, ensuring to detail 'warehouse_location', 'products', and a 'reference_code': 'At Warehouse #42, we stored 300 chairs and 150 tables under reference code W42-09.'",
+    "output": {
+      "warehouse_location": "Warehouse #42",
+      "reference_code": "W42-09",
+      "products": [
+        {
+          "type": "chair",
+          "quantity": 300
+        },
+        {
+          "type": "table",
+          "quantity": 150
+        }
+      ]
+    }
+  },
+  {
+    "input": "Make a JSON object from this sentence and include units if possible: 'Elena picked up 5 kilograms of potatoes and 2 kilograms of onions at the local market.'",
+    "output": {
+      "buyer": "Elena",
+      "location": "local market",
+      "items_picked_up": [
+        {
+          "type": "potatoes",
+          "quantity": 5,
+          "unit": "kilograms"
+        },
+        {
+          "type": "onions",
+          "quantity": 2,
+          "unit": "kilograms"
+        }
+      ]
+    }
+  },
+  {
+    "input": "Please provide a JSON representation of this sentence with keys for 'items', 'currency', and 'buyer': 'Leo purchased 1 laptop and 1 phone for $1200.'",
+    "output": {
+      "buyer": "Leo",
+      "items": [
+        {
+          "type": "laptop",
+          "quantity": 1
+        },
+        {
+          "type": "phone",
+          "quantity": 1
+        }
+      ],
+      "total_cost": 1200,
+      "currency": "USD"
+    }
+  },
+  {
+    "input": "Translate the following sentence into JSON, noting 'action', 'recipient', and 'items': 'They sent Mary 2 small boxes and 5 large boxes on Monday.'",
+    "output": {
+      "action": "sent",
+      "recipient": "Mary",
+      "day": "Monday",
+      "items": [
+        {
+          "type": "small box",
+          "quantity": 2
+        },
+        {
+          "type": "large box",
+          "quantity": 5
+        }
+      ]
+    }
+  },
+  {
+    "input": "Form a JSON object from the sentence, including keys for 'store', 'products', and 'date': 'On June 10, Sarah bought 10 packets of seeds and 2 garden tools at GreenLeaf.'",
+    "output": {
+      "buyer": "Sarah",
+      "date": "June 10",
+      "store": "GreenLeaf",
+      "items_purchased": [
+        {
+          "type": "packet of seeds",
+          "quantity": 10
+        },
+        {
+          "type": "garden tool",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON representation and include 'transport', 'items', and 'start_date': 'The shipment with 100 cartons of milk and 200 cartons of juice left by truck on August 1st.'",
+    "output": {
+      "transport": "truck",
+      "start_date": "August 1",
+      "items_shipped": [
+        {
+          "type": "carton of milk",
+          "quantity": 100
+        },
+        {
+          "type": "carton of juice",
+          "quantity": 200
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert this car paint options to JSON: 'Available colors for Model X: Metallic Silver (base), Pearl White (+$1000), Midnight Black (+$1000), Racing Red (+$2000, limited edition).'",
+    "output": {
+      "vehicle_colors": {
+        "model": "Model X",
+        "paint_options": [
+          {
+            "name": "Metallic Silver",
+            "type": "base",
+            "additional_cost": 0,
+            "availability": "standard"
+          },
+          {
+            "name": "Pearl White",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Midnight Black",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Racing Red",
+            "type": "premium",
+            "additional_cost": 2000,
+            "availability": "limited edition"
+          }
+        ],
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Reformat into JSON with keys for 'chef', 'ingredients', and 'instructions': 'Chef Anthony used 200 grams of sugar, 300 grams of flour, and 2 eggs to bake a cake.'",
+    "output": {
+      "chef": "Anthony",
+      "ingredients": [
+        {
+          "type": "sugar",
+          "quantity": 200,
+          "unit": "grams"
+        },
+        {
+          "type": "flour",
+          "quantity": 300,
+          "unit": "grams"
+        },
+        {
+          "type": "egg",
+          "quantity": 2,
+          "unit": "pieces"
+        }
+      ],
+      "instructions": "Mix all ingredients and bake."
+    }
+  },
+  {
+    "input": "Produce a JSON object that includes 'sender', 'items_sent', 'delivery_time', and 'special_instructions': 'Rob sent 4 DVDs and 1 CD to Laura, requesting that they arrive by Friday afternoon, marked as fragile.'",
+    "output": {
+      "sender": "Rob",
+      "recipient": "Laura",
+      "items_sent": [
+        {
+          "type": "DVD",
+          "quantity": 4
+        },
+        {
+          "type": "CD",
+          "quantity": 1
+        }
+      ],
+      "delivery_time": "Friday afternoon",
+      "special_instructions": "Fragile"
+    }
+  },
+  {
+    "input": "Convert to JSON including fields 'supplier', 'order_id', 'items', and 'notes': 'Supplier ACME provided order #1234 with 10 light bulbs and 5 lamps, note: handle with care.'",
+    "output": {
+      "supplier": "ACME",
+      "order_id": "1234",
+      "items": [
+        {
+          "type": "light bulb",
+          "quantity": 10
+        },
+        {
+          "type": "lamp",
+          "quantity": 5
+        }
+      ],
+      "notes": "handle with care"
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, ensuring to detail 'warehouse_location', 'products', and a 'reference_code': 'At Warehouse #42, we stored 300 chairs and 150 tables under reference code W42-09.'",
+    "output": {
+      "warehouse_location": "Warehouse #42",
+      "reference_code": "W42-09",
+      "products": [
+        {
+          "type": "chair",
+          "quantity": 300
+        },
+        {
+          "type": "table",
+          "quantity": 150
+        }
+      ]
+    }
+  },
+  {
+    "input": "Make a JSON object from this sentence and include units if possible: 'Elena picked up 5 kilograms of potatoes and 2 kilograms of onions at the local market.'",
+    "output": {
+      "buyer": "Elena",
+      "location": "local market",
+      "items_picked_up": [
+        {
+          "type": "potatoes",
+          "quantity": 5,
+          "unit": "kilograms"
+        },
+        {
+          "type": "onions",
+          "quantity": 2,
+          "unit": "kilograms"
+        }
+      ]
+    }
+  },
+  {
+    "input": "Please provide a JSON representation of this sentence with keys for 'items', 'currency', and 'buyer': 'Leo purchased 1 laptop and 1 phone for $1200.'",
+    "output": {
+      "buyer": "Leo",
+      "items": [
+        {
+          "type": "laptop",
+          "quantity": 1
+        },
+        {
+          "type": "phone",
+          "quantity": 1
+        }
+      ],
+      "total_cost": 1200,
+      "currency": "USD"
+    }
+  },
+  {
+    "input": "Translate the following sentence into JSON, noting 'action', 'recipient', and 'items': 'They sent Mary 2 small boxes and 5 large boxes on Monday.'",
+    "output": {
+      "action": "sent",
+      "recipient": "Mary",
+      "day": "Monday",
+      "items": [
+        {
+          "type": "small box",
+          "quantity": 2
+        },
+        {
+          "type": "large box",
+          "quantity": 5
+        }
+      ]
+    }
+  },
+  {
+    "input": "Form a JSON object from the sentence, including keys for 'store', 'products', and 'date': 'On June 10, Sarah bought 10 packets of seeds and 2 garden tools at GreenLeaf.'",
+    "output": {
+      "buyer": "Sarah",
+      "date": "June 10",
+      "store": "GreenLeaf",
+      "items_purchased": [
+        {
+          "type": "packet of seeds",
+          "quantity": 10
+        },
+        {
+          "type": "garden tool",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON representation and include 'transport', 'items', and 'start_date': 'The shipment with 100 cartons of milk and 200 cartons of juice left by truck on August 1st.'",
+    "output": {
+      "transport": "truck",
+      "start_date": "August 1",
+      "items_shipped": [
+        {
+          "type": "carton of milk",
+          "quantity": 100
+        },
+        {
+          "type": "carton of juice",
+          "quantity": 200
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert this car paint options to JSON: 'Available colors for Model X: Metallic Silver (base), Pearl White (+$1000), Midnight Black (+$1000), Racing Red (+$2000, limited edition).'",
+    "output": {
+      "vehicle_colors": {
+        "model": "Model X",
+        "paint_options": [
+          {
+            "name": "Metallic Silver",
+            "type": "base",
+            "additional_cost": 0,
+            "availability": "standard"
+          },
+          {
+            "name": "Pearl White",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Midnight Black",
+            "type": "premium",
+            "additional_cost": 1000,
+            "availability": "standard"
+          },
+          {
+            "name": "Racing Red",
+            "type": "premium",
+            "additional_cost": 2000,
+            "availability": "limited edition"
+          }
+        ],
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "input": "Reformat into JSON with keys for 'chef', 'ingredients', and 'instructions': 'Chef Anthony used 200 grams of sugar, 300 grams of flour, and 2 eggs to bake a cake.'",
+    "output": {
+      "chef": "Anthony",
+      "ingredients": [
+        {
+          "type": "sugar",
+          "quantity": 200,
+          "unit": "grams"
+        },
+        {
+          "type": "flour",
+          "quantity": 300,
+          "unit": "grams"
+        },
+        {
+          "type": "egg",
+          "quantity": 2,
+          "unit": "pieces"
+        }
+      ],
+      "instructions": "Mix all ingredients and bake."
+    }
+  },
+  {
+    "input": "Produce a JSON object that includes 'sender', 'items_sent', 'delivery_time', and 'special_instructions': 'Rob sent 4 DVDs and 1 CD to Laura, requesting that they arrive by Friday afternoon, marked as fragile.'",
+    "output": {
+      "sender": "Rob",
+      "recipient": "Laura",
+      "items_sent": [
+        {
+          "type": "DVD",
+          "quantity": 4
+        },
+        {
+          "type": "CD",
+          "quantity": 1
+        }
+      ],
+      "delivery_time": "Friday afternoon",
+      "special_instructions": "Fragile"
+    }
+  },
+  {
+    "input": "Convert to JSON including fields 'supplier', 'order_id', 'items', and 'notes': 'Supplier ACME provided order #1234 with 10 light bulbs and 5 lamps, note: handle with care.'",
+    "output": {
+      "supplier": "ACME",
+      "order_id": "1234",
+      "items": [
+        {
+          "type": "light bulb",
+          "quantity": 10
+        },
+        {
+          "type": "lamp",
+          "quantity": 5
+        }
+      ],
+      "notes": "handle with care"
+    }
+  },
+  {
+    "input": "Transform this sentence into JSON, ensuring to detail 'warehouse_location', 'products', and a 'reference_code': 'At Warehouse #42, we stored 300 chairs and 150 tables under reference code W42-09.'",
+    "output": {
+      "warehouse_location": "Warehouse #42",
+      "reference_code": "W42-09",
+      "products": [
+        {
+          "type": "chair",
+          "quantity": 300,
+          "unit": "pcs"
+        },
+        {
+          "type": "table",
+          "quantity": 150,
+          "unit": "pcs"
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert into JSON with 'festival_name', 'cultural_activities', 'hosting_city', and 'annual_tradition': 'The Lotus Arts Festival showcased 3 traditional dance performances and 2 pottery workshops, held every year in Kyoto.'",
+    "output": {
+      "festival_name": "Lotus Arts Festival",
+      "hosting_city": "Kyoto",
+      "annual_tradition": true,
+      "cultural_activities": [
+        {
+          "type": "traditional dance performance",
+          "quantity": 3
+        },
+        {
+          "type": "pottery workshop",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Transform into JSON including 'cultural_center', 'exhibits_featured', 'heritage_focus', and 'visitors_count': 'At the Heritage Hall, we featured 5 indigenous textile exhibits and 2 oral history sessions, focusing on Mayan traditions and welcoming 800 visitors last month.'",
+    "output": {
+      "cultural_center": "Heritage Hall",
+      "heritage_focus": "Mayan",
+      "visitors_count": 800,
+      "exhibits_featured": [
+        {
+          "type": "indigenous textile exhibit",
+          "quantity": 5
+        },
+        {
+          "type": "oral history session",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON structure showing 'museum_name', 'art_collections', 'historical_era', and 'interactive_tours': 'The Museo del Mundo displayed 4 Renaissance paintings and 3 Baroque sculptures, offering 2 interactive tours each weekend.'",
+    "output": {
+      "museum_name": "Museo del Mundo",
+      "historical_era": ["Renaissance", "Baroque"],
+      "art_collections": [
+        {
+          "type": "Renaissance painting",
+          "quantity": 4
+        },
+        {
+          "type": "Baroque sculpture",
+          "quantity": 3
+        }
+      ],
+      "interactive_tours": 2
+    }
+  },
+  {
+    "input": "Convert to JSON noting 'cultural_exchange_program', 'participating_countries', 'languages_shared', and 'duration': 'The Global Voices Program involved 3 European nations and 2 Asian nations, sharing French, Mandarin, and Spanish for 2 weeks.'",
+    "output": {
+      "cultural_exchange_program": "Global Voices Program",
+      "duration": "2 weeks",
+      "participating_countries": [
+        {
+          "region": "Europe",
+          "quantity": 3
+        },
+        {
+          "region": "Asia",
+          "quantity": 2
+        }
+      ],
+      "languages_shared": ["French", "Mandarin", "Spanish"]
+    }
+  },
+  {
+    "input": "Reformat into JSON with 'theater_company', 'traditional_plays', 'folk_instruments', and 'seasonal_schedule': 'The Old Globe Players performed 2 traditional Kabuki plays and incorporated 3 different shamisen instruments during the spring season.'",
+    "output": {
+      "theater_company": "The Old Globe Players",
+      "seasonal_schedule": "spring",
+      "traditional_plays": [
+        {
+          "type": "Kabuki play",
+          "quantity": 2
+        }
+      ],
+      "folk_instruments": [
+        {
+          "instrument": "shamisen",
+          "quantity_variants": 3
+        }
+      ]
+    }
+  },
+  {
+    "input": "Turn into JSON capturing 'cultural_market', 'handcrafted_goods', 'artisan_origins', and 'market_frequency': 'At the TerraCraft Market, we sold 10 handwoven rugs and 5 painted ceramics crafted by local artisans, held twice a month.'",
+    "output": {
+      "cultural_market": "TerraCraft Market",
+      "market_frequency": "twice a month",
+      "handcrafted_goods": [
+        {
+          "type": "handwoven rug",
+          "quantity": 10
+        },
+        {
+          "type": "painted ceramic",
+          "quantity": 5
+        }
+      ],
+      "artisan_origins": "local"
+    }
+  },
+  {
+    "input": "Transform into JSON including 'cultural_forum', 'discussion_panels', 'cuisine_demonstrations', and 'focus_region': 'The InterCultural Forum hosted 3 discussion panels and 2 live cooking demonstrations showcasing Mediterranean cuisine.'",
+    "output": {
+      "cultural_forum": "InterCultural Forum",
+      "focus_region": "Mediterranean",
+      "discussion_panels": 3,
+      "cuisine_demonstrations": 2
+    }
+  },
+  {
+    "input": "Create JSON indicating 'folk_festival', 'storytellers_invited', 'craft_exhibitions', and 'annual_celebration': 'At the Whispering Tales Festival, 5 storytellers and 4 weaving exhibitions were featured, marking its 10th annual celebration.'",
+    "output": {
+      "folk_festival": "Whispering Tales Festival",
+      "annual_celebration": 10,
+      "storytellers_invited": 5,
+      "craft_exhibitions": 4
+    }
+  },
+  {
+    "input": "Convert into JSON detailing 'cultural_retreat', 'workshop_categories', 'ancient_arts', and 'event_duration': 'The Roots & Rhythms Retreat offered 2 music workshops and 2 dance workshops, preserving ancient drumming and chanting arts over a weekend.'",
+    "output": {
+      "cultural_retreat": "Roots & Rhythms Retreat",
+      "event_duration": "weekend",
+      "workshop_categories": [
+        {
+          "type": "music",
+          "quantity": 2
+        },
+        {
+          "type": "dance",
+          "quantity": 2
+        }
+      ],
+      "ancient_arts": ["drumming", "chanting"]
+    }
+  },
+  {
+    "input": "Transform into JSON including 'cultural_institute', 'language_classes', 'traditional_songs', and 'semester_length': 'At LinguaCultura Institute, we taught 3 language classes and introduced 2 sets of traditional lullabies over a 4-month semester.'",
+    "output": {
+      "cultural_institute": "LinguaCultura Institute",
+      "semester_length": "4 months",
+      "language_classes": 3,
+      "traditional_songs": [
+        {
+          "type": "lullaby set",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Convert into JSON with 'software_company', 'product_versions', 'user_base', and 'release_cycle': 'ByteLogic released 2 major software updates and 3 minor patches, serving 1.5 million users annually.'",
+    "output": {
+      "software_company": "ByteLogic",
+      "release_cycle": [
+        {
+          "type": "major update",
+          "quantity": 2
+        },
+        {
+          "type": "minor patch",
+          "quantity": 3
+        }
+      ],
+      "user_base": 1500000,
+      "product_versions": "multiple updates per year"
+    }
+  },
+  {
+    "input": "Transform into JSON indicating 'tech_firm', 'hardware_lineup', 'chipsets_used', and 'annual_output': 'At NanoCircuit Inc., we manufactured 5000 high-end GPUs and 2000 mid-range CPUs in a year, powered by two types of advanced chipsets.'",
+    "output": {
+      "tech_firm": "NanoCircuit Inc.",
+      "annual_output": "1 year",
+      "hardware_lineup": [
+        {
+          "type": "GPU",
+          "segment": "high-end",
+          "quantity": 5000
+        },
+        {
+          "type": "CPU",
+          "segment": "mid-range",
+          "quantity": 2000
+        }
+      ],
+      "chipsets_used": 2
+    }
+  },
+  {
+    "input": "Reformat into JSON with 'cloud_provider', 'services_offered', 'datacenter_locations', and 'scalability_features': 'SkyHost Cloud delivered 3 types of storage services and 2 compute options, deploying datacenters in North America and Asia with auto-scaling capabilities.'",
+    "output": {
+      "cloud_provider": "SkyHost Cloud",
+      "scalability_features": "auto-scaling",
+      "datacenter_locations": ["North America", "Asia"],
+      "services_offered": [
+        {
+          "category": "storage",
+          "quantity": 3
+        },
+        {
+          "category": "compute",
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": "Create a JSON structure showing 'IT_conference', 'workshop_themes', 'technologies_highlighted', and 'attendee_profiles': 'At the Code Innovate Summit, 4 workshops covered cybersecurity and AI themes, highlighting blockchain and quantum computing, attracting developers and CTOs.'",
+    "output": {
+      "IT_conference": "Code Innovate Summit",
+      "workshop_themes": 4,
+      "technologies_highlighted": [
+        "cybersecurity",
+        "AI",
+        "blockchain",
+        "quantum computing"
+      ],
+      "attendee_profiles": ["developers", "CTOs"]
+    }
+  },
+  {
+    "input": "Convert into JSON noting 'electronics_store', 'peripheral_types', 'warranty_plans', and 'inventory_levels': 'At TechMart, we stocked 300 keyboards and 150 gaming mice, providing two warranty options and maintaining stable inventory.'",
+    "output": {
+      "electronics_store": "TechMart",
+      "inventory_levels": "stable",
+      "warranty_plans": 2,
+      "peripheral_types": [
+        {
+          "type": "keyboard",
+          "quantity": 300
+        },
+        {
+          "type": "gaming mouse",
+          "quantity": 150
+        }
+      ]
+    }
+  },
+  {
+    "input": "Transform into JSON including 'AI_research_lab', 'models_trained', 'datasets_used', and 'training_duration': 'DeepVision Lab trained 2 NLP models and 1 image recognition model using 3 large datasets over 6 months.'",
+    "output": {
+      "AI_research_lab": "DeepVision Lab",
+      "training_duration": "6 months",
+      "models_trained": [
+        {
+          "type": "NLP model",
+          "quantity": 2
+        },
+        {
+          "type": "image recognition model",
+          "quantity": 1
+        }
+      ],
+      "datasets_used": 3
+    }
+  },
+  {
+    "input": "Create JSON representing 'PC_manufacturer', 'assembled_units', 'component_vendors', and 'quality_assurance_tests': 'BuildCore assembled 200 gaming PCs and 100 workstation PCs using components from 3 vendors, passing 4 QA checks.'",
+    "output": {
+      "PC_manufacturer": "BuildCore",
+      "component_vendors": 3,
+      "quality_assurance_tests": 4,
+      "assembled_units": [
+        {
+          "type": "gaming PC",
+          "quantity": 200
+        },
+        {
+          "type": "workstation PC",
+          "quantity": 100
+        }
+      ]
+    }
+  },
+  {
+    "input": "Reformat into JSON showing 'data_center_operator', 'server_clusters', 'energy_sources', and 'uptime_guarantee': 'TerraNode ran 10 high-density server clusters using solar and wind energy, ensuring 99.9% uptime.'",
+    "output": {
+      "data_center_operator": "TerraNode",
+      "uptime_guarantee": "99.9%",
+      "server_clusters": 10,
+      "energy_sources": ["solar", "wind"]
+    }
+  },
+  {
+    "input": "Turn into JSON capturing 'robotics_lab', 'prototype_robots', 'sensor_arrays', and 'testing_phases': 'RoboNext Lab built 2 humanoid prototypes and 3 industrial arm prototypes, integrating 4 different sensor arrays through 2 testing phases.'",
+    "output": {
+      "robotics_lab": "RoboNext Lab",
+      "testing_phases": 2,
+      "prototype_robots": [
+        {
+          "type": "humanoid",
+          "quantity": 2
+        },
+        {
+          "type": "industrial arm",
+          "quantity": 3
+        }
+      ],
+      "sensor_arrays": 4
+    }
+  },
+  {
+    "input": "Convert into JSON detailing 'cybersecurity_firm', 'threat_analyses', 'protection_layers', and 'client_industries': 'SecureBase performed 5 threat analyses and implemented 3 layers of intrusion detection for clients in finance and healthcare.'",
+    "output": {
+      "cybersecurity_firm": "SecureBase",
+      "client_industries": ["finance", "healthcare"],
+      "threat_analyses": 5,
+      "protection_layers": 3
+    }
+  },
+  {
+    "input": "Transform into JSON including 'VR_company', 'simulations_created', 'device_compatibility', and 'testing_cycles': 'VisionSphere VR created 3 training simulations and 2 educational simulations, compatible with 2 major headsets, tested in 4 cycles.'",
+    "output": {
+      "VR_company": "VisionSphere VR",
+      "testing_cycles": 4,
+      "simulations_created": [
+        {
+          "type": "training simulation",
+          "quantity": 3
+        },
+        {
+          "type": "educational simulation",
+          "quantity": 2
+        }
+      ],
+      "device_compatibility": 2
+    }
+  },
+  {
+    "input": "Convert into JSON detailing 'HPC_cluster_provider', 'compute_nodes', 'storage_systems', and 'benchmark_scores': 'ComputeEdge deployed 200 compute nodes and 50 storage units, achieving top-tier benchmark results in their high-performance cluster.'",
+    "output": {
+      "HPC_cluster_provider": "ComputeEdge",
+      "benchmark_scores": "top-tier",
+      "compute_nodes": 200,
+      "storage_systems": 50
+    }
+  },
+  {
+    "input": "Represent as JSON showing 'software_framework', 'plugins_available', 'supported_languages', and 'release_version': 'The PolyFlex framework offered 5 plugins, supporting Java, Python, and C++, released as version 2.1.'",
+    "output": {
+      "software_framework": "PolyFlex",
+      "release_version": "2.1",
+      "plugins_available": 5,
+      "supported_languages": ["Java", "Python", "C++"]
+    }
+  },
+  {
+    "input": "Transform into JSON noting 'code_repository', 'branches_managed', 'contributor_count', and 'ci_integrations': 'DevForge hosted a repo with 3 main branches and 10 contributors, integrating with 2 CI tools.'",
+    "output": {
+      "code_repository": "DevForge",
+      "branches_managed": 3,
+      "contributor_count": 10,
+      "ci_integrations": 2
+    }
+  },
+  {
+    "input": "Create JSON representing 'AR_platform', 'content_libraries', 'user_interaction_modes', and 'update_frequency': 'HoloLayer AR provided 4 content libraries and 3 interaction methods, updated monthly.'",
+    "output": {
+      "AR_platform": "HoloLayer",
+      "update_frequency": "monthly",
+      "content_libraries": 4,
+      "user_interaction_modes": 3
+    }
+  },
+  {
+    "input": "Reformat into JSON including 'CPU_architecture', 'core_variants', 'manufacturing_nodes', and 'performance_tiers': 'NextGenSilicon offered 2 core variants using 7nm and 5nm nodes, categorized into high and ultra performance tiers.'",
+    "output": {
+      "CPU_architecture": "NextGenSilicon",
+      "performance_tiers": ["high", "ultra"],
+      "core_variants": 2,
+      "manufacturing_nodes": ["7nm", "5nm"]
+    }
+  },
+  {
+    "input": "Convert into JSON with 'database_system', 'indexing_strategies', 'replication_methods', and 'security_certifications': 'DataSphere DB implemented 2 indexing strategies and 2 replication methods, holding ISO27001 and SOC2 certifications.'",
+    "output": {
+      "database_system": "DataSphere DB",
+      "security_certifications": ["ISO27001", "SOC2"],
+      "indexing_strategies": 2,
+      "replication_methods": 2
+    }
+  },
+  {
+    "input": "Create JSON showing 'software_testing_firm', 'test_suites_executed', 'coverage_metrics', and 'toolchain_integrations': 'TestPro ran 8 functional test suites and 3 load test suites, achieving 95% coverage, integrated with Jenkins and Selenium.'",
+    "output": {
+      "software_testing_firm": "TestPro",
+      "coverage_metrics": "95%",
+      "toolchain_integrations": ["Jenkins", "Selenium"],
+      "test_suites_executed": [
+        {
+          "type": "functional test suite",
+          "quantity": 8
+        },
+        {
+          "type": "load test suite",
+          "quantity": 3
+        }
+      ]
+    }
+  },
+  {
+    "input": "Transform into JSON detailing 'open_source_project', 'contributors_worldwide', 'feature_modules', and 'governance_model': 'OpenCast had 500 contributors globally, offering 10 feature modules, governed by a community-led board.'",
+    "output": {
+      "open_source_project": "OpenCast",
+      "governance_model": "community-led board",
+      "contributors_worldwide": 500,
+      "feature_modules": 10
+    }
+  },
+  {
+    "input": "Convert into JSON capturing 'IoT_manufacturer', 'smart_devices', 'firmware_versions', and 'network_protocols': 'SenseGrid produced 1000 smart sensors and 200 smart hubs, providing 2 firmware updates, compatible with Wi-Fi and LoRaWAN.'",
+    "output": {
+      "IoT_manufacturer": "SenseGrid",
+      "smart_devices": [
+        {
+          "type": "smart sensor",
+          "quantity": 1000
+        },
+        {
+          "type": "smart hub",
+          "quantity": 200
+        }
+      ],
+      "firmware_versions": 2,
+      "network_protocols": ["Wi-Fi", "LoRaWAN"]
+    }
+  },
+  {
+    "input": "Transform into JSON including 'edge_computing_provider', 'micro_data_centers', 'latency_targets', and 'hardware_accelerations': 'EdgeX deployed 5 micro data centers and aimed for sub-10ms latency, incorporating GPU and FPGA accelerations.'",
+    "output": {
+      "edge_computing_provider": "EdgeX",
+      "micro_data_centers": 5,
+      "latency_targets": "under 10ms",
+      "hardware_accelerations": ["GPU", "FPGA"]
+    }
+  },
+  {
+    "input": "Convert into JSON detailing 'quantum_computing_lab', 'qubit_stability', 'algorithm_prototypes', and 'partnerships': 'QubitCore Lab achieved 90% qubit stability, tested 3 quantum algorithms, and partnered with 2 research institutes.'",
+    "output": {
+      "quantum_computing_lab": "QubitCore Lab",
+      "qubit_stability": "90%",
+      "algorithm_prototypes": 3,
+      "partnerships": 2
+    }
+  },
+  {
+    "input": "Reformat into JSON showing 'low_code_platform', 'app_templates', 'integration_APIs', and 'user_segments': 'FlowBuild offered 10 app templates and 4 integration APIs, serving freelancers and SMBs.'",
+    "output": {
+      "low_code_platform": "FlowBuild",
+      "app_templates": 10,
+      "integration_APIs": 4,
+      "user_segments": ["freelancers", "SMBs"]
+    }
+  },
+  {
+    "input": "Create a JSON structure indicating 'GPU_fabricator', 'chip_designs', 'yield_rate', and 'partnership_deals': 'GrafiXFab designed 2 new GPU chip variants with a 98% yield rate and secured 3 manufacturing deals.'",
+    "output": {
+      "GPU_fabricator": "GrafiXFab",
+      "chip_designs": 2,
+      "yield_rate": "98%",
+      "partnership_deals": 3
+    }
+  },
+  {
+    "input": "Convert into JSON with 'container_orchestration_tool', 'service_scaling', 'monitoring_plugins', and 'supported_runtimes': 'CloudShip scaled 20 microservices and integrated 3 monitoring plugins, compatible with Docker and CRI-O.'",
+    "output": {
+      "container_orchestration_tool": "CloudShip",
+      "service_scaling": 20,
+      "monitoring_plugins": 3,
+      "supported_runtimes": ["Docker", "CRI-O"]
+    }
+  },
+  {
+    "input": "Represent as JSON including 'ASIC_designer', 'logic_blocks', 'power_efficiency', and 'verification_stages': 'LogicX created 500 logic blocks, achieving 20% power savings, verified through 2 test stages.'",
+    "output": {
+      "ASIC_designer": "LogicX",
+      "logic_blocks": 500,
+      "power_efficiency": "20% savings",
+      "verification_stages": 2
+    }
+  },
+  {
+    "input": "Transform into JSON noting 'microcontroller_vendor', 'firmware_revisions', 'real_time_OS_support', and 'sensor_integration': 'MicroCore issued 3 firmware revisions, supporting FreeRTOS and Zephyr, integrating 2 sensors for IoT devices.'",
+    "output": {
+      "microcontroller_vendor": "MicroCore",
+      "firmware_revisions": 3,
+      "real_time_OS_support": ["FreeRTOS", "Zephyr"],
+      "sensor_integration": 2
+    }
+  },
+  {
+    "input": "Create JSON describing 'backup_solution', 'redundancy_levels', 'restore_points', and 'encryption_methods': 'SafeStor offered 2 redundancy layers and 4 restore points, encrypting data with AES-256 and RSA keys.'",
+    "output": {
+      "backup_solution": "SafeStor",
+      "redundancy_levels": 2,
+      "restore_points": 4,
+      "encryption_methods": ["AES-256", "RSA"]
+    }
+  },
+  {
+    "input": "Reformat into JSON showing 'automation_framework', 'test_agents', 'reporting_formats', and 'scalability_options': 'AutoTest utilized 5 test agents, exporting results as JSON and XML, with horizontal scaling capabilities.'",
+    "output": {
+      "automation_framework": "AutoTest",
+      "test_agents": 5,
+      "reporting_formats": ["JSON", "XML"],
+      "scalability_options": "horizontal scaling"
+    }
+  },
+  {
+    "input": "Convert into JSON detailing 'mobile_chip_vendor', 'SoC_variants', 'benchmark_scores', and 'thermal_profiles': 'ChromaChip introduced 2 SoC variants scoring high in benchmarks, optimized with 3 thermal profiles.'",
+    "output": {
+      "mobile_chip_vendor": "ChromaChip",
+      "SoC_variants": 2,
+      "benchmark_scores": "high",
+      "thermal_profiles": 3
+    }
+  },
+  {
+    "input": "Transform into JSON detailing 'ARM_chip_designer', 'core_types', 'cache_layers', and 'fabrication_partners': 'CoreFusion designed 2 ARM core variants with 3 cache levels, partnering with 2 different fabs.'",
+    "output": {
+      "ARM_chip_designer": "CoreFusion",
+      "core_types": 2,
+      "cache_layers": 3,
+      "fabrication_partners": 2
+    }
+  },
+  {
+    "input": "Convert into JSON including 'SaaS_platform', 'subscription_tiers', 'API_endpoints', and 'global_latency': 'BrightCloud offered 3 subscription plans, exposing 20 API endpoints, maintaining a global latency under 100ms.'",
+    "output": {
+      "SaaS_platform": "BrightCloud",
+      "subscription_tiers": 3,
+      "API_endpoints": 20,
+      "global_latency": "<100ms"
+    }
+  },
+  {
+    "input": "Reformat into JSON showing 'encryption_provider', 'cipher_suites', 'compliance_standards', and 'deployment_models': 'CipherMax enabled 4 cipher suites, compliant with PCI-DSS and HIPAA, deployable on-premise and in the cloud.'",
+    "output": {
+      "encryption_provider": "CipherMax",
+      "cipher_suites": 4,
+      "compliance_standards": ["PCI-DSS", "HIPAA"],
+      "deployment_models": ["on-premise", "cloud"]
+    }
+  },
+  {
+    "input": "Create a JSON structure indicating 'CI_CD_platform', 'build_agents', 'supported_repositories', and 'integration_plugins': 'FastPipe ran 5 build agents, supported GitHub and GitLab, and integrated with 3 plugins.'",
+    "output": {
+      "CI_CD_platform": "FastPipe",
+      "build_agents": 5,
+      "supported_repositories": ["GitHub", "GitLab"],
+      "integration_plugins": 3
+    }
+  },
+  {
+    "input": "Transform into JSON noting 'SSD_manufacturer', 'NAND_generations', 'throughput_levels', and 'error_correction': 'FlashCore produced 2 NAND generations, achieving 3Gb/s throughput, employing LDPC error correction.'",
+    "output": {
+      "SSD_manufacturer": "FlashCore",
+      "NAND_generations": 2,
+      "throughput_levels": "3Gb/s",
+      "error_correction": "LDPC"
+    }
+  },
+  {
+    "input": "Convert into JSON with 'network_security_gateway', 'inspection_rules', 'threat_intel_feeds', and 'scaling_options': 'NetShield applied 10 inspection rules and utilized 2 threat feeds, scaling up to 100 Gbps traffic.'",
+    "output": {
+      "network_security_gateway": "NetShield",
+      "inspection_rules": 10,
+      "threat_intel_feeds": 2,
+      "scaling_options": "up to 100 Gbps"
+    }
+  },
+  {
+    "input": "Represent as JSON including 'load_balancer', 'routing_strategies', 'health_checks', and 'peak_capacity': 'BalanceFlow employed 2 routing methods and 3 health check mechanisms, handling up to 200k requests/sec.'",
+    "output": {
+      "load_balancer": "BalanceFlow",
+      "routing_strategies": 2,
+      "health_checks": 3,
+      "peak_capacity": "200k req/sec"
+    }
+  },
+  {
+    "input": "Reformat into JSON showing 'serverless_framework', 'function_runtimes', 'billing_model', and 'cold_start_reductions': 'LambdaSphere supported 4 runtimes, billed per millisecond, and implemented techniques to reduce cold starts by 30%.'",
+    "output": {
+      "serverless_framework": "LambdaSphere",
+      "function_runtimes": 4,
+      "billing_model": "per millisecond",
+      "cold_start_reductions": "30%"
+    }
+  },
+  {
+    "input": "Create JSON describing 'DevOps_toolchain', 'pipeline_stages', 'rollout_strategies', and 'audit_trail': 'OpsStream orchestrated 5 pipeline stages, using blue-green and canary deployments, maintaining a full audit log.'",
+    "output": {
+      "DevOps_toolchain": "OpsStream",
+      "pipeline_stages": 5,
+      "rollout_strategies": ["blue-green", "canary"],
+      "audit_trail": "full"
+    }
+  },
+  {
+    "input": "Convert into JSON detailing 'ML_platform', 'model_registry_entries', 'hyperparameter_tuning', and 'deployment_targets': 'ModelHub stored 10 models, performed automatic tuning, and deployed to edge, mobile, and web clients.'",
+    "output": {
+      "ML_platform": "ModelHub",
+      "model_registry_entries": 10,
+      "hyperparameter_tuning": "automatic",
+      "deployment_targets": ["edge", "mobile", "web"]
+    }
+  },
+  {
+    "input": "Transform into JSON including 'instrumentation_tool', 'profiling_methods', 'integration_targets', and 'performance_metrics': 'TraceScope applied 2 profiling methods, integrating with 3 IDEs, measuring latency and CPU usage.'",
+    "output": {
+      "instrumentation_tool": "TraceScope",
+      "profiling_methods": 2,
+      "integration_targets": 3,
+      "performance_metrics": ["latency", "CPU usage"]
+    }
+  },
+  {
+    "input": "Convert into JSON detailing 'HPC_accelerator', 'GPU_nodes', 'MPI_optimizations', and 'job_throughput': 'UltraComp used 10 GPU nodes and optimized MPI calls, achieving 50 jobs/hour.'",
+    "output": {
+      "HPC_accelerator": "UltraComp",
+      "GPU_nodes": 10,
+      "MPI_optimizations": "enhanced",
+      "job_throughput": "50 jobs/hour"
+    }
+  },
+  {
+    "input": "Reformat into JSON showing 'container_scanner', 'vulnerability_rulesets', 'supported_registries', and 'scan_frequency': 'SecuScan applied 5 rulesets, scanned Docker Hub and ECR, running daily scans.'",
+    "output": {
+      "container_scanner": "SecuScan",
+      "vulnerability_rulesets": 5,
+      "supported_registries": ["Docker Hub", "ECR"],
+      "scan_frequency": "daily"
+    }
+  },
+  {
+    "input": "Create a JSON structure indicating 'hypervisor_platform', 'virtual_machines', 'isolation_techniques', and 'live_migration': 'VirtuCore hosted 30 VMs, using hardware isolation and software sandboxing, enabling seamless live migrations.'",
+    "output": {
+      "hypervisor_platform": "VirtuCore",
+      "virtual_machines": 30,
+      "isolation_techniques": ["hardware isolation", "software sandboxing"],
+      "live_migration": "seamless"
+    }
+  },
+  {
+    "input": "Transform into JSON noting 'edge_cache_service', 'CDN_nodes', 'cache_invalidation_strategies', and 'hit_ratio': 'EdgeAccel deployed 50 CDN nodes, using time-based and event-based invalidation, achieving a 95% cache hit ratio.'",
+    "output": {
+      "edge_cache_service": "EdgeAccel",
+      "CDN_nodes": 50,
+      "cache_invalidation_strategies": ["time-based", "event-based"],
+      "hit_ratio": "95%"
+    }
+  },
+  {
+    "input": "Convert into JSON with 'data_pipeline_manager', 'ETL_stages', 'data_formats', and 'throughput_rate': 'FlowData handled 3 ETL stages, converting CSV and Parquet, processing 10GB/hour.'",
+    "output": {
+      "data_pipeline_manager": "FlowData",
+      "ETL_stages": 3,
+      "data_formats": ["CSV", "Parquet"],
+      "throughput_rate": "10GB/hour"
+    }
+  },
+  {
+    "input": "Represent as JSON including 'HPC_scheduler', 'queue_priorities', 'backfill_algorithms', and 'node_utilization': 'QuantumQueue used 3 priority queues, applied 2 backfill methods, maintaining 85% node utilization.'",
+    "output": {
+      "HPC_scheduler": "QuantumQueue",
+      "queue_priorities": 3,
+      "backfill_algorithms": 2,
+      "node_utilization": "85%"
+    }
+  },
+  {
+    "input": "Reformat into JSON showing 'data_lineage_tool', 'metadata_entities', 'versioning_strategies', and 'compliance_standards': 'LineageTrack recorded 500 metadata entities, versioned with Git-like commits, compliant with GDPR.'",
+    "output": {
+      "data_lineage_tool": "LineageTrack",
+      "metadata_entities": 500,
+      "versioning_strategies": "Git-like",
+      "compliance_standards": ["GDPR"]
+    }
+  },
+  {
+    "input": "Create JSON describing 'code_generation_framework', 'template_libraries', 'language_targets', and 'automation_level': 'AutoCoder used 4 template sets, targeting Java and Go, with fully automated code scaffolding.'",
+    "output": {
+      "code_generation_framework": "AutoCoder",
+      "template_libraries": 4,
+      "language_targets": ["Java", "Go"],
+      "automation_level": "full"
+    }
+  },
+  {
+    "input": "Convert into JSON detailing 'GPU_resource_manager', 'allocation_policies', 'fair_scheduling', and 'peak_throughput': 'GPUFarm employed 2 allocation policies, enforcing fair share scheduling, reaching 1 TFLOP/s peak throughput.'",
+    "output": {
+      "GPU_resource_manager": "GPUFarm",
+      "allocation_policies": 2,
+      "fair_scheduling": true,
+      "peak_throughput": "1 TFLOP/s"
+    }
+  },
+  {
+    "input": "Transform into JSON including 'data_lake_solution', 'storage_tiers', 'ingestion_adapters', and 'query_latencies': 'AquaLake managed 3 storage tiers, integrating 2 ingestion adapters, with query latency under 500ms.'",
+    "output": {
+      "data_lake_solution": "AquaLake",
+      "storage_tiers": 3,
+      "ingestion_adapters": 2,
+      "query_latencies": "<500ms"
+    }
+  },
+  {
+    "input": "Create a JSON structure indicating 'firmware_management_system', 'binary_artifacts', 'update_channels', and 'rollback_mechanisms': 'FirmX handled 5 binary artifacts, distributing updates via stable and beta channels, allowing rollback on failure.'",
+    "output": {
+      "firmware_management_system": "FirmX",
+      "binary_artifacts": 5,
+      "update_channels": ["stable", "beta"],
+      "rollback_mechanisms": "on failure"
+    }
+  },
+  {
+    "input": "Transform into JSON noting 'secure_boot_infrastructure', 'trusted_modules', 'verification_stages', and 'key_rotation': 'SecureStart used 2 trusted TPM modules, 3 verification steps, rotating keys every 6 months.'",
+    "output": {
+      "secure_boot_infrastructure": "SecureStart",
+      "trusted_modules": 2,
+      "verification_stages": 3,
+      "key_rotation": "6 months"
+    }
+  },
+  {
+    "input": "Convert into JSON with 'microfrontend_framework', 'UI_components', 'integration_patterns', and 'build_pipelines': 'MicroSplit integrated 10 UI fragments, using federated modules and composition patterns, building with 2 pipelines.'",
+    "output": {
+      "microfrontend_framework": "MicroSplit",
+      "UI_components": 10,
+      "integration_patterns": ["federated modules", "composition"],
+      "build_pipelines": 2
+    }
+  },
+  {
+    "input": "Represent as JSON including 'synthetic_data_generator', 'dataset_types', 'privacy_preserving_techniques', and 'scalability_factors': 'Syntegro produced 2 synthetic dataset types, employing differential privacy, scaling with cluster mode.'",
+    "output": {
+      "synthetic_data_generator": "Syntegro",
+      "dataset_types": 2,
+      "privacy_preserving_techniques": "differential privacy",
+      "scalability_factors": "cluster mode"
+    }
+  },
+  {
+    "input": "Reformat into JSON showing 'streaming_analytics_platform', 'window_functions', 'connector_plugins', and 'alerting_thresholds': 'StreamWise applied 3 window functions, integrated 4 connectors, alerting when latency exceeded 200ms.'",
+    "output": {
+      "streaming_analytics_platform": "StreamWise",
+      "window_functions": 3,
+      "connector_plugins": 4,
+      "alerting_thresholds": "latency > 200ms"
+    }
+  },
+  {
+    "input": "Create JSON describing 'quantum_error_correction_framework', 'qubit_codes', 'fault_tolerance_measures', and 'scaling_dimension': 'QSafe supported 2 quantum error-correcting codes, applying fault tolerance techniques, scalable up to 100 qubits.'",
+    "output": {
+      "quantum_error_correction_framework": "QSafe",
+      "qubit_codes": 2,
+      "fault_tolerance_measures": "applied",
+      "scaling_dimension": "100 qubits"
+    }
+  },
+  {
+    "input": "Convert into JSON detailing 'BCI_platform', 'neural_interfaces', 'signal_processing_algorithms', and 'bandwidth_requirements': 'NeuroLink used 2 neural interfaces and 3 processing algorithms, requiring 1 Gbps bandwidth.'",
+    "output": {
+      "BCI_platform": "NeuroLink",
+      "neural_interfaces": 2,
+      "signal_processing_algorithms": 3,
+      "bandwidth_requirements": "1 Gbps"
+    }
+  },
+  {
+    "input": "Transform into JSON including 'multi_cloud_controller', 'orchestration_policies', 'migration_strategies', and 'cost_optimizations': 'CloudHarmonizer managed 2 orchestration policies, used live migration and backup-restore strategies, optimizing costs by 15%.'",
+    "output": {
+      "multi_cloud_controller": "CloudHarmonizer",
+      "orchestration_policies": 2,
+      "migration_strategies": ["live migration", "backup-restore"],
+      "cost_optimizations": "15%"
+    }
+  }
+]
