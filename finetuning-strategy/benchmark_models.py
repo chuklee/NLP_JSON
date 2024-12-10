@@ -10,6 +10,7 @@ from dataclasses import dataclass
 import pandas as pd
 from lora_fine_tuning import generate_json_lora
 from complete_fine_tuning import generate_json
+from forced_decoding.forced_json_generator import generate_json_forced
 
 @dataclass
 class BenchmarkResult:
@@ -39,12 +40,12 @@ def calculate_json_similarity(reference: Dict, generated: Dict) -> float:
         
         if not ref_keys or not gen_keys:
             return 0.0
-        
+            
         # Calculate Jaccard similarity for keys
-        key_similarity = len(ref_keys.intersection(gen_keys)) / len(ref_keys.union(gen_keys))
+        key_similarity: float = len(ref_keys.intersection(gen_keys)) / len(ref_keys.union(gen_keys))
         
         # Calculate value type similarity
-        type_matches = sum(1 for k in ref_keys & gen_keys 
+        type_matches: int = sum(1 for k in ref_keys & gen_keys 
                          if type(reference[k]).__name__ == type(generated.get(k)).__name__)
         type_similarity = type_matches / len(ref_keys) if ref_keys else 0
         
@@ -52,13 +53,14 @@ def calculate_json_similarity(reference: Dict, generated: Dict) -> float:
         value_similarities = []
         for k in ref_keys & gen_keys:
             if isinstance(reference[k], str) and isinstance(generated.get(k), str):
-                # Simple string similarity (can be enhanced with more sophisticated metrics)
-                ref_words = set(reference[k].lower().split())
-                gen_words = set(generated.get(k).lower().split())
-                if ref_words or gen_words:
-                    value_similarities.append(
-                        len(ref_words & gen_words) / len(ref_words | gen_words)
-                    )
+                gen_value = generated.get(k)
+                if gen_value is not None:
+                    ref_words = set(reference[k].lower().split())
+                    gen_words = set(gen_value.lower().split())
+                    if ref_words or gen_words:
+                        value_similarities.append(
+                            len(ref_words & gen_words) / len(ref_words | gen_words)
+                        )
         
         value_similarity = np.mean(value_similarities) if value_similarities else 0.0
         
@@ -80,7 +82,7 @@ def benchmark_model(
     memory_usage = []
     example_outputs = []
     
-    for sample in tqdm(test_dataset[:num_samples], desc=f"Benchmarking {model_name}"):
+    for sample in tqdm(iterable=test_dataset[:num_samples], desc=f"Benchmarking {model_name}"):
         prompt = sample['input']
         reference = sample['output']
         
@@ -88,17 +90,17 @@ def benchmark_model(
         torch.cuda.empty_cache()
         start_mem = torch.cuda.memory_allocated() if torch.cuda.is_available() else 0
         
-        start_time = time.time()
+        start_time: float = time.time()
         try:
             generated = generate_fn(prompt)
             inference_time = time.time() - start_time
             
             # Validate and parse generated output
-            is_valid, parsed_generated = is_valid_json(generated)
+            is_valid, parsed_generated = is_valid_json(text=generated)
             
             if is_valid:
                 valid_jsons += 1
-                similarity = calculate_json_similarity(reference, parsed_generated)
+                similarity: float = calculate_json_similarity(reference=reference, generated=parsed_generated)
                 similarities.append(similarity)
                 
                 # Store example outputs (limit to 5)
@@ -115,7 +117,7 @@ def benchmark_model(
         except Exception as e:
             print(f"Error during generation: {str(e)}")
             similarities.append(0.0)
-            inference_time = time.time() - start_time
+            inference_time: float = time.time() - start_time
             
         end_mem = torch.cuda.memory_allocated() if torch.cuda.is_available() else 0
         
@@ -138,7 +140,7 @@ def benchmark_model(
 def plot_benchmark_results(results: List[BenchmarkResult]):
     """Create visualization plots for benchmark results"""
     # Prepare data for plotting
-    models = [r.model_name for r in results]
+    models: List[str] = [r.model_name for r in results]
     metrics = {
         'Valid JSON Rate (%)': [r.valid_json_rate * 100 for r in results],
         'Avg Inference Time (s)': [r.avg_inference_time for r in results],
@@ -147,7 +149,7 @@ def plot_benchmark_results(results: List[BenchmarkResult]):
     }
     
     # Create subplots
-    fig, axes = plt.subplots(2, 2, figsize=(15, 10))
+    fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(15, 10))
     fig.suptitle('Model Benchmark Comparison')
     
     # Plot each metric
@@ -179,13 +181,14 @@ def save_detailed_results(results: List[BenchmarkResult]):
 
 def main():
     # Load test dataset
-    with open('json_datasets/json_queries_dataset.json', 'r') as f:
+    with open(file='json_datasets/json_queries_dataset.json', mode='r') as f:
         test_dataset = json.load(f)
     
     # Define models to benchmark
     models = {
         'Complete Fine-tuning': lambda p: generate_json(p, model_path="models/complete"),
-        'LoRA Fine-tuning': lambda p: generate_json_lora(p, model_path="models/lora")
+        'LoRA Fine-tuning': lambda p: generate_json_lora(p, model_path="models/lora"),
+        'Forced Decoding': lambda p: generate_json_forced(p, model_path="models/complete")
     }
     
     # Run benchmarks
@@ -202,10 +205,10 @@ def main():
         print(f"Semantic Score: {result.semantic_score:.3f}")
     
     # Generate plots
-    plot_benchmark_results(results)
+    plot_benchmark_results(results=results)
     
     # Save detailed results
-    save_detailed_results(results)
+    save_detailed_results(results=results)
     
     # Save summary to CSV
     df = pd.DataFrame([{
