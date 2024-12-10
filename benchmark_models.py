@@ -11,6 +11,7 @@ import pandas as pd
 from finetuning_strategy.lora_fine_tuning import generate_json_lora
 from finetuning_strategy.complete_fine_tuning import generate_json
 from forced_decoding.forced_json_generator import generate_json_forced
+from prompt_engineering.structured_json_llm import StructuredJSONLLM
 
 @dataclass
 class BenchmarkResult:
@@ -184,11 +185,13 @@ def main():
     with open(file='json_datasets/json_queries_dataset.json', mode='r') as f:
         test_dataset = json.load(f)
     
+    llm = StructuredJSONLLM()
     # Define models to benchmark
     models = {
         'Complete Fine-tuning': lambda p: generate_json(p, model_path="models/complete"),
         'LoRA Fine-tuning': lambda p: generate_json_lora(p, model_path="models/lora"),
-        'Forced Decoding': lambda p: generate_json_forced(p, model_path="models/complete")
+        'Forced Decoding': lambda p: generate_json_forced(p, model_path="models/complete"),
+        'Prompt Engineering': lambda p: llm.generate_response(p)
     }
     
     # Run benchmarks

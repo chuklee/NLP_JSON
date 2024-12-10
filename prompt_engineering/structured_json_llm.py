@@ -1,4 +1,4 @@
-from langchain.llms import HuggingFacePipeline
+from langchain_community.llms import HuggingFacePipeline
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 import torch
 
@@ -11,7 +11,9 @@ class StructuredJSONLLM:
             device_map="auto",
         )
         self.templates = {
-"items": '''Generate a valid JSON object without any explanations or additional text. Ensure that the values are numbers and the items are valid strings. Follow this exact format:
+            "items": '''Generate a valid JSON object without any explanations or additional text. Follow these steps:
+1. Identify the items and their quantities from the question.
+2. Structure the response in the following format:
 {"items": {"item1": number1, "item2": number2}}
 
 Examples:
@@ -38,50 +40,24 @@ JSON: {"items": {"trees": 100, "flowers": 50}}
 
 Question: {question}
 JSON:''',
-
-"how_many": '''Generate a valid JSON object without any explanations or additional text. Ensure that the count is a number and the items are valid strings. Follow this exact format:
-{"count": N, "items": ["item1", "item2", ..., "itemN"]}
-
-Examples:
-Question: A week has Monday, Tuesday, Wednesday, Thursday, Friday, Saturday and Sunday
-JSON: {"count": 7, "items": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]}
-
-Question: The rainbow has red, orange, yellow, green, blue, indigo and violet
-JSON: {"count": 7, "items": ["red", "orange", "yellow", "green", "blue", "indigo", "violet"]}
-
-Question: My garden contains roses, tulips, and daisies
-JSON: {"count": 3, "items": ["roses", "tulips", "daisies"]}
-
-Question: There are 4 seasons in a year
-JSON: {"count": 4, "items": ["spring", "summer", "autumn", "winter"]}
-
-Question: A dozen eggs consist of 12 eggs
-JSON: {"count": 12, "items": ["eggs"]}
-
-Question: The solar system has 8 planets
-JSON: {"count": 8, "items": ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"]}
-
-Question: {question}
-JSON:''',
         }
         self.pipe = pipeline(
             "text-generation",
-        model=self.model,
-        tokenizer=self.tokenizer,
-        max_new_tokens=250,     # Augmenter le nombre maximum de tokens
-        do_sample=True,         # Activer l'échantillonnage
-        temperature=0.7,        # Ajuster la température pour plus de créativité
-        top_k=20,              # Ajuster le top_k pour plus de diversité
-        num_beams=1,           # Pas de beam search pour plus de variété
-        pad_token_id=self.tokenizer.eos_token_id,
-        eos_token_id=self.tokenizer.eos_token_id,
-    )
+            model=self.model,
+            tokenizer=self.tokenizer,
+            max_new_tokens=150,     # Augmenter le nombre maximum de tokens
+            do_sample=True,         # Activer l'échantillonnage
+            temperature=0.7,        # Ajuster la température pour plus de créativité
+            top_k=20,              # Ajuster le top_k pour plus de diversité
+            num_beams=1,           # Pas de beam search pour plus de variété
+            pad_token_id=self.tokenizer.eos_token_id,
+            eos_token_id=self.tokenizer.eos_token_id,
+        )
         print("Pipeline loaded successfully.")
         self.llm = HuggingFacePipeline(pipeline=self.pipe)
 
     def _determine_template(self, question):
-        if "has" in question.lower() or "contains" in question.lower():
-            return "how_many"
+        # Ne renvoie que le template "items"
         return "items"
 
     def generate_response(self, question):
@@ -93,12 +69,11 @@ JSON:''',
         response = self.llm(prompt)
         response_text = response[0]["generated_text"] if isinstance(response, list) else str(response)
         
-        # Extraire uniquement le JSON après le dernier "JSON:"
         try:
             json_text = response_text.split("JSON:")[-1].strip()
-            return {"raw_text": json_text}
+            return json_text
         except:
-            return {"raw_text": "Error: Could not extract JSON"}
+            return "Error: Could not extract JSON"
 
 def main():
     llm = StructuredJSONLLM()
@@ -117,7 +92,7 @@ def main():
     for question in test_questions:
         print(f"\nQuestion: {question}")
         result = llm.generate_response(question)
-        print(f"<Raw>  Raw Response:\n{result['raw_text']}  <Raw>")
+        print(f"<Raw>  Raw Response:\n{result}  <Raw>")
 
 if __name__ == "__main__":
     main()
