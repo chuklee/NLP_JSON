@@ -1,181 +1,117 @@
-import time
-import json
 import torch
-import numpy as np
-from typing import Dict, List, Any
-from dataclasses import dataclass
+import json
+import time
+from typing import Dict, Any, List
+import random
 from json_grammar import GrammarConstrainedGenerator
-from transformers import AutoTokenizer, AutoModelForCausalLM
 
-@dataclass
-class EvaluationResult:
-    """Stores evaluation metrics for JSON generation"""
-    valid_json_rate: float
-    avg_inference_time: float
-    memory_usage: float
-    structure_accuracy: float
-    field_accuracy: float
-    example_outputs: List[Dict[str, Any]]
-
-def calculate_json_similarity(reference: Dict, generated: Dict) -> float:
-    """Calculate structural and semantic similarity between two JSON objects"""
+def load_test_data(file_path: str, subset_size: int = None):
+    """Load test data with optional subset selection"""
     try:
-        # Compare number of keys at top level
-        ref_keys = set(reference.keys()) if isinstance(reference, dict) else set()
-        gen_keys = set(generated.keys()) if isinstance(generated, dict) else set()
+        with open(file_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
         
-        if not ref_keys or not gen_keys:
-            return 0.0
+        if subset_size is not None:
+            # Ensure subset size is not larger than dataset
+            subset_size = min(subset_size, len(data))
+            # Randomly sample subset_size items
+            data = random.sample(data, subset_size)
         
-        # Calculate Jaccard similarity for keys
-        key_similarity = len(ref_keys.intersection(gen_keys)) / len(ref_keys.union(gen_keys))
-        
-        # Calculate value type similarity
-        type_matches = sum(1 for k in ref_keys & gen_keys 
-                         if type(reference[k]).__name__ == type(generated.get(k)).__name__)
-        type_similarity = type_matches / len(ref_keys) if ref_keys else 0
-        
-        # Calculate value similarity for string values
-        value_similarities = []
-        for k in ref_keys & gen_keys:
-            if isinstance(reference[k], str) and isinstance(generated.get(k), str):
-                ref_words = set(reference[k].lower().split())
-                gen_words = set(generated.get(k).lower().split())
-                if ref_words or gen_words:
-                    value_similarities.append(
-                        len(ref_words & gen_words) / len(ref_words | gen_words)
-                    )
-        
-        value_similarity = np.mean(value_similarities) if value_similarities else 0.0
-        
-        return (0.4 * key_similarity + 0.3 * type_similarity + 0.3 * value_similarity)
-    except Exception:
-        return 0.0
+        return data
+    except Exception as e:
+        print(f"Error loading test data: {str(e)}")
+        return []
 
-def evaluate_model(model_path: str, test_data: List[Dict], num_samples: int = 100) -> Dict[str, EvaluationResult]:
-    """Evaluate models with and without grammar constraints"""
-    results = {}
+def print_evaluation_results(results: Dict[str, Any]):
+    """Print evaluation results in a clear format"""
+    print("\n=== Evaluation Results ===")
+    print(f"Total samples: {results['total_samples']}")
+    print(f"Valid JSON rate: {results['valid_json_rate']:.2f}%")
+    print(f"Average generation time: {results['avg_generation_time']:.2f}s")
     
-    # Test standard generation (without grammar constraints)
-    tokenizer = AutoTokenizer.from_pretrained(model_path)
-    model = AutoModelForCausalLM.from_pretrained(
-        model_path,
-        device_map="auto",
-        torch_dtype=torch.float16
-    )
-    
-    def evaluate_generation(generator, name: str) -> EvaluationResult:
-        valid_jsons = 0
-        inference_times = []
-        similarities = []
-        memory_usage = []
-        example_outputs = []
+    if results['example_outputs']:
+        print("\nExample Outputs (first 3):")
+        for i, (input_text, output_json) in enumerate(results['example_outputs'][:3]):
+            print(f"\nExample {i+1}:")
+            print("Input:", input_text)
+            print("Output JSON:", output_json)
+            
+    if results['error_examples']:
+        print("\nError Examples (first 3):")
+        for i, (input_text, error) in enumerate(results['error_examples'][:3]):
+            print(f"\nError Example {i+1}:")
+            print("Input:", input_text)
+            print("Error:", error)
+
+def main():
+    try:
+        # Initialize model and generator
+        print("Initializing model...")
+        model_name = "Salesforce/codegen-350M-mono"
+        generator = GrammarConstrainedGenerator(model_name)
         
-        for sample in test_data[:num_samples]:
-            prompt = sample['input']
-            reference = sample['output']
+        # Load test data with a small subset for quick testing
+        print("Loading test data...")
+        test_data = load_test_data('data/test_data.json', subset_size=5)
+        
+        if not test_data:
+            print("Error: No test data loaded")
+            return
+        
+        results = {
+            'total_samples': len(test_data),
+            'valid_json_count': 0,
+            'total_time': 0,
+            'example_outputs': [],
+            'error_examples': []
+        }
+        
+        print(f"\nStarting evaluation with {len(test_data)} samples...")
+        
+        for i, sample in enumerate(test_data, 1):
+            print(f"\rProcessing sample {i}/{len(test_data)}...", end='', flush=True)
             
-            # Measure inference time and memory
-            torch.cuda.empty_cache()
-            start_mem = torch.cuda.memory_allocated() if torch.cuda.is_available() else 0
-            
-            start_time = time.time()
             try:
-                if isinstance(generator, GrammarConstrainedGenerator):
-                    generated = generator.generate(prompt)
-                else:
-                    # Standard generation
-                    inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
-                    outputs = model.generate(**inputs, max_length=200)
-                    generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
+                start_time = time.time()
+                # Extract text from sample, handling different possible formats
+                input_text = sample.get('text', sample.get('input', str(sample)))
+                generated_json = generator.generate(input_text)
+                generation_time = time.time() - start_time
+                
+                results['total_time'] += generation_time
+                
+                if generated_json:
                     try:
-                        generated = json.loads(generated_text)
-                    except json.JSONDecodeError:
-                        generated = {"error": "Invalid JSON"}
-                
-                inference_time = time.time() - start_time
-                
-                if "error" not in generated:
-                    valid_jsons += 1
-                    similarity = calculate_json_similarity(reference, generated)
-                    similarities.append(similarity)
-                    
-                    if len(example_outputs) < 5:
-                        example_outputs.append({
-                            'prompt': prompt,
-                            'reference': reference,
-                            'generated': generated,
-                            'similarity': similarity
-                        })
+                        # Validate JSON
+                        json.loads(generated_json)
+                        results['valid_json_count'] += 1
+                        results['example_outputs'].append((input_text, generated_json))
+                    except json.JSONDecodeError as e:
+                        results['error_examples'].append((input_text, f"Invalid JSON: {str(e)}"))
                 else:
-                    similarities.append(0.0)
-                    
-            except Exception as e:
-                print(f"Error during generation: {str(e)}")
-                similarities.append(0.0)
-                inference_time = time.time() - start_time
-                
-            end_mem = torch.cuda.memory_allocated() if torch.cuda.is_available() else 0
+                    results['error_examples'].append((input_text, "Generation failed"))
             
-            inference_times.append(inference_time)
-            memory_usage.append(end_mem - start_mem)
+            except Exception as e:
+                print(f"\nError processing sample {i}: {str(e)}")
+                results['error_examples'].append((str(sample), f"Processing error: {str(e)}"))
         
-        avg_similarity = np.mean(similarities) if similarities else 0.0
+        print("\nCalculating final metrics...")
         
-        return EvaluationResult(
-            valid_json_rate=valid_jsons / num_samples,
-            avg_inference_time=np.mean(inference_times),
-            memory_usage=np.mean(memory_usage),
-            structure_accuracy=valid_jsons / num_samples,
-            field_accuracy=avg_similarity,
-            example_outputs=example_outputs
-        )
-    
-    # Evaluate standard generation
-    results["standard"] = evaluate_generation(model, "Standard Generation")
-    
-    # Evaluate grammar-constrained generation
-    grammar_generator = GrammarConstrainedGenerator(model_path)
-    results["grammar_constrained"] = evaluate_generation(grammar_generator, "Grammar Constrained")
-    
-    return results
-
-def print_evaluation_results(results: Dict[str, EvaluationResult]):
-    """Print formatted evaluation results"""
-    print("\nEvaluation Results:")
-    print("=" * 80)
-    
-    for model_name, result in results.items():
-        print(f"\n{model_name.upper()}")
-        print("-" * 40)
-        print(f"Valid JSON Rate: {result.valid_json_rate:.2%}")
-        print(f"Average Inference Time: {result.avg_inference_time:.3f}s")
-        print(f"Memory Usage: {result.memory_usage / 1024 / 1024:.2f}MB")
-        print(f"Structure Accuracy: {result.structure_accuracy:.2%}")
-        print(f"Field Accuracy: {result.field_accuracy:.2%}")
+        # Calculate metrics
+        if results['total_samples'] > 0:
+            results['valid_json_rate'] = (results['valid_json_count'] / results['total_samples']) * 100
+            results['avg_generation_time'] = results['total_time'] / results['total_samples']
+        else:
+            results['valid_json_rate'] = 0
+            results['avg_generation_time'] = 0
         
-        print("\nExample Outputs:")
-        for i, example in enumerate(result.example_outputs[:2], 1):
-            print(f"\nExample {i}:")
-            print(f"Prompt: {example['prompt']}")
-            print(f"Generated: {json.dumps(example['generated'], indent=2)}")
-            print(f"Similarity Score: {example['similarity']:.2f}")
+        # Print results
+        print_evaluation_results(results)
     
-    print("\nComparison:")
-    print("-" * 40)
-    standard = results["standard"]
-    constrained = results["grammar_constrained"]
-    
-    print(f"Improvement in Valid JSON Rate: {(constrained.valid_json_rate - standard.valid_json_rate):.2%}")
-    print(f"Change in Inference Time: {(constrained.avg_inference_time - standard.avg_inference_time):.3f}s")
-    print(f"Improvement in Structure Accuracy: {(constrained.structure_accuracy - standard.structure_accuracy):.2%}")
-    print(f"Change in Field Accuracy: {(constrained.field_accuracy - standard.field_accuracy):.2%}")
+    except Exception as e:
+        print(f"\nEvaluation failed: {str(e)}")
+        import traceback
+        traceback.print_exc()
 
 if __name__ == "__main__":
-    # Load test data
-    with open("../finetuning-strategy/json_datasets/json_queries_dataset.json", "r") as f:
-        test_data = json.load(f)
-    
-    # Run evaluation
-    results = evaluate_model("facebook/opt-350m", test_data)
-    print_evaluation_results(results)
+    main()

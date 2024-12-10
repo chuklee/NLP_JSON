@@ -1,0 +1,17 @@
+[
+    {
+        "text": "Create a JSON object with name John and age 25"
+    },
+    {
+        "text": "Make a list of fruits with apple, banana, and orange, each with a price and quantity"
+    },
+    {
+        "text": "Create a person object with name Alice, age 30, and a list of hobbies: reading, swimming"
+    },
+    {
+        "text": "Make a JSON with two products: laptop (price: 999.99, in stock: true) and phone (price: 599.99, in stock: false)"
+    },
+    {
+        "text": "Create a JSON for a book with title 'The Great Gatsby', author 'F. Scott Fitzgerald', year 1925, and available true"
+    }
+]
