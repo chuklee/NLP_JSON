@@ -88,7 +88,7 @@ def train_json_model_lora(json_file, output_dir="json_model_lora", log_dir="logs
     # Training arguments
     training_args = TrainingArguments(
         output_dir=output_dir,
-        num_train_epochs=3,
+        num_train_epochs=100,
         per_device_train_batch_size=4,
         gradient_accumulation_steps=2,
         learning_rate=2e-4,  # Slightly higher learning rate for LoRA

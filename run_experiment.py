@@ -9,13 +9,11 @@ import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import sys
 
-# Add the current directory to Python path
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # Import our modules
 try:
-    from lora_fine_tuning import train_json_model_lora
-    from complete_fine_tuning import train_json_model
+    from finetuning_strategy.lora_fine_tuning import train_json_model_lora
+    from finetuning_strategy.complete_fine_tuning import train_json_model
     from benchmark_models import main as run_benchmark
 except ImportError as e:
     print(f"Error importing modules: {str(e)}")
@@ -26,13 +24,14 @@ except ImportError as e:
     sys.exit(1)
 
 # Filter out specific warnings
-warnings.filterwarnings("ignore", message=".*flash attention.*")
-warnings.filterwarnings("ignore", message=".*Unable to fetch remote file.*")
+warnings.filterwarnings(action="ignore", message=".*flash attention.*")
+warnings.filterwarnings(action="ignore", message=".*Unable to fetch remote file.*")
 
-def download_and_cache_models(model_name="facebook/opt-350m", force=False):
+def download_and_cache_models(model_name="facebook/opt-350m", force=False) -> bool:
     """Download and cache models before training"""
     try:
-        if force or not os.path.exists(os.path.join(os.getenv('TRANSFORMERS_CACHE', ''), model_name)):
+        model_path = os.path.join(os.getenv(key='TRANSFORMERS_CACHE', default=''), model_name)
+        if force or not os.path.exists(model_path):
             print(f"Downloading and caching {model_name}...")
             AutoTokenizer.from_pretrained(model_name)
             AutoModelForCausalLM.from_pretrained(model_name)
@@ -82,7 +81,7 @@ def train_models(dataset_path: str, dirs: dict, args):
         # Train complete fine-tuning model
         if not args.skip_complete:
             print("\n=== Training Complete Fine-tuning Model ===")
-            start_time = time.time()
+            start_time: float = time.time()
             train_json_model(
                 json_file=dataset_path,
                 output_dir=dirs["complete_model"],
@@ -125,13 +124,13 @@ def save_experiment_metadata(dirs: dict, training_times: dict, args):
         "directories": dirs
     }
     
-    metadata_path = Path(dirs["results"]) / "experiment_metadata.json"
-    with open(metadata_path, "w") as f:
-        json.dump(metadata, f, indent=2)
+    metadata_path: Path = Path(dirs["results"]) / "experiment_metadata.json"
+    with open(file=metadata_path, mode="w") as f:
+        json.dump(obj=metadata, fp=f, indent=2)
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description="Run model training and benchmarking experiment")
-    parser.add_argument("--dataset", default="json_datasets/json_queries_dataset.json",
+    parser.add_argument("--dataset", default="finetuning_strategy/json_datasets/json_queries_dataset.json",
                       help="Path to the dataset file")
     parser.add_argument("--debug", action="store_true",
                       help="Enable debug output")
@@ -143,8 +142,16 @@ def main():
                       help="Skip benchmarking")
     parser.add_argument("--force-download", action="store_true",
                       help="Force re-download of models")
+    parser.add_argument("--use-forced-decoding", action="store_true",
+                      help="Use forced decoding for JSON generation")
     
-    args = parser.parse_args()
+    args: argparse.Namespace = parser.parse_args()
+    
+    # Si on utilise uniquement le forced decoding, on skip automatiquement les fine-tunings
+    if args.use_forced_decoding and not (args.skip_complete and args.skip_lora):
+        print("Using forced decoding only - skipping all fine-tuning steps")
+        args.skip_complete = True
+        args.skip_lora = True
     
     try:
         # Setup directory structure
@@ -156,16 +163,20 @@ def main():
             print("Error: Could not download/cache models. Please check your internet connection.")
             return
         
-        # Train models
-        training_times = train_models(args.dataset, dirs, args)
+        # Train models only if not skipped
+        training_times = {}
+        if not (args.skip_complete and args.skip_lora):
+            training_times = train_models(dataset_path=args.dataset, dirs=dirs, args=args)
         
         # Run benchmarks
         if not args.skip_benchmark:
             print("\n=== Running Benchmarks ===")
+            if args.use_forced_decoding:
+                print("Using forced decoding for generation...")
             run_benchmark()
         
         # Save experiment metadata
-        save_experiment_metadata(dirs, training_times, args)
+        save_experiment_metadata(dirs=dirs, training_times=training_times, args=args)
         
         print("\n=== Experiment Complete ===")
         print(f"Results saved in {dirs['results']}")
