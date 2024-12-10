@@ -9,13 +9,11 @@ import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import sys
 
-# Add the current directory to Python path
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # Import our modules
 try:
-    from lora_fine_tuning import train_json_model_lora
-    from complete_fine_tuning import train_json_model
+    from finetuning_strategy.lora_fine_tuning import train_json_model_lora
+    from finetuning_strategy.complete_fine_tuning import train_json_model
     from benchmark_models import main as run_benchmark
 except ImportError as e:
     print(f"Error importing modules: {str(e)}")
@@ -32,7 +30,8 @@ warnings.filterwarnings(action="ignore", message=".*Unable to fetch remote file.
 def download_and_cache_models(model_name="facebook/opt-350m", force=False) -> bool:
     """Download and cache models before training"""
     try:
-        if force or not os.path.exists(path=os.path.join(os.getenv(key='TRANSFORMERS_CACHE', default=''), model_name)):
+        model_path = os.path.join(os.getenv(key='TRANSFORMERS_CACHE', default=''), model_name)
+        if force or not os.path.exists(model_path):
             print(f"Downloading and caching {model_name}...")
             AutoTokenizer.from_pretrained(model_name)
             AutoModelForCausalLM.from_pretrained(model_name)
@@ -68,7 +67,7 @@ def train_models(dataset_path: str, dirs: dict, args):
     training_times = {}
     
     # Verify dataset exists
-    if not os.path.exists(path=dataset_path):
+    if not os.path.exists(dataset_path):
         raise FileNotFoundError(f"Dataset not found: {dataset_path}")
     
     # Set device
@@ -131,7 +130,7 @@ def save_experiment_metadata(dirs: dict, training_times: dict, args):
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run model training and benchmarking experiment")
-    parser.add_argument("--dataset", default="json_datasets/json_queries_dataset.json",
+    parser.add_argument("--dataset", default="finetuning_strategy/json_datasets/json_queries_dataset.json",
                       help="Path to the dataset file")
     parser.add_argument("--debug", action="store_true",
                       help="Enable debug output")

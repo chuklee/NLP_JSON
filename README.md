@@ -11,7 +11,7 @@ A machine learning model designed to generate structured JSON data using fine-tu
 
 2. **Create Dataset Directory**
    ```bash
-   mkdir -p json_datasets
+   mkdir -p finetuning_strategy/json_datasets
    ```
    - Download the JSON files from [this Google Drive folder](https://drive.google.com/drive/folders/1CijEmLN14AZqL0_QsCXb1QFJoDmkmLV6?usp=sharing)
    - Place all downloaded JSON files in the `json_datasets` directory
@@ -45,6 +45,7 @@ A machine learning model designed to generate structured JSON data using fine-tu
 - **Gradient Accumulation Steps**: 2
 
 #### LoRA Fine-tuning
+- **Epochs**: 100
 - **Rank**: 16
 - **Alpha**: 32
 - **Target Modules**: q_proj, v_proj
@@ -122,23 +123,6 @@ Benchmark results are saved as:
 - Detailed CSV data (`results/benchmarks/benchmark_results.csv`)
 - Experiment metadata (`results/benchmarks/experiment_metadata.json`)
 
-## Project Structure
-
-```
-.
-├── main.py                    # Entry point
-├── complete_fine_tuning.py    # Complete fine-tuning implementation
-├── lora_fine_tuning.py        # LoRA fine-tuning implementation
-├── benchmark_models.py        # Benchmarking system
-├── run_experiment.py          # Experiment orchestration
-├── models/                    # Saved models
-│   ├── complete/             # Complete fine-tuning model
-│   └── lora/                 # LoRA model
-├── logs/                     # Training logs
-├── results/                  # Benchmark results
-├── json_datasets/            # Training data
-└── README.md                 # Documentation
-```
 
 ## Known Limitations
 

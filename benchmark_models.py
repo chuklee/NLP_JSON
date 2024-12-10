@@ -8,8 +8,8 @@ from typing import Dict, List, Any, Tuple
 import torch
 from dataclasses import dataclass
 import pandas as pd
-from lora_fine_tuning import generate_json_lora
-from complete_fine_tuning import generate_json
+from finetuning_strategy.lora_fine_tuning import generate_json_lora
+from finetuning_strategy.complete_fine_tuning import generate_json
 from forced_decoding.forced_json_generator import generate_json_forced
 
 @dataclass
