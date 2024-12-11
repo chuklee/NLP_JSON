@@ -61,6 +61,10 @@ JSON:''',
         return "items"
 
     def generate_response(self, question):
+        '''
+        This function generates a JSON response from a question using a structured JSON LLM.
+        It uses a pipeline to generate the response and then extracts the JSON from the response.
+        '''
         template_key = self._determine_template(question)
         template = self.templates[template_key]
         prompt = template.replace("{question}", question)
