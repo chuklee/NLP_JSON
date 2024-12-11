@@ -1,16 +1,22 @@
 import json
-import time
-import matplotlib.pyplot as plt
-import seaborn as sns
-from tqdm import tqdm
-import numpy as np
-from typing import Dict, List, Any, Tuple
-import torch
-from dataclasses import dataclass
-import pandas as pd
 import os
-from prompt_engineering.structured_json_llm import StructuredJSONLLM
+import time
+from dataclasses import dataclass
+from typing import Any, Dict, List, Tuple
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import torch
+from tqdm import tqdm
+
+from finetuning_strategy.complete_fine_tuning import generate_json
+from finetuning_strategy.lora_fine_tuning import generate_json_lora
+from forced_decoding.forced_json_generator import generate_json_forced
 from grammar_constraints.grammar_json_generator import generate_json_grammar
+from prompt_engineering.structured_json_llm import StructuredJSONLLM
+
 
 @dataclass
 class BenchmarkResult:
@@ -73,10 +79,10 @@ def benchmark_model(
     model_name: str,
     generate_fn,
     test_dataset: List[Dict],
-    num_samples: int = 100
+    num_samples: int = 10  # Changed from 100 to 10 to match test cases
 ) -> BenchmarkResult:
     """Benchmark a single model"""
-    
+
     # Create the results directory
     os.makedirs('results/benchmarks', exist_ok=True)
     os.makedirs('results/diff', exist_ok=True)
@@ -208,20 +214,19 @@ def main():
     with open(file='json_datasets/json_queries_dataset.json', mode='r') as f:
         test_dataset = json.load(f)
     
-    llm = StructuredJSONLLM()
     # Define models to benchmark
     models = {
-        # 'Complete Fine-tuning': lambda p: generate_json(p, model_path="models/complete"),
-        # 'LoRA Fine-tuning': lambda p: generate_json_lora(p, model_path="models/lora"),
-        # 'Forced Decoding': lambda p: generate_json_forced(p, model_path="models/complete"),
+        'Complete Fine-tuning': lambda p: generate_json(p, model_path="models/complete"),
+        'LoRA Fine-tuning': lambda p: generate_json_lora(p, model_path="models/lora"),
+        'Forced Decoding': lambda p: generate_json_forced(p, model_path="models/complete"),
         'Grammar FSM': lambda p: generate_json_grammar(p, model_path="facebook/opt-350m"),
-        # 'Prompt Engineering': lambda p: llm.generate_response(p)
+        'Prompt Engineering': lambda p: StructuredJSONLLM().generate_response(p)
     }
     
     # Run benchmarks
     results = []
     for model_name, generate_fn in models.items():
-        result = benchmark_model(model_name, generate_fn, test_dataset)
+        result = benchmark_model(model_name, generate_fn, test_dataset, num_samples=100)
         results.append(result)
         
         # Print immediate results
