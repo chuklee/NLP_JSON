@@ -31,12 +31,7 @@ class GrammarJSONGenerator:
         """
         # Add JSON prompt template
         json_prompt = f"Generate a JSON object for: {prompt}\nJSON: "
-        input_ids = self.tokenizer.encode(json_prompt, return_tensors="pt")
-        print(type(input_ids))  # Check the type of input_ids
-        if isinstance(input_ids, list):
-            input_ids = torch.tensor(input_ids).to(self.device)
-        else:
-            input_ids = input_ids.to(self.device)
+        input_ids = self.tokenizer.encode(json_prompt, return_tensors="pt").to(self.device) # type: ignore
         output_ids = []
         current_input = input_ids
         
@@ -54,8 +49,8 @@ class GrammarJSONGenerator:
             next_token = torch.multinomial(torch.softmax(modified_logits, dim=-1), num_samples=1)
             
             # If we're at the start and didn't get an opening brace, force it
-            if len(output_ids) == 0 and next_token.item() not in self.fsm.open_brace:
-                next_token = torch.tensor([list(self.fsm.open_brace)[0]], device=self.device)
+            if len(output_ids) == 0 and next_token.item() != self.fsm.open_brace_token:
+                next_token = torch.tensor([self.fsm.open_brace_token], device=self.device)
             
             output_ids.append(next_token.item())
             current_input = torch.cat([current_input, next_token.unsqueeze(0)], dim=1).to(self.device)
@@ -70,9 +65,9 @@ class GrammarJSONGenerator:
                 while self.fsm.state != JSONState.END and len(output_ids) < max_length + 10:
                     if len(self.fsm.stack) > 0:
                         if self.fsm.stack[-1] == '[':
-                            close_token = list(self.fsm.close_bracket)[0]
+                            close_token = self.fsm.close_bracket_token
                         else:
-                            close_token = list(self.fsm.close_brace)[0]
+                            close_token = self.fsm.close_brace_token
                         output_ids.append(close_token)
                         self.fsm.update_state([close_token])
                     else:
