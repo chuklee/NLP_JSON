@@ -12,6 +12,7 @@ from finetuning_strategy.lora_fine_tuning import generate_json_lora
 from finetuning_strategy.complete_fine_tuning import generate_json
 from forced_decoding.forced_json_generator import generate_json_forced
 from prompt_engineering.structured_json_llm import StructuredJSONLLM
+from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 
 @dataclass
 class BenchmarkResult:
@@ -31,6 +32,39 @@ def is_valid_json(text: str) -> Tuple[bool, Any]:
         return True, result
     except (json.JSONDecodeError, TypeError):
         return False, None
+
+def generate_json_direct(prompt: str, model_name="facebook/opt-350m", max_length=75) -> str:
+    """Generate JSON response using the base model directly from Hugging Face"""
+    # Load base model and tokenizer
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModelForCausalLM.from_pretrained(model_name)
+    
+    # Format the prompt
+    formatted_prompt = f"{prompt}\n"
+    
+    # Encode the prompt
+    inputs = tokenizer(
+        formatted_prompt,
+        return_tensors="pt",
+        padding=True,
+        truncation=True,
+        max_length=max_length
+    )
+    
+    # Generate response
+    outputs = model.generate(
+        **inputs,
+        max_length=max_length,
+        num_return_sequences=1,
+        do_sample=False,
+        pad_token_id=tokenizer.eos_token_id,
+        top_k=50,
+        top_p=0.95,
+    )
+    
+    # Decode and return the generated text
+    generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    return generated_text
 
 def calculate_json_similarity(reference: Dict, generated: Dict) -> float:
     """Calculate structural and semantic similarity between two JSON objects"""
@@ -185,13 +219,15 @@ def main():
     with open(file='json_datasets/json_queries_dataset.json', mode='r') as f:
         test_dataset = json.load(f)
     
-    llm = StructuredJSONLLM()
+    engineered_llm = StructuredJSONLLM()
+    
     # Define models to benchmark
     models = {
         'Complete Fine-tuning': lambda p: generate_json(p, model_path="models/complete"),
         'LoRA Fine-tuning': lambda p: generate_json_lora(p, model_path="models/lora"),
         'Forced Decoding': lambda p: generate_json_forced(p, model_path="models/complete"),
-        'Prompt Engineering': lambda p: llm.generate_response(p)
+        'Prompt Engineering': lambda p: engineered_llm.generate_response(p),
+        'Direct Generation': lambda p: generate_json_direct(p)
     }
     
     # Run benchmarks
