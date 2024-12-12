@@ -1,6 +1,61 @@
-# Prompt Engineering
+# JSON Generation Model
 
-## structured_json_llm.py
+A machine learning model designed to generate structured JSON data using fine-tuned language models, incorporating prompt engineering and prompt tuning. This project compares two fine-tuning approaches (complete fine-tuning and LoRA) using the Hugging Face Transformers library with OPT-350M as the base model. It also compares prompt tuning and prompt engineering approaches.
+
+## Setup
+
+1. **Environment Setup**
+   ```bash
+   pip install transformers torch peft matplotlib seaborn pandas tqdm langchain langchain-community
+   ```
+
+2. **Create Dataset Directory**
+   ```bash
+   mkdir -p finetuning_strategy/json_datasets
+   ```
+   - Download the JSON files from [this Google Drive folder](https://drive.google.com/drive/folders/1CijEmLN14AZqL0_QsCXb1QFJoDmkmLV6?usp=sharing)
+   - Place all downloaded JSON files in the `json_datasets` directory
+
+## Features
+- Prompt Engineering approach
+- Prompt Tuning approach
+- Two fine-tuning approaches:
+  - Complete fine-tuning of the base model
+  - LoRA (Low-Rank Adaptation) fine-tuning
+- Custom JSON dataset processing with data augmentation
+- Comprehensive benchmarking system
+- Advanced JSON validation and cleaning
+- Progressive sampling with temperature control
+- Detailed performance metrics and visualizations
+
+## Architecture
+
+### Base Model
+
+- **Model**: facebook/opt-350m
+- **Type**: Large Language Model
+- **Size**: 350M parameters
+- **Framework**: PyTorch + Hugging Face Transformers
+
+### Training Configurations
+
+#### Complete Fine-tuning
+- **Epochs**: 3
+- **Batch Size**: 4
+- **Learning Rate**: 2e-5
+- **Gradient Accumulation Steps**: 2
+
+#### LoRA Fine-tuning
+- **Epochs**: 100
+- **Rank**: 16
+- **Alpha**: 32
+- **Target Modules**: q_proj, v_proj
+- **Dropout**: 0.05
+- **Learning Rate**: 2e-4 
+
+## Prompt Engineering
+
+### structured_json_llm.py
 
 The `StructuredJSONLLM` class is responsible for generating JSON responses. Here are its main features:
 
@@ -8,7 +63,7 @@ The `StructuredJSONLLM` class is responsible for generating JSON responses. Here
 - **Response Templates**: The class uses a template to structure JSON responses. The "items" template is used to generate JSON objects based on the questions asked.
 - **Generation Method**: The `generate_response` method takes a question as input, generates a prompt based on the template, and uses the model to produce a response.
 
-## Prompt Engineering Methods
+### Prompt Engineering Methods
 
 Several methods were tested:
 
@@ -102,64 +157,9 @@ Several methods were tested:
      ```
    - Results: The "items" template was adapted to the dataset. Initially, tests were performed with multiple templates, such as 'how many', to provide a JSON with a number and a list. Since the benchmarking dataset did not contain such examples, they were removed. However, when a precise format was provided, with simple JSON structures, the model managed to generate responses. Still, it remained significantly limited, especially in terms of semantics.
 
-## Conclusion
+### Conclusion
 
 The `opt-350m` model, due to its small size, is not ideal for JSON generation using prompt engineering. The semantics of the generated JSON are poor. The model struggles to understand the context of the question and translate it into JSON, often placing words that are somewhat unrelated into the JSON. However, thanks to this technique, notable improvement was observed, with a valid JSON rate ranging between 4% and 9%, compared to 0% for the base model.
-
-
-# JSON Generation Model
-
-A machine learning model designed to generate structured JSON data using fine-tuned language models. This project compares two fine-tuning approaches (complete fine-tuning and LoRA) using the Hugging Face Transformers library with OPT-350M as the base model.
-
-## Setup
-
-1. **Environment Setup**
-   ```bash
-   pip install transformers torch peft matplotlib seaborn pandas tqdm
-   ```
-
-2. **Create Dataset Directory**
-   ```bash
-   mkdir -p finetuning_strategy/json_datasets
-   ```
-   - Download the JSON files from [this Google Drive folder](https://drive.google.com/drive/folders/1CijEmLN14AZqL0_QsCXb1QFJoDmkmLV6?usp=sharing)
-   - Place all downloaded JSON files in the `json_datasets` directory
-
-## Features
-
-- Two fine-tuning approaches:
-  - Complete fine-tuning of the base model
-  - LoRA (Low-Rank Adaptation) fine-tuning
-- Custom JSON dataset processing with data augmentation
-- Comprehensive benchmarking system
-- Advanced JSON validation and cleaning
-- Progressive sampling with temperature control
-- Detailed performance metrics and visualizations
-
-## Architecture
-
-### Base Model
-
-- **Model**: facebook/opt-350m
-- **Type**: Large Language Model
-- **Size**: 350M parameters
-- **Framework**: PyTorch + Hugging Face Transformers
-
-### Training Configurations
-
-#### Complete Fine-tuning
-- **Epochs**: 3
-- **Batch Size**: 4
-- **Learning Rate**: 2e-5
-- **Gradient Accumulation Steps**: 2
-
-#### LoRA Fine-tuning
-- **Epochs**: 100
-- **Rank**: 16
-- **Alpha**: 32
-- **Target Modules**: q_proj, v_proj
-- **Dropout**: 0.05
-- **Learning Rate**: 2e-4
 
 ## LoRA Fine-Tuning Deep Dive
 
@@ -332,6 +332,7 @@ Benchmark results are saved as:
 - Computationally intensive training
 - Occasional non-JSON content generation
 - Base model size constraints
+- Not adapted for Prompt Engineering approach
 
 ## Future Improvements
 
@@ -356,3 +357,6 @@ Benchmark results are saved as:
    - Add more diverse JSON examples
    - Implement better augmentation
    - Support more complex structures
+
+5. **Prompt Engineering**
+   - Add more examples in the prompt
