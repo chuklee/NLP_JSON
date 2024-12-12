@@ -377,3 +377,161 @@ Benchmark results are saved as:
 5. **Prompt Engineering**
    - Add more examples in the prompt*
    - Find better generation parameters
+
+
+
+
+
+
+
+
+
+
+## Prompt Tuning
+
+### Motivation
+
+Prompt tuning is an emerging technique that offers a lightweight alternative to traditional fine-tuning by updating only a small set of trainable parameters. Instead of modifying the core model weights, prompt tuning focuses on optimizing soft prompt embeddings, which are prepended to the input sequence. This approach provides several benefits:
+
+- **Efficiency**: By limiting updates to a small set of parameters, prompt tuning significantly reduces computational and storage requirements compared to full fine-tuning.
+
+- **Modularity**: Soft prompts can be reused across different tasks or domains, allowing for flexible and scalable adaptation of the same pre-trained model.
+
+- **Preservation of Generality**: Since the underlying model weights remain unchanged, the general-purpose capabilities of the base model are retained, enabling seamless application to various tasks.
+
+- **Task-Specific Adaptation**: Soft prompts can encode task-specific knowledge and guide the model to produce structured outputs, such as JSON objects, with high precision and consistency.
+
+Given these advantages, prompt tuning was selected as a technique to try for adapting the language model to the JSON generation task.
+
+
+### Implementation Details
+
+#### Soft Prompt Tuning
+
+Soft prompt tuning introduces special tokens ([GENERATE], [JSON], [OBJECT], etc.) to guide the model towards producing JSON outputs. These tokens are embedded and concatenated with the input text embeddings before being passed through the model.
+
+---
+
+#### Model Architecture
+
+A custom architecture was implemented by extending GPT2LMHeadModel. The model uses:
+
+- **Soft Prompt Embeddings**: Pre-trained embeddings for custom tokens.
+- **Concatenated Input**: Combines soft prompt embeddings with token embeddings from the input sequence.
+
+---
+
+#### Dataset and Preprocessing
+
+A dataset containing pairs of natural language inputs and corresponding JSON outputs was used. Inputs and outputs were tokenized and padded to fit the model's maximum sequence length.
+Data was split into:
+
+- **Training Set**: 70%
+
+- **Validation Set**: 20%
+
+- **Test Set**: 10%
+
+---
+
+#### Training Procedure
+
+- **Loss Function**: Cross-entropy loss with ignored indices for padding tokens.
+
+- **Gradient Accumulation**: Allows effective training on larger batches with limited memory.
+
+- **Early Stopping**: Halts training after two epochs without validation loss improvement.
+
+---
+
+### Challenges
+
+We faced challenges to implement prompt tuning with ```opt-350m```. Indeed, we encountered several shape incompatibilities for the input tensors. Due to this difficulty, we chose to implement this technique for ```gpt-2```, which is a similar model without the input shape problems.
+
+
+### Dataset & Usage
+
+The dataset used to perform prompt-tuning is a collection of objects with two fields:
+- **input**: The prompt given to the model
+- **output**: A JSON object representing the expected output
+
+Here is an example of a dataset item:
+
+```json
+{
+  "input": "Describe a user profile in JSON format.",
+  "output": {
+    "name": "John Doe",
+    "age": 30,
+    "email": "john.doe@example.com"
+  }
+}
+```
+
+To run the code, please install the following dependencies, then just run the notebook at ```prompt-tuning/prompt_tuning.ipynb```:
+
+```bash
+pip install torch transformers tqdm
+```
+
+
+
+
+### Results
+
+Performance benchmarks were recorded for different soft prompt lengths across the training, validation and test sets. Metrics include:
+- **Accuracy**: Percentage of tokens in predicted output matching the ground truth
+- **Loss**: Cross-entropy loss on validation and test sets.
+
+Here are the accuracies and losses for 4 tokens soft prompts:
+
+| Training accuracy | Validation accuracy | Test accuracy |
+|-------------------------|-------------------------|-------------------------|
+| !["Training accuracy for 4 tokens](prompt-tuning\results\charts\training_accuracy_4.png) | !["Validation accuracy for 4 tokens](prompt-tuning\results\charts\validation_accuracy_4.png) | !["Test accuracy for 4 tokens](prompt-tuning\results\charts\test_accuracy_4.png) |
+
+
+We can observe that training and test accuracies are both close to 30%, while validation accuracy is near to 35%.
+
+
+| Validation loss         | Test loss               |
+|-------------------------|-------------------------|
+| !["Validation loss for 4 tokens](prompt-tuning\results\charts\validation_loss_4.png) | !["Test loss for 4 tokens](prompt-tuning\results\charts\test_loss_4.png) |
+
+
+Bot losses are decreasing and stabilizing at high levels (6 for the validation set and 7 for the test set).
+
+
+
+Here are the accuracies and losses for 8 tokens soft prompts:
+
+| Training accuracy | Validation accuracy | Test accuracy |
+|-------------------------|-------------------------|-------------------------|
+| !["Training accuracy for 8 tokens](prompt-tuning\results\charts\training_accuracy_8.png) | !["Validation accuracy for 8 tokens](prompt-tuning\results\charts\validation_accuracy_8.png) | !["Test accuracy for 8 tokens](prompt-tuning\results\charts\test_accuracy_8.png) |
+
+| Validation loss         | Test loss               |
+|-------------------------|-------------------------|
+| !["Validation loss for 8 tokens](prompt-tuning\results\charts\validation_loss_8.png) | !["Test loss for 8 tokens](prompt-tuning\results\charts\test_loss_8.png) |
+
+Accuracies are higher than for 4 tokens (except for the test set, which has a very instable accuracy). Losses, however, are at the same levels. 
+
+
+
+
+Here are the accuracies and losses for 16 tokens soft prompts:
+
+| Training accuracy | Validation accuracy | Test accuracy |
+|-------------------------|-------------------------|-------------------------|
+| !["Training accuracy for 16 tokens](prompt-tuning\results\charts\training_accuracy_16.png) | !["Validation accuracy for 16 tokens](prompt-tuning\results\charts\validation_accuracy_16.png) | !["Test accuracy for 16 tokens](prompt-tuning\results\charts\test_accuracy_16.png) |
+
+For a soft prompt with a size of 16, we have higher accuracies (lear to 40% for validation and test sets). Losses, however, are still at the same levels.
+
+
+| Validation loss         | Test loss               |
+|-------------------------|-------------------------|
+| !["Validation loss for 16 tokens](prompt-tuning\results\charts\validation_loss_16.png) | !["Test loss for 16 tokens](prompt-tuning\results\charts\test_loss_16.png) |
+
+
+
+### Conclusion
+
+The results demonstrate that, while we achieved better performance than prompt engineering, the accuracy remains insufficient to favor this technique over fine-tuning at this stage. However, with further testing and optimization, it is possible to achieve competitive performance, positioning this approach as a viable alternative to fine-tuning, particularly given its significantly lower computational requirements.
