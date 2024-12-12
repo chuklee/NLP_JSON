@@ -488,7 +488,7 @@ Here are the accuracies and losses for 4 tokens soft prompts:
 
 | Training accuracy | Validation accuracy | Test accuracy |
 |-------------------------|-------------------------|-------------------------|
-| !["Training accuracy for 4 tokens](prompt-tuning/results/charts/training_accuracy_4.png) | !["Validation accuracy for 4 tokens](prompt-tuning\results\charts\validation_accuracy_4.png) | !["Test accuracy for 4 tokens](prompt-tuning\results\charts\test_accuracy_4.png) |
+| !["Training accuracy for 4 tokens](prompt-tuning/results/charts/training_accuracy_4.png) | !["Validation accuracy for 4 tokens](prompt-tuning/results/charts/validation_accuracy_4.png) | !["Test accuracy for 4 tokens](prompt-tuning/results/charts/test_accuracy_4.png) |
 
 
 We can observe that training and test accuracies are both close to 30%, while validation accuracy is near to 35%.
@@ -496,7 +496,7 @@ We can observe that training and test accuracies are both close to 30%, while va
 
 | Validation loss         | Test loss               |
 |-------------------------|-------------------------|
-| !["Validation loss for 4 tokens](prompt-tuning\results\charts\validation_loss_4.png) | !["Test loss for 4 tokens](prompt-tuning\results\charts\test_loss_4.png) |
+| !["Validation loss for 4 tokens](prompt-tuning/results/charts/validation_loss_4.png) | !["Test loss for 4 tokens](prompt-tuning/results/charts/test_loss_4.png) |
 
 
 Bot losses are decreasing and stabilizing at high levels (6 for the validation set and 7 for the test set).
@@ -507,11 +507,11 @@ Here are the accuracies and losses for 8 tokens soft prompts:
 
 | Training accuracy | Validation accuracy | Test accuracy |
 |-------------------------|-------------------------|-------------------------|
-| !["Training accuracy for 8 tokens](prompt-tuning\results\charts\training_accuracy_8.png) | !["Validation accuracy for 8 tokens](prompt-tuning\results\charts\validation_accuracy_8.png) | !["Test accuracy for 8 tokens](prompt-tuning\results\charts\test_accuracy_8.png) |
+| !["Training accuracy for 8 tokens](prompt-tuning/results/charts/training_accuracy_8.png) | !["Validation accuracy for 8 tokens](prompt-tuning/results/charts/validation_accuracy_8.png) | !["Test accuracy for 8 tokens](prompt-tuning/results/charts/test_accuracy_8.png) |
 
 | Validation loss         | Test loss               |
 |-------------------------|-------------------------|
-| !["Validation loss for 8 tokens](prompt-tuning\results\charts\validation_loss_8.png) | !["Test loss for 8 tokens](prompt-tuning\results\charts\test_loss_8.png) |
+| !["Validation loss for 8 tokens](prompt-tuning/results/charts/validation_loss_8.png) | !["Test loss for 8 tokens](prompt-tuning/results/charts/test_loss_8.png) |
 
 Accuracies are higher than for 4 tokens (except for the test set, which has a very instable accuracy). Losses, however, are at the same levels. 
 
@@ -522,7 +522,7 @@ Here are the accuracies and losses for 16 tokens soft prompts:
 
 | Training accuracy | Validation accuracy | Test accuracy |
 |-------------------------|-------------------------|-------------------------|
-| !["Training accuracy for 16 tokens](prompt-tuning\results\charts\training_accuracy_16.png) | !["Validation accuracy for 16 tokens](prompt-tuning\results\charts\validation_accuracy_16.png) | !["Test accuracy for 16 tokens](prompt-tuning\results\charts\test_accuracy_16.png) |
+| !["Training accuracy for 16 tokens](prompt-tuning/results/charts/training_accuracy_16.png) | !["Validation accuracy for 16 tokens](prompt-tuning/results/charts/validation_accuracy_16.png) | !["Test accuracy for 16 tokens](prompt-tuning/results/charts/test_accuracy_16.png) |
 
 For a soft prompt with a size of 16, we have higher accuracies (lear to 40% for validation and test sets). Losses, however, are still at the same levels.
 
