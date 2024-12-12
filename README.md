@@ -417,6 +417,7 @@ Soft prompt tuning introduces special tokens ([GENERATE], [JSON], [OBJECT], etc.
 A custom architecture was implemented by extending GPT2LMHeadModel. The model uses:
 
 - **Soft Prompt Embeddings**: Pre-trained embeddings for custom tokens.
+
 - **Concatenated Input**: Combines soft prompt embeddings with token embeddings from the input sequence.
 
 ---
@@ -487,7 +488,7 @@ Here are the accuracies and losses for 4 tokens soft prompts:
 
 | Training accuracy | Validation accuracy | Test accuracy |
 |-------------------------|-------------------------|-------------------------|
-| !["Training accuracy for 4 tokens](prompt-tuning\results\charts\training_accuracy_4.png) | !["Validation accuracy for 4 tokens](prompt-tuning\results\charts\validation_accuracy_4.png) | !["Test accuracy for 4 tokens](prompt-tuning\results\charts\test_accuracy_4.png) |
+| !["Training accuracy for 4 tokens](prompt-tuning/results/charts/training_accuracy_4.png) | !["Validation accuracy for 4 tokens](prompt-tuning\results\charts\validation_accuracy_4.png) | !["Test accuracy for 4 tokens](prompt-tuning\results\charts\test_accuracy_4.png) |
 
 
 We can observe that training and test accuracies are both close to 30%, while validation accuracy is near to 35%.
