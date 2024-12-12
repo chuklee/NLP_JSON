@@ -257,8 +257,7 @@ def main():
         'Forced Decoding': lambda p: generate_json_forced(p, model_path="models/complete"),
         'Prompt Engineering': lambda p: engineered_llm.generate_response(p),
         'Direct Generation': lambda p: generate_json_direct(p),
-        'Grammar FSM': lambda p: generate_json_grammar(p, model_path="facebook/opt-350m"),
-        'Prompt Engineering': lambda p: StructuredJSONLLM().generate_response(p)
+        'Grammar FSM': lambda p: generate_json_grammar(p, model_path="facebook/opt-350m")
     }
     
     # Run benchmarks
