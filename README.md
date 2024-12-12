@@ -63,6 +63,22 @@ The `StructuredJSONLLM` class is responsible for generating JSON responses. Here
 - **Response Templates**: The class uses a template to structure JSON responses. The "items" template is used to generate JSON objects based on the questions asked.
 - **Generation Method**: The `generate_response` method takes a question as input, generates a prompt based on the template, and uses the model to produce a response.
 
+### Generation Parameters
+
+To ensure the best possible results, the generation parameters have been fine-tuned as follows:
+```self.pipe = pipeline(
+    "text-generation",
+    model=self.model,
+    tokenizer=self.tokenizer,
+    max_new_tokens=150,
+    do_sample=True,       
+    temperature=0.7,    
+    top_k=20,              
+    num_beams=1,          
+    pad_token_id=self.tokenizer.eos_token_id,
+    eos_token_id=self.tokenizer.eos_token_id,
+)
+```
 ### Prompt Engineering Methods
 
 Several methods were tested:
@@ -359,4 +375,5 @@ Benchmark results are saved as:
    - Support more complex structures
 
 5. **Prompt Engineering**
-   - Add more examples in the prompt
+   - Add more examples in the prompt*
+   - Find better generation parameters
