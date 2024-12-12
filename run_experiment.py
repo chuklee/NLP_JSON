@@ -129,6 +129,24 @@ def save_experiment_metadata(dirs: dict, training_times: dict, args):
         json.dump(obj=metadata, fp=f, indent=2)
 
 def main() -> None:
+    """
+    Executes the model training and benchmarking experiment.
+
+    Sets up command-line arguments, creates directories, downloads 
+    models, trains them if not skipped, runs benchmarks, and saves 
+    metadata.
+
+    Command-line arguments:
+    - --dataset: Path to the dataset file (default: 
+      "finetuning_strategy/json_datasets/json_queries_dataset.json").
+    - --debug: Enables debug output.
+    - --skip-complete: Skips complete fine-tuning.
+    - --skip-lora: Skips LoRA training.
+    - --skip-benchmark: Skips benchmarks.
+    - --force-download: Forces model re-download.
+
+    Handles KeyboardInterrupt and other exceptions during execution.
+    """
     parser = argparse.ArgumentParser(description="Run model training and benchmarking experiment")
     parser.add_argument("--dataset", default="finetuning_strategy/json_datasets/json_queries_dataset.json",
                       help="Path to the dataset file")
@@ -142,16 +160,9 @@ def main() -> None:
                       help="Skip benchmarking")
     parser.add_argument("--force-download", action="store_true",
                       help="Force re-download of models")
-    parser.add_argument("--use-forced-decoding", action="store_true",
-                      help="Use forced decoding for JSON generation")
     
     args: argparse.Namespace = parser.parse_args()
     
-    # Si on utilise uniquement le forced decoding, on skip automatiquement les fine-tunings
-    if args.use_forced_decoding and not (args.skip_complete and args.skip_lora):
-        print("Using forced decoding only - skipping all fine-tuning steps")
-        args.skip_complete = True
-        args.skip_lora = True
     
     try:
         # Setup directory structure
@@ -171,8 +182,6 @@ def main() -> None:
         # Run benchmarks
         if not args.skip_benchmark:
             print("\n=== Running Benchmarks ===")
-            if args.use_forced_decoding:
-                print("Using forced decoding for generation...")
             run_benchmark()
         
         # Save experiment metadata

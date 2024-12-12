@@ -57,7 +57,7 @@ JSON:''',
         self.llm = HuggingFacePipeline(pipeline=self.pipe)
 
     def _determine_template(self, question):
-        # Ne renvoie que le template "items"
+        # Return only one template in the context of the dataset
         return "items"
 
     def generate_response(self, question):
@@ -69,7 +69,7 @@ JSON:''',
         template = self.templates[template_key]
         prompt = template.replace("{question}", question)
         
-        # Générer la réponse
+        # Answer generation
         response = self.llm(prompt)
         response_text = response[0]["generated_text"] if isinstance(response, list) else str(response)
         

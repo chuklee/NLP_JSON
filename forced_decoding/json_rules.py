@@ -7,7 +7,7 @@ class JSONRules:
         self.tokenizer = tokenizer
         self.stack = []
         
-        # Tokens spéciaux pour JSON
+        # Special tokens
         self.special_tokens = {
             '{': self.tokenizer.encode('{', add_special_tokens=False)[0],
             '}': self.tokenizer.encode('}', add_special_tokens=False)[0],
@@ -18,30 +18,30 @@ class JSONRules:
             '"': self.tokenizer.encode('"', add_special_tokens=False)[0],
         }
         
-        # Tokens pour les valeurs JSON valides
+        # Tokens for true, false, null
         self.true_token = self.tokenizer.encode('true', add_special_tokens=False)[0]
         self.false_token = self.tokenizer.encode('false', add_special_tokens=False)[0]
         self.null_token = self.tokenizer.encode('null', add_special_tokens=False)[0]
         
-        # Tokens pour les nombres
+        # Tokens for numbers
         self.number_tokens = set(
             self.tokenizer.encode(c, add_special_tokens=False)[0]
             for c in string.digits + '.-'
         )
 
     def _get_last_non_whitespace_token(self, context: List[int]) -> int:
-        """Retourne le dernier token non-espace"""
+        """Return the last non-whitespace token in the context"""
         for token in reversed(context):
             if not self.tokenizer.decode([token]).isspace():
                 return token
         return None
 
     def _is_in_string(self) -> bool:
-        """Vérifie si nous sommes actuellement dans une chaîne de caractères"""
+        """Verify if we are in a string"""
         return len(self.stack) > 0 and self.stack[-1] == '"'
 
     def _update_stack(self, token: int):
-        """Met à jour la pile de contexte"""
+        """Update context stack"""
         token_str = self.tokenizer.decode([token])
         if token_str in '{[':
             self.stack.append(token_str)
@@ -57,72 +57,72 @@ class JSONRules:
                 self.stack.pop()
 
     def modify_logits_for_json(self, logits: torch.Tensor, context: List[int]) -> torch.Tensor:
-        """Modifie les logits selon le contexte pour respecter la structure JSON"""
+        """Modify logits depending on the contet to respect JSON structure"""
         modified_logits = logits.clone()
         last_token = self._get_last_non_whitespace_token(context)
         
         if last_token is None:
-            # Début du JSON : forcer '{'
+            # Start of the sequence, force '{'
             self._force_single_token(modified_logits, self.special_tokens['{'])
             return modified_logits
 
         last_token_str = self.tokenizer.decode([last_token])
         
-        # Si nous sommes dans une chaîne
+        # If we are in a string, only allow characters that are not '"'
         if self._is_in_string():
             if last_token == self.special_tokens['"']:
-                # Après une ouverture de guillemet, autoriser tous les caractères sauf "
+                # After the beginning of a string, allow any character except '"'
                 modified_logits[0, self.special_tokens['"']] = float('-inf')
             return modified_logits
 
-        # Règles selon le dernier token
+        # Rules according to the last token
         if last_token_str == '{':
-            # Après '{', on attend une clé (string)
+            # After '{', allow a key
             self._force_single_token(modified_logits, self.special_tokens['"'])
             
         elif last_token_str == '[':
-            # Après '[', on attend une valeur
+            # After '[', allow a value
             self._allow_value_tokens(modified_logits)
             
         elif last_token_str == ':':
-            # Après ':', on attend une valeur
+            # After a colon, allow a value
             self._allow_value_tokens(modified_logits)
             
         elif last_token_str == ',':
-            # Après ',', selon le contexte
+            # After a comma, allow a key or a value depending on the context
             if len(self.stack) > 0 and self.stack[-1] == '{':
-                # Dans un objet, on attend une clé
+                # In an object, allow a key
                 self._force_single_token(modified_logits, self.special_tokens['"'])
             else:
-                # Dans un tableau, on attend une valeur
+                # In an array, allow a value
                 self._allow_value_tokens(modified_logits)
                 
         elif last_token_str == '"':
-            # Après une fermeture de guillemet
+            # After a string, allow ':' or ',' depending on the context
             if len(self.stack) > 0 and self.stack[-1] == '{':
-                # Dans un objet, on attend ':'
+                # In an object, allow ':'
                 self._force_single_token(modified_logits, self.special_tokens[':'])
             else:
-                # Sinon, on attend ',' ou la fin du conteneur
+                # Elsewhere, allow ',' or the end of the container
                 self._allow_closing_tokens(modified_logits)
                 
         elif last_token_str in ('true', 'false', 'null') or last_token_str.isdigit():
-            # Après une valeur, on attend ',' ou la fin du conteneur
+            # After a value, allow ',' or the end of the container
             self._allow_closing_tokens(modified_logits)
 
         return modified_logits
 
     def _force_single_token(self, logits: torch.Tensor, token_id: int):
-        """Force un token spécifique"""
+        """Force a specific token"""
         logits[0, :] = float('-inf')
         logits[0, token_id] = 0
 
     def _allow_value_tokens(self, logits: torch.Tensor):
-        """Autorise les tokens qui peuvent commencer une valeur JSON"""
-        # Mettre tous les logits à -inf
+        """Allow value tokens"""
+        # Put all logits to -inf
         logits[0, :] = float('-inf')
         
-        # Autoriser les valeurs possibles
+        # Allow possible value tokens
         allowed_tokens = {
             self.special_tokens['"'],  # Pour les strings
             self.special_tokens['{'],  # Pour les objets
@@ -137,7 +137,7 @@ class JSONRules:
             logits[0, token] = logits[0, token].clone()
 
     def _allow_closing_tokens(self, logits: torch.Tensor):
-        """Autorise les tokens de fermeture appropriés"""
+        """Allow closing tokens"""
         logits[0, :] = float('-inf')
         
         if len(self.stack) > 0:
