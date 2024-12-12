@@ -529,7 +529,7 @@ For a soft prompt with a size of 16, we have higher accuracies (lear to 40% for 
 
 | Validation loss         | Test loss               |
 |-------------------------|-------------------------|
-| !["Validation loss for 16 tokens](prompt-tuning\results\charts\validation_loss_16.png) | !["Test loss for 16 tokens](prompt-tuning\results\charts\test_loss_16.png) |
+| !["Validation loss for 16 tokens](prompt-tuning/results/charts/validation_loss_16.png) | !["Test loss for 16 tokens](prompt-tuning/results/charts/test_loss_16.png) |
 
 
 
